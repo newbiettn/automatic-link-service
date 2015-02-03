@@ -11,6 +11,7 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
@@ -32,6 +33,8 @@ public class Indexer {
 	//IndexWriter to create and maintain index
 	private IndexWriter writer;
 	
+	Analyzer analyzer;
+	
 	public Indexer (String indexDir) throws IOException {
 		this.indexDir = indexDir;
 		
@@ -40,7 +43,7 @@ public class Indexer {
 		Directory dir = FSDirectory.open(new File(indexDir));
 		
 		//create StandardAnalyzer to tokenize which uses default stop words 
-		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_46);
+		analyzer = new StandardAnalyzer(Version.LUCENE_46);
 		
 		//create configuration for new IndexWriter 
 		IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_46, analyzer);
@@ -73,10 +76,35 @@ public class Indexer {
 		writer.addDocument(doc);
 	}
 	
+	/* Indexed, tokenized, not stored. */
+	public static final FieldType TYPE_NOT_STORED = new FieldType();
+
+	/* Indexed, tokenized, stored. */
+	public static final FieldType TYPE_STORED = new FieldType();
+
+	static {
+	    TYPE_NOT_STORED.setIndexed(true);
+	    TYPE_NOT_STORED.setTokenized(true);
+	    TYPE_NOT_STORED.setStoreTermVectors(true);
+	    TYPE_NOT_STORED.setStoreTermVectorPositions(true);
+	    TYPE_NOT_STORED.freeze();
+
+	    TYPE_STORED.setIndexed(true);
+	    TYPE_STORED.setTokenized(true);
+	    TYPE_STORED.setStored(true);
+	    TYPE_STORED.setStoreTermVectors(true);
+	    TYPE_STORED.setStoreTermVectorPositions(true);
+	    TYPE_STORED.freeze();
+	}
+	
 	//create Document and Fields
 	private Document getDocument(File f) throws Exception {
 		Document doc = new Document();
-		doc.add(new TextField("contents", new FileReader(f)));
+		//doc.add(new TextField("contents", new FileReader(f)));
+		Field contentField = new Field("content", "", Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+		contentField.setTokenStream(analyzer.tokenStream("content", new FileReader(f)));
+
+		doc.add(contentField);
 		doc.add(new StringField("filename", f.getName(), Field.Store.YES));
 		doc.add(new StringField("fullpath", f.getCanonicalPath(), Field.Store.YES));
 		
