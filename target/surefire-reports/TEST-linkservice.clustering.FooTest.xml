@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="2.14" errors="0" skipped="0" tests="1" name="linkservice.clustering.FooTest">
+<testsuite failures="0" time="2.34" errors="0" skipped="0" tests="1" name="linkservice.clustering.FooTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib"/>
@@ -25,7 +25,7 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/Users/newbiettn/Dropbox/Git/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf7724630614132074337.tmp"/>
+    <property name="classworlds.conf" value="/Users/newbiettn/Dropbox/Git/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf6063508652241884717.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/newbiettn/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -62,5 +62,5 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="2.14" classname="linkservice.clustering.FooTest" name="testRun2Directories"/>
+  <testcase time="2.34" classname="linkservice.clustering.FooTest" name="testRunDirectories"/>
 </testsuite>

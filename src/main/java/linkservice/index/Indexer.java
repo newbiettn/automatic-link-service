@@ -6,23 +6,23 @@ import java.io.IOException;
 import java.util.Collection;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Indexer {
 	//log4j
-	static Logger log = Logger.getLogger(Indexer.class.getName());
+	Logger logger = LoggerFactory.getLogger(Indexer.class);
 	
 	//path to index files
 	private String indexDir;
@@ -64,7 +64,7 @@ public class Indexer {
 			indexFile(f);
 		}
 		long end = System.currentTimeMillis();
-		log.info("Indexing " + this.writer.numDocs() + " files took "
+		logger.info("Indexing " + this.writer.numDocs() + " files took "
 			      + (end - start) + " milliseconds");
 		return this.writer.numDocs();
 	}
@@ -90,12 +90,12 @@ public class Indexer {
 	//create Document and Fields
 	private Document getDocument(File f) throws Exception {
 		Document doc = new Document();
+		
 		Field contentField = new Field("content", "", TYPE_STORED);
 		contentField.setTokenStream(analyzer.tokenStream("content", new FileReader(f)));
-
 		doc.add(contentField);
-		doc.add(new StringField("filename", f.getName(), Field.Store.YES));
-		doc.add(new StringField("fullpath", f.getCanonicalPath(), Field.Store.YES));
+		doc.add(new StringField("filepath", f.getCanonicalPath(), Field.Store.YES));
+		//doc.add(new StringField("fullpath", f.getCanonicalPath(), Field.Store.YES));
 		
 		return doc;
 	}

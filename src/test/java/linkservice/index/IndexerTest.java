@@ -8,11 +8,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import static org.junit.Assert.assertEquals;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
@@ -23,7 +24,7 @@ import linkservice.index.Indexer;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class IndexerTest {
-	static Logger log = Logger.getLogger(IndexerTest.class.getName());
+	Logger logger = LoggerFactory.getLogger(IndexerTest.class);
 	
 	public static Indexer indexer;
 	public static String indexDir;
@@ -32,7 +33,7 @@ public class IndexerTest {
 	@BeforeClass
 	public static void setUp() throws Exception {
 		indexDir = "src/test/resources/index";
-		dataDir = "src/test/resources/samples/data/test/alt.atheism";
+		dataDir = "src/test/resources/samples/data/test";
 		
 		//empty directory
 		FileUtils.cleanDirectory(new File(indexDir));
@@ -46,11 +47,11 @@ public class IndexerTest {
 	//verify writer document count
 	@Test
 	public void test1IndexWriter() throws Exception {
-		log.info("Inside testIndexWriter()");
+		logger.info("Inside testIndexWriter()");
 		
 		Collection<File> files = FileUtils.listFiles(new File(dataDir), null, true);
 		IndexWriter writer = indexer.getWriter();
-		log.info("Number of files: " + files.size());
+		logger.info("Number of files: " + files.size());
 		assertEquals("file size " + files.size() + " differs with writer size " + writer.numDocs() , files.size(), writer.numDocs());
 		writer.close();
 	}
@@ -58,7 +59,7 @@ public class IndexerTest {
 	//verify reader document count
 	@Test
 	public void test2IndexReader() throws IOException {
-		log.info("Inside testIndexReader()");
+		logger.info("Inside testIndexReader()");
 		
 		Collection<File> files = FileUtils.listFiles(new File(dataDir), null, true);
 		Directory directory = FSDirectory.open(new File(indexDir));

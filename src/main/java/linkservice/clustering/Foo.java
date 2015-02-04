@@ -29,7 +29,7 @@ public class Foo {
 		
 		lucene2Seq = new SequenceFilesFromLuceneStorage();
 		lucene2SeqConf = new LuceneStorageConfiguration(
-				configuration, asList(indexpath), seqFilesOutputPath, "filename",
+				configuration, asList(indexpath), seqFilesOutputPath, "filepath",
 				asList("content"));
 	}
 	
