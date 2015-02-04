@@ -22,6 +22,8 @@ public class Foo {
 
 	public Foo() {
 		configuration = new Configuration();
+		configuration.addResource(new Path("/usr/local/Cellar/hadoop121/1.2.1/libexec/conf/core-site.xml"));
+		configuration.addResource(new Path("/usr/local/Cellar/hadoop121/1.2.1/libexec/conf/hdfs-site.xml"));
 		Path indexpath = new Path("src/test/resources/index");
 		seqFilesOutputPath = new Path("src/test/resources", "temp");
 		

@@ -13,7 +13,7 @@ public class FooTest {
 	public void testRun2Directories() throws Exception {
 		Foo foo = new Foo();
 		foo.run();
-		int i = 7000;
+		int i = 319;
 		assertEquals(i, foo.getSequenceSize());
 	}
 }

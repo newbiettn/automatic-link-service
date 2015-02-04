@@ -75,20 +75,10 @@ public class Indexer {
 		Document doc = getDocument(f);
 		writer.addDocument(doc);
 	}
-	
-	/* Indexed, tokenized, not stored. */
-	public static final FieldType TYPE_NOT_STORED = new FieldType();
-
 	/* Indexed, tokenized, stored. */
 	public static final FieldType TYPE_STORED = new FieldType();
 
 	static {
-	    TYPE_NOT_STORED.setIndexed(true);
-	    TYPE_NOT_STORED.setTokenized(true);
-	    TYPE_NOT_STORED.setStoreTermVectors(true);
-	    TYPE_NOT_STORED.setStoreTermVectorPositions(true);
-	    TYPE_NOT_STORED.freeze();
-
 	    TYPE_STORED.setIndexed(true);
 	    TYPE_STORED.setTokenized(true);
 	    TYPE_STORED.setStored(true);
@@ -100,8 +90,7 @@ public class Indexer {
 	//create Document and Fields
 	private Document getDocument(File f) throws Exception {
 		Document doc = new Document();
-		//doc.add(new TextField("contents", new FileReader(f)));
-		Field contentField = new Field("content", "", Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+		Field contentField = new Field("content", "", TYPE_STORED);
 		contentField.setTokenStream(analyzer.tokenStream("content", new FileReader(f)));
 
 		doc.add(contentField);

@@ -32,7 +32,7 @@ public class IndexerTest {
 	@BeforeClass
 	public static void setUp() throws Exception {
 		indexDir = "src/test/resources/index";
-		dataDir = "src/test/resources/samples/data/test";
+		dataDir = "src/test/resources/samples/data/test/alt.atheism";
 		
 		//empty directory
 		FileUtils.cleanDirectory(new File(indexDir));
@@ -50,7 +50,8 @@ public class IndexerTest {
 		
 		Collection<File> files = FileUtils.listFiles(new File(dataDir), null, true);
 		IndexWriter writer = indexer.getWriter();
-		assertEquals("writer document count is not the same", files.size(), writer.numDocs());
+		log.info("Number of files: " + files.size());
+		assertEquals("file size " + files.size() + " differs with writer size " + writer.numDocs() , files.size(), writer.numDocs());
 		writer.close();
 	}
 	
@@ -63,7 +64,7 @@ public class IndexerTest {
 		Directory directory = FSDirectory.open(new File(indexDir));
 		IndexReader reader = DirectoryReader.open(directory);
 		
-		assertEquals("reader document count is not the same", files.size(), reader.maxDoc());
+		assertEquals(files.size() + " is different with " + reader.maxDoc(), files.size(), reader.maxDoc());
 		assertEquals("reader document count is not the same", files.size(), reader.numDocs());
 		
 		reader.close();
