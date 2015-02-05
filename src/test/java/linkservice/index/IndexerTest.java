@@ -38,10 +38,12 @@ public class IndexerTest {
 		//empty directory
 		FileUtils.cleanDirectory(new File(indexDir));
 		
-		indexer = new Indexer(indexDir);
-		indexer.setDataDir(dataDir);
-		indexer.index();
+		//index and store in both local and hdfs
+		indexer = Indexer.getInstance();
+		indexer.init(indexDir, dataDir);
+		indexer.runIndex();
 		indexer.close();
+		indexer.storeIndexToHDFS();
 	}
 	
 	//verify writer document count
@@ -60,7 +62,7 @@ public class IndexerTest {
 	@Test
 	public void test2IndexReader() throws IOException {
 		logger.info("Inside testIndexReader()");
-		
+
 		Collection<File> files = FileUtils.listFiles(new File(dataDir), null, true);
 		Directory directory = FSDirectory.open(new File(indexDir));
 		IndexReader reader = DirectoryReader.open(directory);
@@ -69,5 +71,12 @@ public class IndexerTest {
 		assertEquals("reader document count is not the same", files.size(), reader.numDocs());
 		
 		reader.close();
+	}
+	
+	@Test
+	public void test3IndexReaderHdfs() {
+		logger.info("Inside test3IndexReaderHdfs()");
+		
+		Collection<File> files = FileUtils.listFiles(new File(dataDir), null, true);
 	}
 }
