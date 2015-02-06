@@ -36,7 +36,7 @@ public class SequenceFileFromLuceneIndex {
 		
 		hadoopConf = new HadoopConfig();
 				
-		seqFilesOutputPath = new Path("sequenceOutput");
+		seqFilesOutputPath = new Path("sequenceOut");
 		
 		List<Path> indexPaths = new ArrayList<Path>();
 		indexPaths.add(new Path("src/test/resources/index"));
@@ -44,7 +44,7 @@ public class SequenceFileFromLuceneIndex {
 		lucene2Seq = new SequenceFilesFromLuceneStorage();
 		
 		lucene2SeqConf = new LuceneStorageConfiguration(hadoopConf.getConf(),
-				indexPaths, seqFilesOutputPath, "id", asList("content"));
+				indexPaths, seqFilesOutputPath, "filename", asList("contents"));
 	}
 	
 	public void run() throws Exception {

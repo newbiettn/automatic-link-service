@@ -5,6 +5,6 @@ public class IndexConfig {
 	public final static String INDEX_DIR = "src/test/resources/index";
 
 	// path to files folder that contains documents needed to be indexed
-	public final static String DATA_DIR = "src/test/resources/samples/data/test";
+	public final static String DATA_DIR = "src/test/resources/samples/data/test/comp.graphics";
 
 }
