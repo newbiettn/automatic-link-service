@@ -10,7 +10,6 @@ import java.util.List;
 import linkservice.common.hadoop.HadoopConfig;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -21,7 +20,6 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.LongField;
 import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
@@ -29,9 +27,6 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Charsets;
-import com.google.common.io.Files;
 
 public class Indexer {
 	// log4j
@@ -70,7 +65,7 @@ public class Indexer {
 			Directory dir = FSDirectory.open(new File(indexDir));
 
 			// create StandardAnalyzer to tokenize which uses default stop words
-			analyzer = new StandardAnalyzer(Version.LUCENE_46);
+			analyzer = new MyCustomAnalyzer(new StandardAnalyzer(Version.LUCENE_46));
 
 			// create configuration for new IndexWriter
 			IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_46,
@@ -110,13 +105,13 @@ public class Indexer {
 		writer.addDocument(doc);
 	}
 
-	// Indexed, tokenized, stored
+	// Indexed, tokenized, stored, and create term vector
 	public static final FieldType TYPE_STORED = new FieldType();
 
 	static {
 		TYPE_STORED.setIndexed(true);
 		TYPE_STORED.setTokenized(true);
-		TYPE_STORED.setStored(true);
+		TYPE_STORED.setStored(false);
 		TYPE_STORED.setStoreTermVectors(true);
 		TYPE_STORED.setStoreTermVectorOffsets(false);
 		TYPE_STORED.setStoreTermVectorPositions(false);
@@ -126,17 +121,16 @@ public class Indexer {
 	// create Document and Fields
 	private Document getDocument(File f) throws Exception {
 		Document doc = new Document();
-		// Field contentField = new Field("content", new FileReader(f),
-		// TYPE_STORED);
-		// Field contentField = new Field("contents",
-		// FileUtils.readFileToString(f), TYPE_STORED);
-		// doc.add(contentField);
 		
+		//content field
+		Field contentField = new Field("contents", new FileReader(f), TYPE_STORED);
+		doc.add(contentField);
 		
-		doc.add(new TextField("contents", new FileReader(f)));
+		//filename + path + modified 
 		doc.add(new StringField("filename", f.getName(), Field.Store.YES));
 		doc.add(new StringField("path", f.getPath(), Field.Store.YES));
 		doc.add(new LongField("modified", f.lastModified(), Field.Store.NO));
+		
 		return doc;
 	}
 
