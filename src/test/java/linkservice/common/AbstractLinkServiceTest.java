@@ -7,7 +7,7 @@ public abstract class AbstractLinkServiceTest {
 	protected final static String INDEX_DIR = "src/test/resources/index";
 	
 	//path to files folder that contains documents needed to be indexed
-	protected final static String DATA_DIR = "src/test/resources/samples/data/test/alt.atheism";
+	protected final static String DATA_DIR = "src/test/resources/samples/data/test";
 	
 	protected static Indexer indexer;
 	

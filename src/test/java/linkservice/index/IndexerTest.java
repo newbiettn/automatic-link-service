@@ -42,7 +42,7 @@ public class IndexerTest extends AbstractLinkServiceTest {
 
 	@BeforeClass
 	public static void setUp() throws Exception {
-		// empty directory
+		// empty directory,
 		FileUtils.cleanDirectory(new File(IndexerTest.INDEX_DIR));
 
 		// index and store in both local and hdfs
@@ -110,37 +110,19 @@ public class IndexerTest extends AbstractLinkServiceTest {
 //	
 	@Test
 	public void test5GetAllTerm() throws IOException {
-		logger.info("--------------------------------------------------");
+		logger.info("---------------test5GetAllTerm() begins-------------");
 		Directory directory = FSDirectory.open(new File(IndexerTest.INDEX_DIR));
 		IndexReader reader = DirectoryReader.open(directory);
 		Fields fields = MultiFields.getFields(reader);
 		for (String field : fields) {
             Terms terms = fields.terms(field);
             TermsEnum termsEnum = terms.iterator(null);
-            int count = 0;
             BytesRef text;
-            
             while ((text = termsEnum.next()) != null) {
-            	
-            	logger.info(text.utf8ToString() + " has " + termsEnum.docFreq());
-                count++;
-                
+            	logger.info("[" + text.utf8ToString() + "] occurs: " + termsEnum.docFreq() + " times in the doc collection");
             }
-            //logger.info("The count is " + count);
         }
-		logger.info("--------------------------------------------------");
+		logger.info("---------------test5GetAllTerm() ends-------------");
 	}
 	
-	
-	// @Test
-	// public void test3IndexReaderHdfs() throws IOException {
-	// logger.info("Inside test3IndexReaderHdfs()");
-	//
-	// Collection<File> files = FileUtils.listFiles(new File(dataDir), null,
-	// true);
-	// Directory directory = FSDirectory.open(new File(indexDir));
-	// HdfsDirectory hdfsDir = new HdfsDirectory(new Path("automatic"),
-	// HadoopConfig.getInstance().getConf());
-	//
-	// }
 }

@@ -68,8 +68,7 @@ public class Indexer {
 			analyzer = new MyCustomAnalyzer(new StandardAnalyzer(Version.LUCENE_46));
 
 			// create configuration for new IndexWriter
-			IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_46,
-					analyzer);
+			IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_46, analyzer);
 
 			// create IndexWriter, which can create new index, or
 			// adds, removes, or updates documents in the index
@@ -86,8 +85,12 @@ public class Indexer {
 		long start = System.currentTimeMillis();
 		Collection<File> files = FileUtils.listFiles(new File(this.dataDir),
 				null, true);
+		
+		//documentID is to provide unique ID to each document, start with 1
+		int docId = 1; 
 		for (File f : files) {
-			indexFile(f);
+			indexFile(f, docId);
+			docId +=1;
 		}
 
 		// logging
@@ -99,9 +102,9 @@ public class Indexer {
 	}
 
 	// add Document to the index
-	public void indexFile(File f) throws Exception {
+	public void indexFile(File f, int docId) throws Exception {
 		// logger.info("Indexing " + f.getCanonicalPath());
-		Document doc = getDocument(f);
+		Document doc = getDocument(f, docId);
 		writer.addDocument(doc);
 	}
 
@@ -111,7 +114,7 @@ public class Indexer {
 	static {
 		TYPE_STORED.setIndexed(true);
 		TYPE_STORED.setTokenized(true);
-		TYPE_STORED.setStored(false);
+		TYPE_STORED.setStored(true);
 		TYPE_STORED.setStoreTermVectors(true);
 		TYPE_STORED.setStoreTermVectorOffsets(false);
 		TYPE_STORED.setStoreTermVectorPositions(false);
@@ -119,17 +122,23 @@ public class Indexer {
 	}
 
 	// create Document and Fields
-	private Document getDocument(File f) throws Exception {
+	private Document getDocument(File f, int docId) throws Exception {
 		Document doc = new Document();
 		
+		//docId
+		doc.add(new StringField("id", Integer.toString(docId), Field.Store.YES));
+		
 		//content field
-		Field contentField = new Field("contents", new FileReader(f), TYPE_STORED);
+//		Field contentField = new Field("contents", new FileReader(f), TYPE_STORED);
+//		doc.add(contentField);
+		Field contentField = new Field("contents", FileUtils.readFileToString(f), TYPE_STORED);		
+		//contentField.setTokenStream(analyzer.tokenStream("content",	new FileReader(f)));
 		doc.add(contentField);
 		
 		//filename + path + modified 
 		doc.add(new StringField("filename", f.getName(), Field.Store.YES));
 		doc.add(new StringField("path", f.getPath(), Field.Store.YES));
-		doc.add(new LongField("modified", f.lastModified(), Field.Store.NO));
+		doc.add(new LongField("modified", f.lastModified(), Field.Store.YES));
 		
 		return doc;
 	}
@@ -185,5 +194,9 @@ public class Indexer {
 
 	public Path[] getIndexedPath() {
 		return indexedPath;
+	}
+	
+	public String getIndexDir() {
+		return this.indexDir;
 	}
 }

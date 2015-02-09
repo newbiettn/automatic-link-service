@@ -23,28 +23,31 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Maps;
 
 public class SequenceFileFromLuceneIndex {
+	//logging
 	Logger logger = LoggerFactory.getLogger(SequenceFileFromLuceneIndex.class);
 	
+	//constant for path to output sequence file
+	private static String SEQ_OUTPUT_PATH = "sequenceOut";
+
 	private SequenceFilesFromLuceneStorage lucene2Seq;
+
+	//config file for processing from lucene to sequence
 	private LuceneStorageConfiguration lucene2SeqConf;
 	private Path seqFilesOutputPath;
 	private HadoopConfig hadoopConf;
 	private Indexer indexer;
 	
 	public SequenceFileFromLuceneIndex(Indexer anIndexer) throws IOException {
-		this.indexer = anIndexer;
-		
+		indexer = anIndexer;
 		hadoopConf = new HadoopConfig();
-				
-		seqFilesOutputPath = new Path("sequenceOut");
+		seqFilesOutputPath = new Path(SEQ_OUTPUT_PATH);
 		
 		List<Path> indexPaths = new ArrayList<Path>();
-		indexPaths.add(new Path("src/test/resources/index"));
+		indexPaths.add(new Path(indexer.getIndexDir()));
 		
 		lucene2Seq = new SequenceFilesFromLuceneStorage();
-		
 		lucene2SeqConf = new LuceneStorageConfiguration(hadoopConf.getConf(),
-				indexPaths, seqFilesOutputPath, "filename", asList("contents"));
+				indexPaths, seqFilesOutputPath, "id", asList("contents", "filename","path", "modified"));
 	}
 	
 	public void run() throws Exception {
