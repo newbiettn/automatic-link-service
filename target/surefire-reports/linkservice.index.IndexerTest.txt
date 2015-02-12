@@ -1,11 +1,11 @@
 -------------------------------------------------------------------------------
 Test set: linkservice.index.IndexerTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.034 sec <<< FAILURE!
-linkservice.index.IndexerTest  Time elapsed: 1.034 sec  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.496 sec <<< FAILURE!
+linkservice.index.IndexerTest  Time elapsed: 1.495 sec  <<< ERROR!
 java.lang.NullPointerException
-	at linkservice.index.Indexer.indexFile(Indexer.java:108)
-	at linkservice.index.Indexer.runIndex(Indexer.java:92)
+	at linkservice.index.Indexer.indexFile(Indexer.java:139)
+	at linkservice.index.Indexer.runIndex(Indexer.java:123)
 	at linkservice.index.IndexerTest.setUp(IndexerTest.java:50)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)

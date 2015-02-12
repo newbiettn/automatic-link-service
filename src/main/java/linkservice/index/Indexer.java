@@ -1,13 +1,16 @@
 package linkservice.index;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import linkservice.common.hadoop.HadoopConfig;
+import linkservice.hadoop.HadoopConfig;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.fs.FileStatus;
@@ -18,19 +21,47 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
-import org.apache.lucene.document.LongField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.metadata.Property;
+import org.apache.tika.metadata.TikaCoreProperties;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.Parser;
+import org.apache.tika.sax.BodyContentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.ContentHandler;
 
 public class Indexer {
 	// log4j
 	Logger logger = LoggerFactory.getLogger(Indexer.class);
+	
+	//
+	static Set<Property> textualMetadataFields = new HashSet<Property>();
+	
+	static {
+		textualMetadataFields.add(TikaCoreProperties.TITLE);
+	    textualMetadataFields.add(TikaCoreProperties.KEYWORDS);
+	    textualMetadataFields.add(TikaCoreProperties.DESCRIPTION);
+	}
+	// Indexed, tokenized, stored, and create term vector
+	public static final FieldType TYPE_STORED = new FieldType();
+	
+	static {
+		TYPE_STORED.setIndexed(true);
+		TYPE_STORED.setTokenized(true);
+		TYPE_STORED.setStored(true);
+		TYPE_STORED.setStoreTermVectors(true);
+		TYPE_STORED.setStoreTermVectorOffsets(false);
+		TYPE_STORED.setStoreTermVectorPositions(false);
+		TYPE_STORED.freeze();
+	}
 
 	// array of index paths
 	private Path[] indexedPath;
@@ -108,37 +139,47 @@ public class Indexer {
 		writer.addDocument(doc);
 	}
 
-	// Indexed, tokenized, stored, and create term vector
-	public static final FieldType TYPE_STORED = new FieldType();
-
-	static {
-		TYPE_STORED.setIndexed(true);
-		TYPE_STORED.setTokenized(true);
-		TYPE_STORED.setStored(true);
-		TYPE_STORED.setStoreTermVectors(true);
-		TYPE_STORED.setStoreTermVectorOffsets(false);
-		TYPE_STORED.setStoreTermVectorPositions(false);
-		// TYPE_STORED.freeze();
-	}
-
 	// create Document and Fields
 	private Document getDocument(File f, int docId) throws Exception {
+		//create metadata
+		Metadata metadata = new Metadata();
+		metadata.set(Metadata.RESOURCE_NAME_KEY, f.getName());
+		//open file
+		InputStream is = new FileInputStream(f);
+		//use AutoDetectParse to automatically decide parser type
+		Parser parser = new AutoDetectParser();
+		//exact metadata and bodytext
+		ContentHandler handler = new BodyContentHandler();
+		//setup parse context
+		ParseContext context = new ParseContext();
+		context.set(Parser.class, parser);
+		
+		try {
+			//parse the document
+			parser.parse(is, handler, metadata, new ParseContext());
+		} finally {
+			//close inputstream after parsing
+			is.close();
+		}
+		
 		Document doc = new Document();
 		
 		//docId
 		doc.add(new StringField("id", Integer.toString(docId), Field.Store.YES));
 		
 		//content field
-//		Field contentField = new Field("contents", new FileReader(f), TYPE_STORED);
-//		doc.add(contentField);
-		Field contentField = new Field("contents", FileUtils.readFileToString(f), TYPE_STORED);		
-		//contentField.setTokenStream(analyzer.tokenStream("content",	new FileReader(f)));
+		Field contentField = new Field("contents", handler.toString(), TYPE_STORED);		
 		doc.add(contentField);
 		
-		//filename + path + modified 
-		doc.add(new StringField("filename", f.getName(), Field.Store.YES));
-		doc.add(new StringField("path", f.getPath(), Field.Store.YES));
-		doc.add(new LongField("modified", f.lastModified(), Field.Store.YES));
+		//metadata fields
+		for(String metadataName : metadata.names()) {
+			String metadataValue = metadata.get(metadataName);
+			for (Property acceptField: textualMetadataFields) {
+				if (metadata.get(acceptField) == metadataName) {
+					doc.add(new StringField("contents", metadataValue, Field.Store.YES));
+				}
+			}
+		}
 		
 		return doc;
 	}

@@ -4,12 +4,11 @@ import static java.util.Arrays.asList;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import linkservice.common.hadoop.HadoopConfig;
+import linkservice.hadoop.HadoopConfig;
 import linkservice.index.Indexer;
 
 import org.apache.hadoop.fs.Path;
