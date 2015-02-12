@@ -5,36 +5,45 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.Collection;
 
-import linkservice.common.AbstractLinkServiceTest;
+import linkservice.common.CommonRule;
+import linkservice.common.TestLogger;
 import linkservice.index.Indexer;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SequenceFileFromLuceneIndexTest extends AbstractLinkServiceTest{
-	static Logger logger = LoggerFactory.getLogger(SequenceFileFromLuceneIndexTest.class);
+public class SequenceFileFromLuceneIndexTest{
+	@ClassRule
+	public static TestLogger testLogger = new TestLogger();
 	
-	public static Indexer indexer;
+	@ClassRule
+	public static CommonRule commonRule = new CommonRule();
+	
+	private static Logger logger;
+	
+	private static Indexer indexer;
 
 	private static SequenceFileFromLuceneIndex lucene2Seq;
 	
 	@BeforeClass
 	public static void setUp() throws Exception {
-		indexer = getIndexer();
-		lucene2Seq = new SequenceFileFromLuceneIndex(indexer);
+		logger = testLogger.getLogger();
+		indexer = commonRule.getIndexer();
+		
+		lucene2Seq = new SequenceFileFromLuceneIndex(indexer, commonRule.getSequence_file_dir());
 	}
 	
 	@Test
 	public void testRunDirectories() throws Exception {
 		logger.info("Inside testRunDirectories()");
 		lucene2Seq.run();
-		Collection<File> files = FileUtils.listFiles(new File(DATA_DIR), null, true);
+		Collection<File> files = FileUtils.listFiles(new File(commonRule.getDataDir()), null, true);
 		assertEquals(files.size(), lucene2Seq.getSequenceSize());
 	}
 }

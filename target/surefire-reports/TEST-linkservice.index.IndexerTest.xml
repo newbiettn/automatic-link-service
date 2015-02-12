@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="1.495" errors="1" skipped="0" tests="1" name="linkservice.index.IndexerTest">
+<testsuite failures="0" time="2.007" errors="1" skipped="0" tests="1" name="linkservice.index.IndexerTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib"/>
@@ -25,7 +25,7 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/Users/newbiettn/Dropbox/Git/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf7075912331859609846.tmp"/>
+    <property name="classworlds.conf" value="/Users/newbiettn/Dropbox/Git/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf3910670720606844598.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/newbiettn/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -62,11 +62,11 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="1.495" classname="linkservice.index.IndexerTest" name="linkservice.index.IndexerTest">
+  <testcase time="2.007" classname="linkservice.index.IndexerTest" name="linkservice.index.IndexerTest">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
-	at linkservice.index.Indexer.indexFile(Indexer.java:139)
-	at linkservice.index.Indexer.runIndex(Indexer.java:123)
-	at linkservice.index.IndexerTest.setUp(IndexerTest.java:50)
+	at linkservice.index.Indexer.indexFile(Indexer.java:165)
+	at linkservice.index.Indexer.runIndex(Indexer.java:142)
+	at linkservice.index.IndexerTest.setUp(IndexerTest.java:70)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -75,6 +75,9 @@
 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at linkservice.common.CommonRule$1.evaluate(CommonRule.java:39)
+	at linkservice.common.TestLogger$1.evaluate(TestLogger.java:30)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
@@ -89,20 +92,22 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </error>
-    <system-err>org.apache.lucene.store.LockObtainFailedException: Lock obtain timed out: NativeFSLock@/Users/newbiettn/Dropbox/Git/automatic-link-serivce/src/test/resources/index/write.lock
+    <system-out>2015-02-13 00:24:45 DEBUG Groups:139 -  Creating new Groups object
+2015-02-13 00:24:45 DEBUG Groups:59 - Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping; cacheTimeout=300000
+2015-02-13 00:24:45 DEBUG UserGroupInformation:147 - hadoop login
+2015-02-13 00:24:45 DEBUG UserGroupInformation:96 - hadoop login commit
+2015-02-13 00:24:45 DEBUG UserGroupInformation:126 - using local user:UnixPrincipal: newbiettn
+2015-02-13 00:24:45 DEBUG UserGroupInformation:558 - UGI loginUser:newbiettn
+2015-02-13 00:24:45 DEBUG FileSystem:1441 - Creating filesystem for file:///
+2015-02-13 00:24:45 INFO  HadoopUtil:193 - Deleting test_output/index_files
+</system-out>
+    <system-err>org.apache.lucene.store.LockObtainFailedException: Lock obtain timed out: NativeFSLock@/Users/newbiettn/Dropbox/Git/automatic-link-serivce/test_output/index_files/write.lock
 	at org.apache.lucene.store.Lock.obtain(Lock.java:84)
 	at org.apache.lucene.index.IndexWriter.&lt;init&gt;(IndexWriter.java:702)
-	at linkservice.index.Indexer.&lt;init&gt;(Indexer.java:107)
-	at linkservice.common.AbstractLinkServiceTest.getIndexer(AbstractLinkServiceTest.java:15)
-	at linkservice.index.IndexerTest.setUp(IndexerTest.java:49)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:606)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at linkservice.index.Indexer.&lt;init&gt;(Indexer.java:120)
+	at linkservice.common.CommonRule$1.evaluate(CommonRule.java:37)
+	at linkservice.common.TestLogger$1.evaluate(TestLogger.java:30)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)

@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import linkservice.document.MyDocumentIndexedProperties;
 import linkservice.hadoop.HadoopConfig;
 
 import org.apache.commons.io.FileUtils;
@@ -38,6 +39,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.ContentHandler;
 
+/**
+ * Index all documents 
+ *
+ * @author newbiettn
+ * @version 1.0
+ * 
+ */
 public class Indexer {
 	// log4j
 	Logger logger = LoggerFactory.getLogger(Indexer.class);
@@ -79,7 +87,12 @@ public class Indexer {
 
 	// Hadoop configuration
 	private HadoopConfig hadoopConf;
-
+	
+	/** 
+	 * Create an Indexer using the given directory to store index files, 
+	 * and the directory need to be indexed.
+	 *  
+	 * */
 	public Indexer(String anIndexDir, String aDataDir) {
 		// get config singleton
 		hadoopConf = new HadoopConfig();
@@ -110,8 +123,14 @@ public class Indexer {
 		}
 	}
 
-	// index files in directory
-	// start with *.txt files, will change later after having crawler
+	/** 
+	 * Index files in directory by looping through documents in directories 
+	 * and sub-directories 
+	 * 
+	 * @return Number of documents is indexed
+	 * @throws Exception
+	 */
+	// 
 	public int runIndex() throws Exception {
 		long start = System.currentTimeMillis();
 		Collection<File> files = FileUtils.listFiles(new File(this.dataDir),
@@ -131,15 +150,29 @@ public class Indexer {
 
 		return this.writer.numDocs();
 	}
-
-	// add Document to the index
+	
+	/**
+	 * Add Document to the index
+	 * 
+	 * @param f
+	 * @param docId
+	 * @throws Exception
+	 */
+	// 
 	public void indexFile(File f, int docId) throws Exception {
 		// logger.info("Indexing " + f.getCanonicalPath());
 		Document doc = getDocument(f, docId);
 		writer.addDocument(doc);
 	}
 
-	// create Document and Fields
+	/**
+	 * Parse document and index contents including metadata, body content
+	 * 
+	 * @param f
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
 	private Document getDocument(File f, int docId) throws Exception {
 		//create metadata
 		Metadata metadata = new Metadata();
@@ -165,10 +198,10 @@ public class Indexer {
 		Document doc = new Document();
 		
 		//docId
-		doc.add(new StringField("id", Integer.toString(docId), Field.Store.YES));
+		doc.add(new StringField(MyDocumentIndexedProperties.ID_FIELD, Integer.toString(docId), Field.Store.YES));
 		
 		//content field
-		Field contentField = new Field("contents", handler.toString(), TYPE_STORED);		
+		Field contentField = new Field(MyDocumentIndexedProperties.CONTENT_FIELD, handler.toString(), TYPE_STORED);		
 		doc.add(contentField);
 		
 		//metadata fields
@@ -176,36 +209,20 @@ public class Indexer {
 			String metadataValue = metadata.get(metadataName);
 			for (Property acceptField: textualMetadataFields) {
 				if (metadata.get(acceptField) == metadataName) {
-					doc.add(new StringField("contents", metadataValue, Field.Store.YES));
+					doc.add(new StringField(MyDocumentIndexedProperties.CONTENT_FIELD, metadataValue, Field.Store.YES));
 				}
 			}
 		}
 		
 		return doc;
 	}
-
-	// copy indexes to hdfs for further text mining by mahout
-	public void storeIndexToHDFS() throws IOException {
-		Collection<File> files = FileUtils.listFiles(new File(indexDir), null,
-				true);
-		FileSystem hdfsFileSystem = FileSystem.get(hadoopConf.getConf());
-
-		indexedPath = new Path[files.size()];
-
-		int count = 0;
-		for (File f : files) {
-			// put indexes file path to hdfs
-			logger.info("Add " + f.getName() + " to indexedPath");
-			indexedPath[count] = new Path(f.getName());
-
-			Path localPath = new Path(f.getPath());
-			Path hdfsPath = new Path("automatic/" + f.getName());
-
-			// copy file to hdfs, overwrite if duplicated
-			hdfsFileSystem.copyFromLocalFile(false, true, localPath, hdfsPath);
-		}
-	}
-
+	
+	/**
+	 * Retrieve paths of index files from Hdfs
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public List<Path> getIndexFileFromHdfs() throws IOException {
 		List<Path> indexPaths = new ArrayList<Path>();
 		FileSystem fs = FileSystem.get(hadoopConf.getConf());
@@ -217,26 +234,50 @@ public class Indexer {
 		return indexPaths;
 	}
 
-	// close the IndexWriter, which means committing the indexes
+	/**
+	 * Close the IndexWriter, which means committing the indexes
+	 * 
+	 * @throws IOException
+	 */
 	public void close() throws IOException {
 		this.writer.close();
 	}
 
-	// get IndexWriter
+	/**
+	 * Get IndexWriter
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public IndexWriter getWriter() throws IOException {
 		return new IndexWriter(FSDirectory.open(new File(indexDir)),
 				new IndexWriterConfig(Version.LUCENE_46, new StandardAnalyzer(
 						Version.LUCENE_46)));
 	}
-
+	
+	/**
+	 * Set the IndexWriter
+	 * 
+	 * @param writer
+	 */
 	public void setWriter(IndexWriter writer) {
 		this.writer = writer;
 	}
-
+	
+	/**
+	 * Get IndexedPath
+	 * 
+	 * @return
+	 */
 	public Path[] getIndexedPath() {
 		return indexedPath;
 	}
 	
+	/**
+	 * get path of directory containing the index
+	 * 
+	 * @return
+	 */
 	public String getIndexDir() {
 		return this.indexDir;
 	}

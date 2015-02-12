@@ -11,6 +11,14 @@ import org.apache.lucene.analysis.en.PorterStemFilter;
 
 import org.apache.lucene.util.Version;
 
+/**
+ * Define customized Analyzer which is baesed on StandardAnalyzer.
+ * 
+ * This Analyzer supports stemming by using PorterStemFilter.
+ * 
+ * @author newbiettn
+ *
+ */
 public class MyCustomAnalyzer extends AnalyzerWrapper {
 	private Analyzer baseAnalyzer;
 

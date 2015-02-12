@@ -1,12 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: linkservice.index.IndexerTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.496 sec <<< FAILURE!
-linkservice.index.IndexerTest  Time elapsed: 1.495 sec  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.007 sec <<< FAILURE!
+linkservice.index.IndexerTest  Time elapsed: 2.007 sec  <<< ERROR!
 java.lang.NullPointerException
-	at linkservice.index.Indexer.indexFile(Indexer.java:139)
-	at linkservice.index.Indexer.runIndex(Indexer.java:123)
-	at linkservice.index.IndexerTest.setUp(IndexerTest.java:50)
+	at linkservice.index.Indexer.indexFile(Indexer.java:165)
+	at linkservice.index.Indexer.runIndex(Indexer.java:142)
+	at linkservice.index.IndexerTest.setUp(IndexerTest.java:70)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -15,6 +15,9 @@ java.lang.NullPointerException
 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at linkservice.common.CommonRule$1.evaluate(CommonRule.java:39)
+	at linkservice.common.TestLogger$1.evaluate(TestLogger.java:30)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
