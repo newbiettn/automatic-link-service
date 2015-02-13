@@ -182,7 +182,7 @@ public class Indexer {
 		//use AutoDetectParse to automatically decide parser type
 		Parser parser = new AutoDetectParser();
 		//exact metadata and bodytext
-		ContentHandler handler = new BodyContentHandler();
+		ContentHandler handler = new BodyContentHandler(10*1024*1024);
 		//setup parse context
 		ParseContext context = new ParseContext();
 		context.set(Parser.class, parser);
