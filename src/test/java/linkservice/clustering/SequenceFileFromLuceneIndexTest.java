@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.Collection;
 
 import linkservice.common.CommonRule;
+import linkservice.common.SequenceFileFromLuceneIndex;
 import linkservice.common.TestLogger;
 import linkservice.index.Indexer;
 

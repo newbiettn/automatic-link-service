@@ -21,6 +21,8 @@ import org.apache.mahout.clustering.kmeans.KMeansDriver;
 import org.apache.mahout.clustering.kmeans.RandomSeedGenerator;
 import org.apache.mahout.common.HadoopUtil;
 import org.apache.mahout.common.distance.CosineDistanceMeasure;
+import org.apache.mahout.common.distance.EuclideanDistanceMeasure;
+import org.apache.mahout.common.distance.TanimotoDistanceMeasure;
 import org.apache.mahout.text.LuceneStorageConfiguration;
 import org.apache.mahout.text.SequenceFilesFromLuceneStorage;
 import org.apache.mahout.vectorizer.SparseVectorsFromSequenceFiles;
@@ -42,9 +44,8 @@ public class CluteringByKMeans {
 		String clusterInputDir = "mahout-work/centroid";
 		String finalClusterOutputDir = "mahout-work/clusteroutput";
 		
-		Path indexFilesPath = new Path("src/test/resources/index");
+		Path indexFilesPath = new Path("test_output/index_files");
 		Path sequenceFilesPath = new Path(sequenceFileDir);
-		Path sparseVectorsPath = new Path(sparseVectorsDir);
 		Path clusterInputPath = new Path(clusterInputDir);
 		Path finalClustersPath = new Path(finalClusterOutputDir);
 		
@@ -61,27 +62,16 @@ public class CluteringByKMeans {
 
 		// Generate Sparse vectors from sequence files
 		generateSparseVectors(sequenceFileDir, sparseVectorsDir);
-		
-		//canopy
-//		CanopyDriver.run(conf, 
-//				new Path(sparseVectorsDir, "tfidf-vectors"), 
-//                new Path(clusterInputDir),
-//                new TanimotoDistanceMeasure(),
-//				2.5, 1,
-//				false, 
-//				0, 
-//				false);
 
 		int k = 6;
-
 		RandomSeedGenerator.buildRandom(conf, 
 				new Path(sparseVectorsDir, "tfidf-vectors"), 
 				clusterInputPath, k,
 				new CosineDistanceMeasure());
 
 		//kmeans
-		double convergenceDelta = 0.5;
-		int maxIterations = 100;
+		double convergenceDelta = 0.2;
+		int maxIterations = 9999;
 
 		KMeansDriver.run(conf,
 				new Path(sparseVectorsDir, "tfidf-vectors"),
@@ -126,7 +116,9 @@ public class CluteringByKMeans {
 				//use 2-gram
 				"-ng", "2",
 				//log-normalize the vector
-				"-lnorm"};
+				"-lnorm",
+				"-nv"
+				};
 		int x = new SparseVectorsFromSequenceFiles().run(para);
 		return x;
 	}

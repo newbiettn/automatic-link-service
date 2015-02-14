@@ -1,3 +1,5 @@
 *.class
 .classpath
 .settings
+mahout-work/*
+test_output/*
