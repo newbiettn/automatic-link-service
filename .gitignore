@@ -2,4 +2,5 @@
 .classpath
 .settings
 mahout-work/*
-test_output/*
+output/*
+log.out
