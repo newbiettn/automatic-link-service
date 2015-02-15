@@ -29,7 +29,7 @@ import org.apache.lucene.util.BytesRef;
 import org.apache.mahout.common.HadoopUtil;
 
 import linkservice.common.CommonRule;
-import linkservice.common.TestLogger;
+import linkservice.common.LoggerRule;
 import linkservice.index.Indexer;
 
 /**
@@ -44,7 +44,7 @@ import linkservice.index.Indexer;
 public class IndexerTest {
 
 	@ClassRule
-	public static TestLogger testLogger = new TestLogger();
+	public static LoggerRule testLogger = new LoggerRule();
 
 	@ClassRule
 	public static CommonRule commonRule = new CommonRule();
@@ -108,7 +108,7 @@ public class IndexerTest {
 
 		reader.close();
 	}
-	
+
 	/**
 	 * Observe all terms and its corresponding frequencies after indexing 
 	 * 

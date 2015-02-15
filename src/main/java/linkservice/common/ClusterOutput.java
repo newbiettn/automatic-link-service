@@ -88,19 +88,9 @@ public class ClusterOutput {
 				// number of term to print
 				"-n", "10",
 				// output
-				"-of", "TEXT", "-o", this.output_file 
+				"-of", "TEXT", "-o", this.output_file,
+				"-e"
 				};
 		clusterDumper.run(para);
-	}
-
-	public static void main(String[] args) throws Exception {
-		ClusterOutput clusterOutput = new ClusterOutput(
-				"mahout-work/clusteroutput/clusters-2-final",
-				"mahout-work/clusteroutput/clusteredPoints",
-				"mahout-work/output.txt",
-				"mahout-work/sparse-vector/dictionary.file-0");
-		clusterOutput.emptyOuputFile();
-		//clusterOutput.printClusters();
-		clusterOutput.run();
 	}
 }

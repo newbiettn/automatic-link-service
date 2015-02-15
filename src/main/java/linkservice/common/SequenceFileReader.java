@@ -22,8 +22,7 @@ import org.slf4j.LoggerFactory;
 public class SequenceFileReader {
 	static Logger logger = LoggerFactory.getLogger(SequenceFileReader.class);
 
-	public static void main(String[] args) throws IOException {
-		String uri = "mahout-work/clusteroutput/clusteredPoints/part-m-00000";
+	public static void print(String uri) throws IOException {
 		Configuration conf = new Configuration();
 		FileSystem fs = FileSystem.get(URI.create(uri), conf);
 		Path path = new Path(uri);
@@ -37,13 +36,13 @@ public class SequenceFileReader {
 					reader.getValueClass(), conf);
 			long position = reader.getPosition();
 			while (reader.next(key, value)) {
-				//String syncSeen = reader.syncSeen() ? "*" : "";
+				// String syncSeen = reader.syncSeen() ? "*" : "";
 				logger.info("Key: " + key + " value:" + value);
 				position = reader.getPosition(); // beginning of next record
 			}
 		} finally {
 			IOUtils.closeStream(reader);
-			
+
 		}
 	}
 }

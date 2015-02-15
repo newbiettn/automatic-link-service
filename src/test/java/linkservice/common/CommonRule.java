@@ -29,11 +29,11 @@ public class CommonRule implements TestRule{
 		return new Statement() {
 			@Override
 			public void evaluate() throws Throwable {
-				String configFilePath = "src/test/resources/config.properties";
+				String configFilePath = "src/main/resources/config.properties";
 				LinkServiceGetPropertyValues myDocumentIndexedProp = new LinkServiceGetPropertyValues(configFilePath);
-				index_dir = myDocumentIndexedProp.getProperty("linkservice.test.index_dir");
-				data_dir = myDocumentIndexedProp.getProperty("linkservice.test.data_dir");
-				sequence_file_dir = myDocumentIndexedProp.getProperty("linkesrvice.test.sequence_dir");
+				index_dir = myDocumentIndexedProp.getProperty("linkservice.index_dir");
+				data_dir = myDocumentIndexedProp.getProperty("linkservice.data_dir");
+				sequence_file_dir = myDocumentIndexedProp.getProperty("linkesrvice.sequence_dir");
 				indexer = new Indexer(index_dir, data_dir);
 				try {
 					base.evaluate();

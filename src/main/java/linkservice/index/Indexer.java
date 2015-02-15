@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import linkservice.common.AnalyzerUtils;
 import linkservice.document.MyDocumentIndexedProperties;
 import linkservice.hadoop.HadoopConfig;
 
@@ -18,6 +20,7 @@ import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -109,8 +112,10 @@ public class Indexer {
 			Directory dir = FSDirectory.open(new File(indexDir));
 
 			// create StandardAnalyzer to tokenize which uses default stop words
-			analyzer = new MyCustomAnalyzer(new StandardAnalyzer(Version.LUCENE_46));
-
+			//analyzer = new MyCustomAnalyzer(new StandardAnalyzer(Version.LUCENE_46, MyStopWords.MY_ENGLISH_STOP_WORDS_SET));
+			//analyzer = new StandardAnalyzer(Version.LUCENE_46, MyStopWords.MY_ENGLISH_STOP_WORDS_SET);
+			analyzer = new MyCustomAnalyzer();
+			
 			// create configuration for new IndexWriter
 			IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_46, analyzer);
 
@@ -201,7 +206,9 @@ public class Indexer {
 		doc.add(new StringField(MyDocumentIndexedProperties.ID_FIELD, Integer.toString(docId), Field.Store.YES));
 		
 		//content field
-		Field contentField = new Field(MyDocumentIndexedProperties.CONTENT_FIELD, handler.toString(), TYPE_STORED);		
+		TokenStream ts = analyzer.tokenStream("contents", new StringReader(handler.toString())); 
+		Field contentField = new Field(MyDocumentIndexedProperties.CONTENT_FIELD, AnalyzerUtils.tokenStreamToString(ts), TYPE_STORED);
+		ts.close();
 		doc.add(contentField);
 		
 		//metadata fields
