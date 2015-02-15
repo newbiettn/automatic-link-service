@@ -1,6 +1,7 @@
 *.class
 .classpath
 .settings
-mahout-work/*
-output/*
+mahout-work/
+output/
 log.out
+target/
