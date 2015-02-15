@@ -1,7 +1,7 @@
 *.class
 .classpath
 .settings
-mahout-work/
-output/
-log.out
-target/
+/output
+/src/main/resources/log.out
+/target
+/src/test/resources/
