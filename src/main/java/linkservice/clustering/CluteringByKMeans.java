@@ -2,35 +2,21 @@ package linkservice.clustering;
 
 import java.io.IOException;
 
-import linkservice.common.SequenceFileFromLuceneIndex;
-
 import org.apache.hadoop.fs.Path;
 import org.apache.mahout.clustering.kmeans.KMeansDriver;
 import org.apache.mahout.clustering.kmeans.RandomSeedGenerator;
-import org.apache.mahout.common.HadoopUtil;
 import org.apache.mahout.common.distance.CosineDistanceMeasure;
 
 public class CluteringByKMeans extends AbstractClustering {
-
 	protected CluteringByKMeans() throws IOException {
 		super();
 	}
 
 	public void run() throws Exception {
 		int k = 10;
-		double convergenceDelta = 0.5;
+		double convergenceDelta = 0.1;
 		int maxIterations = 9999;
 		
-		//delete old files
-		HadoopUtil.delete(conf, new Path(outputRootDir));
-		
-		indexer.runIndex();
-		indexer.close();
-		
-		// Create sequence files from Index
-		lucene2Seq = new SequenceFileFromLuceneIndex(indexer, sequenceFileDir);
-		lucene2Seq.run();
-
 		// Generate Sparse vectors from sequence files
 		generateSparseVectors(sequenceFileDir, sparseVectorsDir);
 

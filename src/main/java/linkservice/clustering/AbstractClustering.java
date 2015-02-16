@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import linkservice.common.LinkServiceGetPropertyValues;
-import linkservice.common.SequenceFileFromLuceneIndex;
-import linkservice.index.Indexer;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -29,9 +27,10 @@ public abstract class AbstractClustering {
 	
 	protected LinkServiceGetPropertyValues myDocumentIndexedProp;
 		
-	protected SequenceFileFromLuceneIndex lucene2Seq;
+	//protected SequenceFileFromLuceneIndex lucene2Seq;
 	
 	protected String outputRootDir;
+
 	protected String dataFileDir;
 	protected String indexFileDir;
 	protected String sequenceFileDir;
@@ -45,15 +44,14 @@ public abstract class AbstractClustering {
 	protected Path finalClustersPath;
 	
 	protected Configuration conf;
-	protected Indexer indexer;
 	
 	protected AbstractClustering() throws IOException {
 		conf = new Configuration();
 		
 		myDocumentIndexedProp = new LinkServiceGetPropertyValues("src/main/resources/config.properties");
 		
-		outputRootDir = myDocumentIndexedProp.getProperty("linkservice.output_root");
 		dataFileDir = myDocumentIndexedProp.getProperty("linkservice.data_dir");
+		outputRootDir = myDocumentIndexedProp.getProperty("linkservice.output_root");
 		indexFileDir = myDocumentIndexedProp.getProperty("linkservice.index_dir");
 		sequenceFileDir = myDocumentIndexedProp.getProperty("linkesrvice.sequence_dir");
 		sparseVectorsDir = myDocumentIndexedProp.getProperty("linkservice.mahout.sparse_vector_dir");
@@ -64,8 +62,6 @@ public abstract class AbstractClustering {
 		sequenceFilesPath = new Path(sequenceFileDir);
 		clusterInputPath = new Path(clusterInputDir);
 		finalClustersPath = new Path(finalClusterOutputDir);
-		
-		indexer = new Indexer(indexFileDir, dataFileDir);
 	}
 	
 	protected void readDictionaryAndFrequency(String path1, String path2)throws IOException {
@@ -105,7 +101,7 @@ public abstract class AbstractClustering {
 		}
 	}
 	
-	protected static int generateSparseVectors(String input, String output)
+	protected int generateSparseVectors(String input, String output)
 			throws Exception {
 
 		/*
@@ -133,5 +129,57 @@ public abstract class AbstractClustering {
 				};
 		int x = new SparseVectorsFromSequenceFiles().run(para);
 		return x;
+	}
+	
+	public LinkServiceGetPropertyValues getMyDocumentIndexedProp() {
+		return myDocumentIndexedProp;
+	}
+
+	public String getOutputRootDir() {
+		return outputRootDir;
+	}
+
+	public String getDataFileDir() {
+		return dataFileDir;
+	}
+
+	public String getIndexFileDir() {
+		return indexFileDir;
+	}
+
+	public String getSequenceFileDir() {
+		return sequenceFileDir;
+	}
+
+	public String getSparseVectorsDir() {
+		return sparseVectorsDir;
+	}
+
+	public String getClusterInputDir() {
+		return clusterInputDir;
+	}
+
+	public String getFinalClusterOutputDir() {
+		return finalClusterOutputDir;
+	}
+
+	public Path getIndexFilesPath() {
+		return indexFilesPath;
+	}
+
+	public Path getSequenceFilesPath() {
+		return sequenceFilesPath;
+	}
+
+	public Path getClusterInputPath() {
+		return clusterInputPath;
+	}
+
+	public Path getFinalClustersPath() {
+		return finalClustersPath;
+	}
+
+	public Configuration getConf() {
+		return conf;
 	}
 }

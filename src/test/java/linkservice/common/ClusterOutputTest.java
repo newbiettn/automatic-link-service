@@ -11,10 +11,10 @@ public class ClusterOutputTest {
 	@Before
 	public void setUp() throws FileNotFoundException {
 		clusterOutput = new ClusterOutput(
-				"output/final_clusters/clusters-2-final/part-r-00000",
+				"output/final_clusters/clusters-2-final",
 				"output/final_clusters/clusteredPoints",
 				"output/output.txt",
-				"output/sparse-vectors/dictionary.file-0");
+				"output/sparse_vectors/dictionary.file-0");
 		clusterOutput.emptyOuputFile();
 	}
 	
