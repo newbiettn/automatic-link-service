@@ -26,8 +26,6 @@ public abstract class AbstractClustering {
 	private Logger logger = LoggerFactory.getLogger(CluteringByKMeans.class);
 	
 	protected LinkServiceGetPropertyValues myDocumentIndexedProp;
-		
-	//protected SequenceFileFromLuceneIndex lucene2Seq;
 	
 	protected String outputRootDir;
 
@@ -44,6 +42,13 @@ public abstract class AbstractClustering {
 	protected Path finalClustersPath;
 	
 	protected Configuration conf;
+	
+	/**
+	 * Required method for algorithm running
+	 * @throws Exception 
+	 * 
+	 */
+	public void run() throws Exception {};
 	
 	protected AbstractClustering() throws IOException {
 		conf = new Configuration();
