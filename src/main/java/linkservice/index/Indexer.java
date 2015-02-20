@@ -31,6 +31,8 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.apache.lucene.index.FieldInfo.IndexOptions;
+
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.metadata.Property;
 import org.apache.tika.metadata.TikaCoreProperties;
@@ -69,8 +71,9 @@ public class Indexer {
 		TYPE_STORED.setTokenized(true);
 		TYPE_STORED.setStored(true);
 		TYPE_STORED.setStoreTermVectors(true);
-		TYPE_STORED.setStoreTermVectorOffsets(false);
-		TYPE_STORED.setStoreTermVectorPositions(false);
+		TYPE_STORED.setStoreTermVectorOffsets(true);
+		TYPE_STORED.setStoreTermVectorPositions(true);
+		TYPE_STORED.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
 		TYPE_STORED.freeze();
 	}
 

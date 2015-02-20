@@ -23,12 +23,13 @@ public class MyCustomAnalyzer extends Analyzer {
 
 		final StandardTokenizer src = new StandardTokenizer(Version.LUCENE_46, reader);
 		TokenStream tok = new StandardFilter(Version.LUCENE_46, src);
-		tok = new LengthFilter(Version.LUCENE_46, tok, 3, DEFAULT_MAX_TOKEN_LENGTH); 
+		//tok = new LengthFilter(Version.LUCENE_46, tok, 3, DEFAULT_MAX_TOKEN_LENGTH); 
 		tok = new LowerCaseFilter(Version.LUCENE_46, tok);
-		tok = new StopFilter(Version.LUCENE_46, tok,
+		StopFilter stopFilter = new StopFilter(Version.LUCENE_46, tok,
 				MyStopWords.MY_ENGLISH_STOP_WORDS_SET);
+		stopFilter.setEnablePositionIncrements(true);
 		tok = new KStemFilter(tok);
-		tok = new LengthFilter(Version.LUCENE_46, tok, 4, DEFAULT_MAX_TOKEN_LENGTH);
+		//tok = new LengthFilter(Version.LUCENE_46, tok, 4, DEFAULT_MAX_TOKEN_LENGTH);
 		return new TokenStreamComponents(src, tok) {
 			@Override
 			protected void setReader(final Reader reader) throws IOException {

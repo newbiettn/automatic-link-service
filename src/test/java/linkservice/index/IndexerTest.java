@@ -131,16 +131,4 @@ public class IndexerTest {
 		logger.info("---------------test5GetAllTerm() ends-------------");
 	}
 
-	// @Test
-	// public void test4Term() throws Exception {
-	// Directory directory = FSDirectory.open(new File(IndexerTest.INDEX_DIR));
-	// IndexReader reader = DirectoryReader.open(directory);
-	// IndexSearcher searcher = new IndexSearcher(reader);
-	// Term t = new Term("contents", "programming");
-	// Query query = new TermQuery(t);
-	// TopDocs docs = searcher.search(query, 1000);
-	// assertEquals(1, docs.totalHits);
-	// reader.close();
-	// }
-	//
 }

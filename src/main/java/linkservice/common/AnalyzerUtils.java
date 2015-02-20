@@ -8,7 +8,12 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * Utils for analyzing jobs
+ * 
+ * @author newbiettn
+ *
+ */
 public class AnalyzerUtils {
 	private static Logger logger = LoggerFactory.getLogger(AnalyzerUtils.class);
 	
