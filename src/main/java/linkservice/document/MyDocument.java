@@ -9,7 +9,7 @@ package linkservice.document;
  */
 public class MyDocument {
 	//document id
-	private int id;
+	private String id;
 
 	//for display highlight in the search result, depends on search keyword
 	private String fragment;
@@ -20,7 +20,7 @@ public class MyDocument {
 	//file name of the document
 	private String fileName;
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -36,7 +36,7 @@ public class MyDocument {
 		return fileName;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
