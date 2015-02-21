@@ -10,7 +10,7 @@ import java.util.Map;
 
 import linkservice.document.MyDocumentIndexedProperties;
 import linkservice.hadoop.HadoopConfig;
-import linkservice.index.Indexer;
+import linkservice.indexing.Indexer;
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;

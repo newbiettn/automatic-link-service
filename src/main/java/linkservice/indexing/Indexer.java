@@ -1,4 +1,4 @@
-package linkservice.index;
+package linkservice.indexing;
 
 import java.io.File;
 import java.io.FileInputStream;

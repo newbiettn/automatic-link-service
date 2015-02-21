@@ -30,10 +30,10 @@ import org.apache.mahout.common.HadoopUtil;
 
 import linkservice.common.CommonRule;
 import linkservice.common.LoggerRule;
-import linkservice.index.Indexer;
+import linkservice.indexing.Indexer;
 
 /**
- * Test unit for {@link linkservice.index.Indexer}
+ * Test unit for {@link linkservice.indexing.Indexer}
  *
  * @author newbiettn
  * @version 1.0

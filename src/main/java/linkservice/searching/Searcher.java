@@ -2,9 +2,11 @@ package linkservice.searching;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import linkservice.index.Indexer;
-import linkservice.index.MyCustomAnalyzer;
+import linkservice.indexing.Indexer;
+import linkservice.indexing.MyCustomAnalyzer;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Document;
@@ -64,21 +66,27 @@ public class Searcher {
 	 * @throws IOException
 	 * @throws InvalidTokenOffsetsException
 	 */
-	public void search() throws IOException, InvalidTokenOffsetsException {
+	public List<String> search() throws IOException, InvalidTokenOffsetsException {
 		termQuery = new TermQuery(new Term("contents", "image"));
 		topDocs = indexSearcher.search(termQuery, 10);
 		this.queryScorer = new QueryScorer(this.termQuery, "contents");
 		Highlighter highlighter = new Highlighter(this.queryScorer);
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(this.queryScorer));
-
+		
+		List<String> searchResult = new ArrayList<String>();
 		for (ScoreDoc sd : topDocs.scoreDocs) {
-			Document doc = indexSearcher.doc(sd.doc);
-			String contents = doc.get("contents");
-
-			TokenStream stream = TokenSources.getAnyTokenStream(
-					indexSearcher.getIndexReader(), sd.doc, "contents", doc, myCustomAnalyzer);
-			String fragment = highlighter.getBestFragment(stream, contents);
-			logger.info(fragment);
+			String result = getSingleResult(sd, highlighter);
+			searchResult.add(result);
 		}
+		return searchResult;
+	}
+	
+	public String getSingleResult(ScoreDoc sd, Highlighter highlighter) throws IOException, InvalidTokenOffsetsException {
+		Document doc = indexSearcher.doc(sd.doc);
+		String contents = doc.get("contents");
+		TokenStream stream = TokenSources.getAnyTokenStream(
+				indexSearcher.getIndexReader(), sd.doc, "contents", doc, myCustomAnalyzer);
+		String fragment = highlighter.getBestFragment(stream, contents);
+		return fragment;
 	}
 }

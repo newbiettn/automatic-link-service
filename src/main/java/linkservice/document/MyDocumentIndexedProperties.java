@@ -2,7 +2,7 @@ package linkservice.document;
 
 /** To contains properties should be indexed.
  * 
- * The {@link linkservice.index.Indexer} will index the content of documents
+ * The {@link linkservice.indexing.Indexer} will index the content of documents
  * and distinguish them by their unique ID
  * 
  */

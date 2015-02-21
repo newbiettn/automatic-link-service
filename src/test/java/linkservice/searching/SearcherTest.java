@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import linkservice.common.CommonRule;
 import linkservice.common.LoggerRule;
-import linkservice.index.Indexer;
 import linkservice.index.IndexerTest;
+import linkservice.indexing.Indexer;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;

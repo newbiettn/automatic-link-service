@@ -1,6 +1,6 @@
 package linkservice.common;
 
-import linkservice.index.Indexer;
+import linkservice.indexing.Indexer;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;

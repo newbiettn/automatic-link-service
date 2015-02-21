@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.Collection;
 
 import linkservice.common.SequenceFileFromLuceneIndex;
-import linkservice.index.Indexer;
+import linkservice.indexing.Indexer;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configuration;

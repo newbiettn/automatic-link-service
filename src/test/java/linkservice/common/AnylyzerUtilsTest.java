@@ -2,7 +2,7 @@ package linkservice.common;
 
 import java.io.IOException;
 
-import linkservice.index.MyCustomAnalyzer;
+import linkservice.indexing.MyCustomAnalyzer;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.junit.Before;

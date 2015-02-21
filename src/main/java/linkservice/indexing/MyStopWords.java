@@ -1,4 +1,4 @@
-package linkservice.index;
+package linkservice.indexing;
 
 import java.util.Arrays;
 import java.util.List;

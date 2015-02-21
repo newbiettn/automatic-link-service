@@ -8,7 +8,7 @@ import org.junit.Test;
 import linkservice.common.ClusterOutput;
 import linkservice.common.LinkServiceGetPropertyValues;
 import linkservice.common.SequenceFileFromLuceneIndex;
-import linkservice.index.Indexer;
+import linkservice.indexing.Indexer;
 
 public class CluteringByKMeansTest {
 

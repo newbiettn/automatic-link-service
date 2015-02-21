@@ -1,4 +1,4 @@
-package linkservice.index;
+package linkservice.indexing;
 
 import java.io.IOException;
 import java.io.Reader;
