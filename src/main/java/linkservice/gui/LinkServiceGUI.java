@@ -61,9 +61,11 @@ public class LinkServiceGUI extends JFrame {
 		
 		//result
 		resultTextPane = new JTextPane();
-		ActionListener searchBtnListener = new SearchListener(resultTextPane);
-		searchBtn.addActionListener(searchBtnListener);
 		contentPane.add(resultTextPane, "cell 0 1,grow");
+		
+		String query = queryTextField.getText();
+		ActionListener searchBtnListener = new SearchListener(resultTextPane, queryTextField);
+		searchBtn.addActionListener(searchBtnListener);
 		
 	}
 }
