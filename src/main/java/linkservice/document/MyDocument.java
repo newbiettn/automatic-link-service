@@ -10,15 +10,14 @@ import javax.swing.ImageIcon;
  *
  */
 public class MyDocument {
-	public enum FileTypes {
-		PDF, DOC, DOCX, TXT, HTML
+	public enum MyDocumentType {
+		PDF, DOC, DOCX, TXT, HTML, RFC;
 	}
 	
 	//document id
 	private String id;
 	
-	//image icon
-	private String mimeType;
+	private MyDocumentType mimeType;
 
 	//for display highlight in the search result, depends on search keyword
 	private String fragment;
@@ -29,12 +28,20 @@ public class MyDocument {
 	//file name of the document
 	private String fileName;
 	
-	public String getMimeType() {
+	public MyDocumentType getMimeType() {
 		return mimeType;
 	}
 
-	public void setMimeType(String mimeType) {
-		this.mimeType = mimeType;
+	public void setMimeType(String mimeTypeStr) {
+		System.out.println(mimeTypeStr);
+		switch(mimeTypeStr) {
+			case "application/pdf": 
+				mimeType = MyDocumentType.PDF;
+				break;
+			default:
+				mimeType = MyDocumentType.TXT;
+				break;
+		}
 	}
 	
 	public String getId() {

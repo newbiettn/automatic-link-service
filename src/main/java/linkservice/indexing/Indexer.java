@@ -206,7 +206,7 @@ public class Indexer {
 		}
 		
 		Document doc = new Document();
-		
+
 		//docId
 		doc.add(new StringField(MyDocumentIndexedProperties.ID_FIELD, Integer.toString(docId), Field.Store.YES));
 		
