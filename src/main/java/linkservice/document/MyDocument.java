@@ -1,5 +1,7 @@
 package linkservice.document;
 
+import javax.swing.ImageIcon;
+
 /**
  * Document entity, used to represent document item
  * in search result.
@@ -8,8 +10,15 @@ package linkservice.document;
  *
  */
 public class MyDocument {
+	public enum FileTypes {
+		PDF, DOC, DOCX, TXT, HTML
+	}
+	
 	//document id
 	private String id;
+	
+	//image icon
+	private String mimeType;
 
 	//for display highlight in the search result, depends on search keyword
 	private String fragment;
@@ -19,6 +28,14 @@ public class MyDocument {
 	
 	//file name of the document
 	private String fileName;
+	
+	public String getMimeType() {
+		return mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+	}
 	
 	public String getId() {
 		return id;

@@ -32,10 +32,12 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.apache.lucene.index.FieldInfo.IndexOptions;
-
+import org.apache.tika.config.TikaConfig;
+import org.apache.tika.detect.Detector;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.metadata.Property;
 import org.apache.tika.metadata.TikaCoreProperties;
+import org.apache.tika.mime.MediaType;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
@@ -208,8 +210,17 @@ public class Indexer {
 		//docId
 		doc.add(new StringField(MyDocumentIndexedProperties.ID_FIELD, Integer.toString(docId), Field.Store.YES));
 		
+		//mime type
+		doc.add(new StringField(MyDocumentIndexedProperties.MIME_TYPE_FIELD, metadata.get(Metadata.CONTENT_TYPE), Field.Store.YES));
+		
+		//filename
+		doc.add(new StringField(MyDocumentIndexedProperties.FILE_NAME_FIELD, f.getName(), Field.Store.YES));
+
+		//filepath
+		doc.add(new StringField(MyDocumentIndexedProperties.FILE_PATH_FIELD, f.getCanonicalPath(), Field.Store.YES));
+		
 		//content field
-		TokenStream ts = analyzer.tokenStream("contents", new StringReader(handler.toString())); 
+		TokenStream ts = analyzer.tokenStream(MyDocumentIndexedProperties.CONTENT_FIELD, new StringReader(handler.toString())); 
 		Field contentField = new Field(MyDocumentIndexedProperties.CONTENT_FIELD, AnalyzerUtils.tokenStreamToString(ts), TYPE_STORED);
 		ts.close();
 		doc.add(contentField);

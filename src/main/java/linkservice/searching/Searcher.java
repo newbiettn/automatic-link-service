@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import linkservice.document.MyDocument;
 import linkservice.document.MyDocumentIndexedProperties;
 import linkservice.indexing.Indexer;
 import linkservice.indexing.MyCustomAnalyzer;
@@ -29,7 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ * Perform the search
  * 
  * @author newbiettn
  *
@@ -67,27 +68,48 @@ public class Searcher {
 	 * @throws IOException
 	 * @throws InvalidTokenOffsetsException
 	 */
-	public List<String> search(String keyword) throws IOException, InvalidTokenOffsetsException {
+	public List<MyDocument> search(String keyword) throws IOException, InvalidTokenOffsetsException {
 		termQuery = new TermQuery(new Term(MyDocumentIndexedProperties.CONTENT_FIELD, keyword));
 		topDocs = indexSearcher.search(termQuery, 10);
 		this.queryScorer = new QueryScorer(this.termQuery, MyDocumentIndexedProperties.CONTENT_FIELD);
 		Highlighter highlighter = new Highlighter(this.queryScorer);
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(this.queryScorer));
 		
-		List<String> searchResult = new ArrayList<String>();
+		List<MyDocument> searchResult = new ArrayList<MyDocument>();
 		for (ScoreDoc sd : topDocs.scoreDocs) {
-			String result = getSingleResult(sd, highlighter);
-			searchResult.add(result);
+			MyDocument singleDoc = getSingleResult(sd, highlighter);
+			searchResult.add(singleDoc);
 		}
 		return searchResult;
 	}
 	
-	public String getSingleResult(ScoreDoc sd, Highlighter highlighter) throws IOException, InvalidTokenOffsetsException {
+	/**
+	 * Return single document entity for search result.
+	 * The entity includes document filename, id, text fragment (for highlighting)
+	 * 
+	 * @param sd
+	 * @param highlighter
+	 * @return
+	 * @throws IOException
+	 * @throws InvalidTokenOffsetsException
+	 */
+	public MyDocument getSingleResult(ScoreDoc sd, Highlighter highlighter) throws IOException, InvalidTokenOffsetsException {
+		MyDocument myDoc = new MyDocument();
 		Document doc = indexSearcher.doc(sd.doc);
+		String mimeType = doc.get(MyDocumentIndexedProperties.MIME_TYPE_FIELD);
+		String filename = doc.get(MyDocumentIndexedProperties.FILE_NAME_FIELD);
+		String id = doc.get(MyDocumentIndexedProperties.ID_FIELD);
+		String filepath = doc.get(MyDocumentIndexedProperties.FILE_PATH_FIELD);
 		String contents = doc.get(MyDocumentIndexedProperties.CONTENT_FIELD);
 		TokenStream stream = TokenSources.getAnyTokenStream(
 				indexSearcher.getIndexReader(), sd.doc, MyDocumentIndexedProperties.CONTENT_FIELD, doc, myCustomAnalyzer);
 		String fragment = highlighter.getBestFragment(stream, contents);
-		return fragment;
+		
+		myDoc.setFragment(fragment);
+		myDoc.setId(id);
+		myDoc.setFileName(filename);;
+		myDoc.setUri(filepath);
+		myDoc.setMimeType(mimeType);
+		return myDoc;
 	}
 }

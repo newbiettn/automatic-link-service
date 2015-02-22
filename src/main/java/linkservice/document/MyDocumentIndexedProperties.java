@@ -13,4 +13,13 @@ public class MyDocumentIndexedProperties {
 	
 	//default indexed Id for document
 	public static final String ID_FIELD = "id";
+	
+	//default index field name for name of document
+	public static final String FILE_NAME_FIELD = "filename";
+	
+	//default index field name for path of document
+	public static final String FILE_PATH_FIELD = "filepath";
+	
+	//default index field name for path of document
+	public static final String MIME_TYPE_FIELD = "mimetype";
 }
