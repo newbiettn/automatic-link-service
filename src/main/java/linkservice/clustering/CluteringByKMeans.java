@@ -14,7 +14,7 @@ public class CluteringByKMeans extends AbstractClustering {
 
 	public void run() throws Exception {
 		int k = 10;
-		double convergenceDelta = 0.1;
+		double convergenceDelta = 0.5;
 		int maxIterations = 9999;
 		
 		// Generate Sparse vectors from sequence files

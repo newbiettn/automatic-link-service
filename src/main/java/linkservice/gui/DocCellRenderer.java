@@ -39,7 +39,7 @@ public class DocCellRenderer extends JLabel implements
 		
 		//text
 		String str = "<html>";
-		str += "<p style=\" max-width: 10px;  \">";
+		str += "<p style=\" max-width: 50px; \">";
 		str += "<span style=\"font-size: 9px; \">" + filename + "</span>" ;
 		str += "<br>";
 		str += "<span style=\"color: #424242; \">" + fragment + "</span>";
@@ -64,7 +64,7 @@ public class DocCellRenderer extends JLabel implements
 		setEnabled(list.isEnabled());
 		setFont(list.getFont());
 		list.setFixedCellHeight(-1);
-		list.setFixedCellWidth(50);
+		list.setFixedCellWidth(-1);
 		list.setBorder(new EmptyBorder(2,2, 2, 2));
 		list.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0,Color.BLACK));
 		return this;

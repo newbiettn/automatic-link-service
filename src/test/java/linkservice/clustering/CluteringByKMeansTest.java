@@ -6,6 +6,7 @@ import org.apache.mahout.common.HadoopUtil;
 import org.junit.Test;
 
 import linkservice.common.ClusterOutput;
+import linkservice.common.GeneralConfigPath;
 import linkservice.common.LinkServiceGetPropertyValues;
 import linkservice.common.SequenceFileFromLuceneIndex;
 import linkservice.indexing.Indexer;
@@ -15,7 +16,7 @@ public class CluteringByKMeansTest {
 	@Test
 	public void test1() throws Exception {
 		Configuration conf = new Configuration();
-		String configFilePath = "src/main/resources/config.properties";
+		String configFilePath = GeneralConfigPath.PROPERTIES_PATH;
 		
 		//get properties helper
 		LinkServiceGetPropertyValues myDocumentIndexedProp = new LinkServiceGetPropertyValues(
@@ -53,7 +54,7 @@ public class CluteringByKMeansTest {
 		clusteringByKMeans.run();
 
 		// dump results
-		String clusterFinalFile = finalClusterOutputDir + "/clusters-2-final";
+		String clusterFinalFile = finalClusterOutputDir + "/clusters-0";
 		String clusteredPoints = finalClusterOutputDir + "/clusteredPoints";
 		String outputFile = outputRootDir + "/output.txt";
 		String dictionaryFile = sparseVectorsDir + "/dictionary.file-0";
