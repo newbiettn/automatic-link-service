@@ -72,39 +72,40 @@ public class LinkServiceGUI extends JFrame {
 		// home
 		homePane = new JPanel(new MigLayout("", "[grow][]", "[][][grow]"));
 		setUpHomePane();
+		tabbedPane.addTab("Home", null, homePane, "Does nothing");
 		
 		// clustering
-		advancePane = new JPanel(new MigLayout("", "[167.00][67.00][grow]", "[][][][][grow]"));
-		tabbedPane.addTab("Advance", null, advancePane, "Does nothing");
-		JLabel clustersLb = new JLabel();
-		clustersLb.setText("Clusters (k)");
-		advancePane.add(clustersLb, "cell 0 0,grow");
-		JTextField clustersTxtField = new JTextField();
-		advancePane.add(clustersTxtField, "cell 1 0,grow");
-		
-		JLabel distanceMeasureLb = new JLabel();
-		distanceMeasureLb.setText("Distance measure");
-		advancePane.add(distanceMeasureLb, "cell 0 1,grow");
-		JTextField distanceMeasureTxtField = new JTextField();
-		advancePane.add(distanceMeasureTxtField, "cell 1 1,grow");
-		
-		JLabel iterationsLb = new JLabel();
-		iterationsLb.setText("Iterations");
-		advancePane.add(iterationsLb, "cell 0 2,grow");
-		JTextField iterationsTxtField = new JTextField();
-		advancePane.add(iterationsTxtField, "cell 1 2,grow");
-		
-		JLabel covergenceLb = new JLabel();
-		covergenceLb.setText("Covergence");
-		advancePane.add(covergenceLb, "cell 0 3,grow");
-		JTextField convergenceTxtField = new JTextField();
-		
-		advancePane.add(convergenceTxtField, "cell 1 3,grow");
-		tabbedPane.addTab("Home", null, homePane, "Does nothing");
-		setUpAdvance();
-		
-		JPanel graph = new KMeanGraphPanel();
-		advancePane.add(graph, "cell 2 0 1 5");
+//		advancePane = new JPanel(new MigLayout("", "[167.00][67.00][grow]", "[][][][][grow]"));
+//		tabbedPane.addTab("Advance", null, advancePane, "Does nothing");
+//		JLabel clustersLb = new JLabel();
+//		clustersLb.setText("Clusters (k)");
+//		advancePane.add(clustersLb, "cell 0 0,grow");
+//		JTextField clustersTxtField = new JTextField();
+//		advancePane.add(clustersTxtField, "cell 1 0,grow");
+//		
+//		JLabel distanceMeasureLb = new JLabel();
+//		distanceMeasureLb.setText("Distance measure");
+//		advancePane.add(distanceMeasureLb, "cell 0 1,grow");
+//		JTextField distanceMeasureTxtField = new JTextField();
+//		advancePane.add(distanceMeasureTxtField, "cell 1 1,grow");
+//		
+//		JLabel iterationsLb = new JLabel();
+//		iterationsLb.setText("Iterations");
+//		advancePane.add(iterationsLb, "cell 0 2,grow");
+//		JTextField iterationsTxtField = new JTextField();
+//		advancePane.add(iterationsTxtField, "cell 1 2,grow");
+//		
+//		JLabel covergenceLb = new JLabel();
+//		covergenceLb.setText("Covergence");
+//		advancePane.add(covergenceLb, "cell 0 3,grow");
+//		JTextField convergenceTxtField = new JTextField();
+//		
+//		advancePane.add(convergenceTxtField, "cell 1 3,grow");
+//		tabbedPane.addTab("Home", null, homePane, "Does nothing");
+//		setUpAdvance();
+//		
+//		JPanel graph = new KMeanGraphPanel();
+//		advancePane.add(graph, "cell 2 0 1 5");
 	}
 	public void setUpHomePane() throws IOException, InvalidTokenOffsetsException {
 		homePane = new JPanel(new MigLayout("", "[grow][]", "[][][grow]"));

@@ -39,6 +39,7 @@ import org.apache.mahout.math.SequentialAccessSparseVector;
 import org.apache.mahout.math.Vector;
 import org.apache.mahout.math.Vector.Element;
 import org.apache.mahout.math.VectorWritable;
+import org.apache.mahout.utils.clustering.AbstractClusterWriter;
 import org.apache.mahout.utils.clustering.ClusterDumper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,24 +80,32 @@ public class KMeanGraphPanel extends JPanel {
 
 	protected void generateSamples() throws IOException {
 		Configuration conf = new Configuration();
-		FileSystem fs = FileSystem.get(conf);
-		SequenceFile.Reader reader = new SequenceFile.Reader(fs, new Path(
-				"output/sparse_vectors/tfidf-vectors/part-r-00000"), conf);
-		Text key = new Text();
-		VectorWritable value = new VectorWritable();
-		
-		while (reader.next(key, value)) {
-			NamedVector namedVector = (NamedVector)value.get();
-			SequentialAccessSparseVector vect = (SequentialAccessSparseVector)namedVector.getDelegate();
-			Iterator<Element> it = vect.iterateNonZero();
-			System.out.println(Iterators.size(it));
-			double[] row = new double[Iterators.size(it)];
-			int j=0;
-			while (it.hasNext()) {
-				Vector.Element e = it.next();
-				row[j] = e.get();
-				j++;
-			}
+		Iterable<ClusterWritable> iterable = new SequenceFileDirValueIterable<ClusterWritable>(
+				new Path("output/final_clusters/clusters-2-final", "part-*"),
+				PathType.GLOB, conf);
+		Iterator<ClusterWritable> iterator = iterable.iterator();
+		// iterator of clusters
+		while (iterator.hasNext()) {
+			// handle each clusters
+			write(iterator.next());
+		}
+	}
+
+	public void write(ClusterWritable clusterWritable) {
+		Configuration conf = new Configuration();
+		Map<Integer, List<WeightedPropertyVectorWritable>> clusterIdToPoints = ClusterDumper
+				.readPoints(new Path("output/final_clusters/clusteredPoints"),
+						Long.MAX_VALUE, conf);
+		// get list of points for the cluster
+		List<WeightedPropertyVectorWritable> points = clusterIdToPoints
+				.get(clusterWritable.getValue().getId());
+
+		// loop the list
+		for (Iterator<WeightedPropertyVectorWritable> iterator = points
+				.iterator(); iterator.hasNext();) {
+			// the point
+			WeightedVectorWritable point = iterator.next();
+			point.getVector();
 		}
 	}
 

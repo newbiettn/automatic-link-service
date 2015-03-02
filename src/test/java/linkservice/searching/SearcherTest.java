@@ -1,6 +1,6 @@
 package linkservice.searching;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +23,7 @@ import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.mahout.common.HadoopUtil;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
@@ -49,7 +50,8 @@ public class SearcherTest {
 	private static Indexer indexer;
 
 	private String index_dir = commonRule.getIndexDir();
-
+	
+	private Configuration conf;
 	private Searcher searcher;
 
 	@Before
@@ -57,36 +59,30 @@ public class SearcherTest {
 		logger = testLogger.getLogger();
 		indexer = commonRule.getIndexer();
 
-		// empty directory first before test to avoid duplicated
-		Configuration conf = new Configuration();
-		HadoopUtil.delete(conf, new Path(commonRule.getIndexDir()));
-
+		conf = new Configuration();
+		
 		// index and store in both local and hdfs
 		indexer.runIndex();
 		indexer.close();
-
-		try {
-			searcher = new Searcher(index_dir);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		searcher = new Searcher(index_dir);
 	}
 
-//	@Test
-//	public void test4Term() throws Exception {
-//		Directory directory = FSDirectory.open(new File(index_dir));
-//		IndexReader reader = DirectoryReader.open(directory);
-//		IndexSearcher searcher = new IndexSearcher(reader);
-//		Term t = new Term("contents", "image");
-//		Query query = new TermQuery(t);
-//		TopDocs docs = searcher.search(query, 1000);
-//		assertEquals(1, docs.totalHits);
-//		reader.close();
-//	}
-
 	@Test
-	public void test1SimpleSearch() throws IOException,
-			InvalidTokenOffsetsException {
-		//searcher.search();
+	public void test1ForTerm() throws Exception {
+		Directory directory = FSDirectory.open(new File(index_dir));
+		IndexReader reader = DirectoryReader.open(directory);
+		IndexSearcher searcher = new IndexSearcher(reader);
+		Term t = new Term("contents", "image");
+		Query query = new TermQuery(t);
+		TopDocs docs = searcher.search(query, 1000);
+		assertNotNull(docs.totalHits);
+		reader.close();
+	}
+
+	
+	@After 
+	public void tearDown() throws IOException {
+		HadoopUtil.delete(conf, new Path(commonRule.getIndexDir()));
 	}
 }

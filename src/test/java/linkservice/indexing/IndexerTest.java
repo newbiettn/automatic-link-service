@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -56,15 +57,16 @@ public class IndexerTest {
 	private String index_dir = commonRule.getIndexDir();
 
 	private String data_dir = commonRule.getDataDir();
-
+	
+	static Configuration conf;
+	
 	@BeforeClass
 	public static void setUp() throws Exception {
 		logger = testLogger.getLogger();
 		indexer = commonRule.getIndexer();
 
 		// empty directory first before test to avoid duplicated
-		Configuration conf = new Configuration();
-		HadoopUtil.delete(conf, new Path(commonRule.getIndexDir()));
+		conf = new Configuration();
 
 		// index and store in both local and hdfs
 		indexer.runIndex();
@@ -130,5 +132,10 @@ public class IndexerTest {
 		}
 		logger.info("---------------test5GetAllTerm() ends-------------");
 	}
+	
+	@AfterClass
+	public static void tearDown() throws IOException {
+		HadoopUtil.delete(conf, new Path(commonRule.getIndexDir()));
 
+	}
 }

@@ -3,18 +3,22 @@ package linkservice.searching;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import linkservice.document.MyDocument;
 import linkservice.document.MyDocumentIndexedProperties;
 import linkservice.indexing.Indexer;
 import linkservice.indexing.MyCustomAnalyzer;
+import linkservice.searching.result.SearchResultObject;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.search.Explanation;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
@@ -68,17 +72,25 @@ public class Searcher {
 	 * @throws IOException
 	 * @throws InvalidTokenOffsetsException
 	 */
-	public List<MyDocument> search(String keyword) throws IOException, InvalidTokenOffsetsException {
+	public Set<SearchResultObject> search(String keyword) throws IOException, InvalidTokenOffsetsException {
 		termQuery = new TermQuery(new Term(MyDocumentIndexedProperties.CONTENT_FIELD, keyword));
-		topDocs = indexSearcher.search(termQuery, 10);
+		topDocs = indexSearcher.search(termQuery, 100);
+		indexSearcher.setSimilarity(new MyCustomSimilarity());
 		this.queryScorer = new QueryScorer(this.termQuery, MyDocumentIndexedProperties.CONTENT_FIELD);
 		Highlighter highlighter = new Highlighter(this.queryScorer);
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(this.queryScorer));
 		
-		List<MyDocument> searchResult = new ArrayList<MyDocument>();
+		Set<SearchResultObject> searchResult = new HashSet<SearchResultObject>();
 		for (ScoreDoc sd : topDocs.scoreDocs) {
-			MyDocument singleDoc = getSingleResult(sd, highlighter);
-			searchResult.add(singleDoc);
+			//explain score
+			Explanation explanation = indexSearcher.explain(termQuery, sd.doc);
+			System.out.println("----------");
+			
+			MyDocument singleDoc = makeDocumentForResult(sd, highlighter);
+			searchResult.add(buildSingleSearchResult(singleDoc));
+			
+			//explain score
+			System.out.println(explanation.toString());
 		}
 		return searchResult;
 	}
@@ -93,7 +105,7 @@ public class Searcher {
 	 * @throws IOException
 	 * @throws InvalidTokenOffsetsException
 	 */
-	public MyDocument getSingleResult(ScoreDoc sd, Highlighter highlighter) throws IOException, InvalidTokenOffsetsException {
+	public MyDocument makeDocumentForResult(ScoreDoc sd, Highlighter highlighter) throws IOException, InvalidTokenOffsetsException {
 		MyDocument myDoc = new MyDocument();
 		Document doc = indexSearcher.doc(sd.doc);
 		String mimeType = doc.get(MyDocumentIndexedProperties.MIME_TYPE_FIELD);
@@ -111,5 +123,16 @@ public class Searcher {
 		myDoc.setUri(filepath);
 		myDoc.setMimeType(mimeType);
 		return myDoc;
+	}
+	
+	/**
+	 * Make ResultObject
+	 * 
+	 * @param myDoc
+	 * @return
+	 */
+	public SearchResultObject buildSingleSearchResult(MyDocument myDoc) {
+		SearchResultObject searchResultObj = new SearchResultObject(myDoc);
+		return searchResultObj;
 	}
 }
