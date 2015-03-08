@@ -36,7 +36,7 @@ public class LinkServiceGUI extends JFrame {
 	private JPanel advancePane;
 	private JTextField queryTextField;
 	private JButton searchBtn;
-	private JList<MyDocument> resultList;
+//	private JList<MyDocument> resultList;
 
 	/**
 	 * Launch the application.
@@ -119,18 +119,18 @@ public class LinkServiceGUI extends JFrame {
 		searchBtn = new JButton("Search");
 		homePane.add(searchBtn, "cell 1 1,grow");
 
-		resultList = new JList<MyDocument>();
-		DocCellRenderer renderer = new DocCellRenderer();
-		resultList.setCellRenderer(renderer);
-		resultList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		resultList.setVisibleRowCount(-1);
-		JScrollPane scrollPane = new JScrollPane(resultList);
-		homePane.add(scrollPane, "cell 0 2,grow");
-
-		// result
-		ActionListener searchBtnListener = new SearchListener(resultList,
-				queryTextField);
-		searchBtn.addActionListener(searchBtnListener);
+//		resultList = new JList<MyDocument>();
+//		DocCellRenderer renderer = new DocCellRenderer();
+//		resultList.setCellRenderer(renderer);
+//		resultList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+//		resultList.setVisibleRowCount(-1);
+//		JScrollPane scrollPane = new JScrollPane(resultList);
+//		homePane.add(scrollPane, "cell 0 2,grow");
+//
+//		// result
+//		ActionListener searchBtnListener = new SearchListener(resultList,
+//				queryTextField);
+//		searchBtn.addActionListener(searchBtnListener);
 	}
 	
 

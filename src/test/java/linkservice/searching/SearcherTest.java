@@ -4,11 +4,14 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import linkservice.common.CommonRule;
 import linkservice.common.LoggerRule;
+import linkservice.document.MyDocument;
 import linkservice.indexing.Indexer;
 import linkservice.indexing.IndexerTest;
+import linkservice.searching.result.SearchResultObject;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -70,14 +73,12 @@ public class SearcherTest {
 
 	@Test
 	public void test1ForTerm() throws Exception {
-		Directory directory = FSDirectory.open(new File(index_dir));
-		IndexReader reader = DirectoryReader.open(directory);
-		IndexSearcher searcher = new IndexSearcher(reader);
-		Term t = new Term("contents", "image");
-		Query query = new TermQuery(t);
-		TopDocs docs = searcher.search(query, 1000);
-		assertNotNull(docs.totalHits);
-		reader.close();
+		List<SearchResultObject> docs = searcher.search("image");
+		for (SearchResultObject searchResultObj : docs) {
+			MyDocument myDoc = searchResultObj.getMyDoc();
+			logger.info(myDoc.getFragment()+"");
+		}
+		assertNotNull(docs.size());
 	}
 
 	

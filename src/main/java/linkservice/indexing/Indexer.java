@@ -150,7 +150,7 @@ public class Indexer {
 				null, true);
 		
 		for (File f : files) {
-			System.out.println(f.getCanonicalPath());
+//			System.out.println(f.getCanonicalPath());
 			indexFile(f);
 		}
 

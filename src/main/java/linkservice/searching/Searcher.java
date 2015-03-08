@@ -72,7 +72,7 @@ public class Searcher {
 	 * @throws IOException
 	 * @throws InvalidTokenOffsetsException
 	 */
-	public Set<SearchResultObject> search(String keyword) throws IOException, InvalidTokenOffsetsException {
+	public List<SearchResultObject> search(String keyword) throws IOException, InvalidTokenOffsetsException {
 		termQuery = new TermQuery(new Term(MyDocumentIndexedProperties.CONTENT_FIELD, keyword));
 		topDocs = indexSearcher.search(termQuery, 100);
 		indexSearcher.setSimilarity(new MyCustomSimilarity());
@@ -80,17 +80,17 @@ public class Searcher {
 		Highlighter highlighter = new Highlighter(this.queryScorer);
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(this.queryScorer));
 		
-		Set<SearchResultObject> searchResult = new HashSet<SearchResultObject>();
+		List<SearchResultObject> searchResult = new ArrayList<SearchResultObject>();
 		for (ScoreDoc sd : topDocs.scoreDocs) {
 			//explain score
-			Explanation explanation = indexSearcher.explain(termQuery, sd.doc);
-			System.out.println("----------");
+//			Explanation explanation = indexSearcher.explain(termQuery, sd.doc);
+//			System.out.println("----------");
 			
 			MyDocument singleDoc = makeDocumentForResult(sd, highlighter);
 			searchResult.add(buildSingleSearchResult(singleDoc));
 			
 			//explain score
-			System.out.println(explanation.toString());
+//			System.out.println(explanation.toString());
 		}
 		return searchResult;
 	}

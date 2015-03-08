@@ -3,7 +3,9 @@ package linkservice.clustering.vectors;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import linkservice.clustering.AbstractClustering;
@@ -33,14 +35,14 @@ import org.junit.Test;
  *
  */
 public class GetTFIDFVectorsTest {
-	private Set<String> sample;
+	private List<String> sample;
 	Configuration conf;
 	LinkServiceGetPropertyValues myDocumentIndexedProp;
 
 	@Before
 	public void setUp() throws Exception {
 		conf = new Configuration();
-		sample = new HashSet<String>();
+		sample = new ArrayList<String>();
 		String configFilePath = GeneralConfigPath.PROPERTIES_PATH;
 
 		// get properties helper

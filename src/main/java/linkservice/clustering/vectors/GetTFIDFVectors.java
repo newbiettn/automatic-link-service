@@ -1,6 +1,7 @@
 package linkservice.clustering.vectors;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,18 +31,18 @@ public class GetTFIDFVectors {
 		return size;
 	}
 
-	public static void copy(Set<String> list) throws IOException {
+	public static void copy(List<String> sample) throws IOException {
 		Configuration conf = new Configuration();
 		FileSystem fs = FileSystem.get(conf);
 		Path p = new Path("output/sparse_vectors/tfidf-vectors/part-r-00000");
 		Path outputPath = new Path(
-				"output/sparse_vectors_by_query/tfidf-vectors/part-r-00000");
+				"output/clustering/sparse_vectors_by_query/tfidf-vectors/part-r-00000");
 		SequenceFile.Reader reader = new SequenceFile.Reader(fs, p, conf);
 		SequenceFile.Writer writer = new SequenceFile.Writer(fs, conf,
 				outputPath, Text.class, VectorWritable.class);
 		Text key = new Text();
 		VectorWritable val = new VectorWritable();
-		Set<String> copiedList = new HashSet<String>(list);
+		List<String> copiedList = new ArrayList<String>(sample);
 		while (reader.next(key, val)) {
 			String k = key.toString();
 			if (copiedList.contains(k)) {

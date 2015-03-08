@@ -56,7 +56,7 @@ public abstract class AbstractClustering {
 	 * @throws Exception
 	 * 
 	 */
-	public void run(Set<SearchResultObject> results) throws Exception {};
+	public void run(List<SearchResultObject> results) throws Exception {};
 
 	protected AbstractClustering() throws IOException {
 		conf = new Configuration();
@@ -131,12 +131,12 @@ public abstract class AbstractClustering {
 	 * 
 	 * The exacted set of vectors will be the input of clustering process
 	 * 
-	 * @param list
+	 * @param results
 	 * @return
 	 */
-	public Set<String> getListOfKeysFromResults(Set<SearchResultObject> list) {
-		Set<String> result = new HashSet<String>();
-		for (SearchResultObject ele : list) {
+	public List<String> getListOfKeysFromResults(List<SearchResultObject> results) {
+		List<String> result = new ArrayList<String>();
+		for (SearchResultObject ele : results) {
 			MyDocument doc = ele.getMyDoc();
 			result.add(doc.getId());
 		}

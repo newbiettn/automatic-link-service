@@ -1,8 +1,10 @@
 package linkservice.clustering;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
+import linkservice.clustering.jsonify.OrganizeSearchResultObjectByClusters;
 import linkservice.common.ClusterOutput;
 import linkservice.common.CommonRule;
 import linkservice.common.GeneralConfigPath;
@@ -18,7 +20,6 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.mahout.common.HadoopUtil;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -84,26 +85,19 @@ public class ClusteringByFuzzyKMeansTest {
 		lucene2Seq.run();
 
 		// make a dumb search for testing purpose
-		Set<SearchResultObject> sampleResult = makeDumbSearch();
-		// run clustering using sequence files
-		clusteringByFuzzyKMeans.run(sampleResult);
+		List<SearchResultObject> sampleResult = makeDumbSearch();
 
-		// dump results
-		String clusterFinalFile = finalClusterOutputDir + "/clusters-0";
-		String clusteredPoints = finalClusterOutputDir + "/clusteredPoints";
-		String outputFile = outputRootDir + "/output.txt";
-		String dictionaryFile = sparseVectorsDir + "/dictionary.file-0";
-
-		ClusterOutput clusterOutput = new ClusterOutput(clusterFinalFile,
-				clusteredPoints, outputFile, dictionaryFile);
-		clusterOutput.emptyOuputFile();
-		clusterOutput.run();
+		if (sampleResult.size() > 0) {
+			// run clustering using sequence files
+			clusteringByFuzzyKMeans.run(sampleResult);
+			OrganizeSearchResultObjectByClusters.run(sampleResult);
+		}
 	}
 
-	public Set<SearchResultObject> makeDumbSearch() throws IOException,
+	public List<SearchResultObject> makeDumbSearch() throws IOException,
 			InvalidTokenOffsetsException {
 		Searcher searcher = new Searcher(index_dir);
-		Set<SearchResultObject> results = searcher.search("image");
+		List<SearchResultObject> results = searcher.search("image");
 		return results;
 	}
 }
