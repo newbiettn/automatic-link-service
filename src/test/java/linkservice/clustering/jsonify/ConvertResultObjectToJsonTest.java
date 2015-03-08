@@ -1,12 +1,9 @@
 package linkservice.clustering.jsonify;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import linkservice.clustering.ClusteringByFuzzyKMeans;
+import linkservice.clustering.methods.ClusteringByFuzzyKMeans;
 import linkservice.common.CommonRule;
 import linkservice.common.GeneralConfigPath;
 import linkservice.common.LinkServiceGetPropertyValues;
@@ -18,9 +15,7 @@ import linkservice.searching.result.SearchResultObjectByCluster;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.mahout.common.HadoopUtil;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -79,8 +74,8 @@ public class ConvertResultObjectToJsonTest {
 			clusteringByFuzzyKMeans.run(results);
 			resultsByClusters = OrganizeSearchResultObjectByClusters.run(results);
 			Genson genson = new Genson();
-			System.out.println("Search result size: " + results.size());
-			System.out.println("Search result by clusters: " + resultsByClusters.size());
+			logger.info("Search result size: " + results.size());
+			logger.info("Search result by clusters: " + resultsByClusters.size());
 			String json = genson.serialize(resultsByClusters);
 			logger.info(json+"");
 		}

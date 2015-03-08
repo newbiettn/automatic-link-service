@@ -1,7 +1,5 @@
 package linkservice.document;
 
-import javax.swing.ImageIcon;
-
 /**
  * Document entity, used to represent document item
  * in search result.

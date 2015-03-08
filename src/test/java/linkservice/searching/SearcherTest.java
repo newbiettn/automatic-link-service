@@ -2,7 +2,6 @@ package linkservice.searching;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,21 +9,10 @@ import linkservice.common.CommonRule;
 import linkservice.common.LoggerRule;
 import linkservice.document.MyDocument;
 import linkservice.indexing.Indexer;
-import linkservice.indexing.IndexerTest;
 import linkservice.searching.result.SearchResultObject;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TermQuery;
-import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
 import org.apache.mahout.common.HadoopUtil;
 import org.junit.After;
 import org.junit.Before;

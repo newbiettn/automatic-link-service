@@ -2,9 +2,9 @@ package linkservice.clustering;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 import linkservice.clustering.jsonify.OrganizeSearchResultObjectByClusters;
+import linkservice.clustering.methods.ClusteringByFuzzyKMeans;
 import linkservice.common.ClusterOutput;
 import linkservice.common.CommonRule;
 import linkservice.common.GeneralConfigPath;

@@ -11,8 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import linkservice.clustering.ClusteringByFuzzyKMeans;
-import linkservice.clustering.jsonify.ConvertResultObjectToJson;
+import linkservice.clustering.methods.ClusteringByFuzzyKMeans;
+import linkservice.clustering.methods.jsonify.ConvertResultObjectToJson;
 import linkservice.searching.Searcher;
 import linkservice.searching.result.SearchResultObject;
 import linkservice.searching.result.SearchResultObjectByCluster;

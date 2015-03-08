@@ -1,8 +1,7 @@
-package linkservice.clustering;
+package linkservice.clustering.methods;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 import linkservice.clustering.vectors.GetTFIDFVectors;
 import linkservice.common.ClusterOutput;

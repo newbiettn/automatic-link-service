@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import linkservice.clustering.AbstractClustering;
-import linkservice.clustering.CluteringByKMeans;
+import linkservice.clustering.methods.AbstractClustering;
+import linkservice.clustering.methods.CluteringByKMeans;
 import linkservice.common.GeneralConfigPath;
 import linkservice.common.LinkServiceGetPropertyValues;
 import linkservice.common.SequenceFileFromLuceneIndex;

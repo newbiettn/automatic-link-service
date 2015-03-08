@@ -1,4 +1,4 @@
-package linkservice.clustering;
+package linkservice.clustering.methods;
 
 import java.io.IOException;
 

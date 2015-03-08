@@ -5,6 +5,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.mahout.common.HadoopUtil;
 import org.junit.Test;
 
+import linkservice.clustering.methods.CluteringByKMeans;
 import linkservice.common.ClusterOutput;
 import linkservice.common.GeneralConfigPath;
 import linkservice.common.LinkServiceGetPropertyValues;

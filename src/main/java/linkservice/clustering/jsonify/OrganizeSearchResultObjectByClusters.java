@@ -1,15 +1,16 @@
 package linkservice.clustering.jsonify;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
+import linkservice.common.GeneralConfigPath;
+import linkservice.common.LinkServiceGetPropertyValues;
 import linkservice.document.MyDocument;
 import linkservice.searching.result.SearchResultObject;
 import linkservice.searching.result.SearchResultObjectByCluster;
@@ -36,18 +37,19 @@ public class OrganizeSearchResultObjectByClusters {
 			.getLogger(OrganizeSearchResultObjectByClusters.class);
 	
 	static Configuration conf = new Configuration();
-	
-	public static List<SearchResultObjectByCluster> run(List<SearchResultObject> searchReturnedBySearcher) {
+	static LinkServiceGetPropertyValues myDocumentIndexedProp;
+
+	public static List<SearchResultObjectByCluster> run(List<SearchResultObject> searchReturnedBySearcher) throws IOException {
+		myDocumentIndexedProp = new LinkServiceGetPropertyValues(
+				GeneralConfigPath.PROPERTIES_PATH);
 		List<SearchResultObjectByCluster> setOfSearchResultObjectByCluster = new ArrayList<SearchResultObjectByCluster>();
 		
 		Iterable<ClusterWritable> iterable = new SequenceFileDirValueIterable<ClusterWritable>(
-				new Path("output/clustering/final_clusters/clusters-1-final", "part-*"),
+				new Path(myDocumentIndexedProp.getProperty("linkservice.mahout.final_cluster_dir"), "clusters-*/part-*"),
 				PathType.GLOB, conf);
 		Iterator<ClusterWritable> iterator = iterable.iterator();
 		// iterator of clusters
-		System.out.println("clusterWritable");
 		while (iterator.hasNext()) {
-			
 			// handle each clusters
 			ClusterWritable clusterWritable = iterator.next();
 			SearchResultObjectByCluster searchResultObjectByCluster = write(clusterWritable, searchReturnedBySearcher);
@@ -60,7 +62,7 @@ public class OrganizeSearchResultObjectByClusters {
 	public static SearchResultObjectByCluster write(ClusterWritable clusterWritable, List<SearchResultObject> searchReturnedBySearcher) {
 		SearchResultObjectByCluster searchResultObjectByCluster = new SearchResultObjectByCluster();
 		String[] dictionary = VectorHelper.loadTermDictionary(conf,
-				"output/sparse_vectors/dictionary.file-0");
+				myDocumentIndexedProp.getProperty("linkservice.mahout.sparse_vector_dir") + "/dictionary.file-0");
 		int numTopFeatures = 1;
 
 		for (Pair<String, Double> item : getTopPairs(clusterWritable.getValue()
@@ -72,7 +74,7 @@ public class OrganizeSearchResultObjectByClusters {
 
 		// get top terms for the clusters
 		Map<Integer, List<WeightedPropertyVectorWritable>> clusterIdToPoints = ClusterDumper
-				.readPoints(new Path("output/clustering/final_clusters/clusteredPoints"),
+				.readPoints(new Path(myDocumentIndexedProp.getProperty("linkservice.mahout.final_cluster_dir"), "clusteredPoints"),
 						Long.MAX_VALUE, conf);
 
 		// get list of points for the cluster
