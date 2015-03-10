@@ -26,7 +26,7 @@ public class ClusteringByFuzzyKMeans extends AbstractClustering {
 		int maxIterations = 100;
 
 		// Generate Sparse vectors from sequence files
-		generateSparseVectors(sequenceFileDir, sparseVectorsDir);
+		//generateSparseVectors(sequenceFileDir, sparseVectorsDir);
 
 		// exact keys from search result
 		List<String> keys = getListOfKeysFromResults(results);

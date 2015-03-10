@@ -7,6 +7,7 @@ $(document).ready(function() {
 			url : "http://localhost:8080/rest/api/docs",
 			data: JSON.stringify({content: "ngoc", name : "sdfsdfdf"}),
 			success : function(data) {
+				console.log(data);
 				var cluster_names = getClusterName(data);
 				var tree_data = prepareDataForTree(cluster_names);
 				$('.tree').tree({

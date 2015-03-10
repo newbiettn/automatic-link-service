@@ -69,6 +69,7 @@ public class ConvertResultObjectToJsonTest {
 		ClusteringByFuzzyKMeans clusteringByFuzzyKMeans = new ClusteringByFuzzyKMeans();
 
 		List<SearchResultObject> results = searcher.search(searchQuery);
+		
 		List<SearchResultObjectByCluster> resultsByClusters = new ArrayList<SearchResultObjectByCluster>();
 		if (results.size() > 0) {
 			clusteringByFuzzyKMeans.run(results);
@@ -80,4 +81,5 @@ public class ConvertResultObjectToJsonTest {
 			logger.info(json+"");
 		}
 	}
+	
 }

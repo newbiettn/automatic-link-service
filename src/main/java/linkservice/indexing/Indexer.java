@@ -26,18 +26,21 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.StringField;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.apache.lucene.index.FieldInfo.IndexOptions;
-import org.apache.tika.config.TikaConfig;
-import org.apache.tika.detect.Detector;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.metadata.Property;
 import org.apache.tika.metadata.TikaCoreProperties;
-import org.apache.tika.mime.MediaType;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
@@ -50,7 +53,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 
 /**
- * Index all documents 
+ * Index all documents
  *
  * @author newbiettn
  * @version 1.0
@@ -59,18 +62,18 @@ import com.google.common.io.BaseEncoding;
 public class Indexer {
 	// log4j
 	Logger logger = LoggerFactory.getLogger(Indexer.class);
-	
+
 	//
 	static Set<Property> textualMetadataFields = new HashSet<Property>();
-	
+
 	static {
 		textualMetadataFields.add(TikaCoreProperties.TITLE);
-	    textualMetadataFields.add(TikaCoreProperties.KEYWORDS);
-	    textualMetadataFields.add(TikaCoreProperties.DESCRIPTION);
+		textualMetadataFields.add(TikaCoreProperties.KEYWORDS);
+		textualMetadataFields.add(TikaCoreProperties.DESCRIPTION);
 	}
 	// Indexed, tokenized, stored, and create term vector
 	public static final FieldType TYPE_STORED = new FieldType();
-	
+
 	static {
 		TYPE_STORED.setIndexed(true);
 		TYPE_STORED.setTokenized(true);
@@ -78,7 +81,8 @@ public class Indexer {
 		TYPE_STORED.setStoreTermVectors(true);
 		TYPE_STORED.setStoreTermVectorOffsets(true);
 		TYPE_STORED.setStoreTermVectorPositions(true);
-		TYPE_STORED.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
+		TYPE_STORED
+				.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
 		TYPE_STORED.freeze();
 	}
 
@@ -98,11 +102,14 @@ public class Indexer {
 
 	// Hadoop configuration
 	private HadoopConfig hadoopConf;
-	
-	/** 
-	 * Create an Indexer using the given directory to store index files, 
-	 * and the directory need to be indexed.
-	 *  
+
+	// for verify if new documents added to the index
+	private boolean isIndexChanged;
+
+	/**
+	 * Create an Indexer using the given directory to store index files, and the
+	 * directory need to be indexed.
+	 * 
 	 * */
 	public Indexer(String anIndexDir, String aDataDir) {
 		// get config singleton
@@ -113,6 +120,8 @@ public class Indexer {
 
 		// set directory has to be indexed
 		this.dataDir = aDataDir;
+		
+		this.isIndexChanged = false;
 
 		try {
 			// create Directory to store indexes, use FSDirectory.open
@@ -120,37 +129,52 @@ public class Indexer {
 			Directory dir = FSDirectory.open(new File(indexDir));
 
 			// create StandardAnalyzer to tokenize which uses default stop words
-			//analyzer = new MyCustomAnalyzer(new StandardAnalyzer(Version.LUCENE_46, MyStopWords.MY_ENGLISH_STOP_WORDS_SET));
-			//analyzer = new StandardAnalyzer(Version.LUCENE_46, MyStopWords.MY_ENGLISH_STOP_WORDS_SET);
+			// analyzer = new MyCustomAnalyzer(new
+			// StandardAnalyzer(Version.LUCENE_46,
+			// MyStopWords.MY_ENGLISH_STOP_WORDS_SET));
+			// analyzer = new StandardAnalyzer(Version.LUCENE_46,
+			// MyStopWords.MY_ENGLISH_STOP_WORDS_SET);
 			analyzer = new MyCustomAnalyzer();
-			
+
 			// create configuration for new IndexWriter
-			IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_46, analyzer);
+			IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_46,
+					analyzer);
 
 			// create IndexWriter, which can create new index, or
 			// adds, removes, or updates documents in the index
 			// however, it can not read or search
 			this.writer = new IndexWriter(dir, conf);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	/** 
-	 * Index files in directory by looping through documents in directories 
-	 * and sub-directories 
+	/**
+	 * Index files in directory by looping through documents in directories and
+	 * sub-directories
 	 * 
 	 * @return Number of documents is indexed
 	 * @throws Exception
 	 */
-	// 
+	//
 	public int runIndex() throws Exception {
 		long start = System.currentTimeMillis();
 		Collection<File> files = FileUtils.listFiles(new File(this.dataDir),
 				null, true);
-		
+		IndexReader indexReader = DirectoryReader.open(writer, false);
+		IndexSearcher indexSearcher = new IndexSearcher(indexReader);
+
 		for (File f : files) {
-//			System.out.println(f.getCanonicalPath());
+			Term filePathTerm = new Term(
+					MyDocumentIndexedProperties.FILE_PATH_FIELD,
+					f.getCanonicalPath());
+			TermQuery termQuery = new TermQuery(filePathTerm);
+			TopDocs topDocs = indexSearcher.search(termQuery, 1);
+			if (topDocs.totalHits > 0) {
+				this.isIndexChanged = true;
+				continue;
+			}
 			indexFile(f);
 		}
 
@@ -161,7 +185,7 @@ public class Indexer {
 
 		return this.writer.numDocs();
 	}
-	
+
 	/**
 	 * Add Document to the index
 	 * 
@@ -169,7 +193,7 @@ public class Indexer {
 	 * @param docId
 	 * @throws Exception
 	 */
-	// 
+	//
 	public void indexFile(File f) throws Exception {
 		// logger.info("Indexing " + f.getCanonicalPath());
 		Document doc = getDocument(f);
@@ -185,62 +209,73 @@ public class Indexer {
 	 * @throws Exception
 	 */
 	private Document getDocument(File f) throws Exception {
-		//create metadata
+		// create metadata
 		Metadata metadata = new Metadata();
 		metadata.set(Metadata.RESOURCE_NAME_KEY, f.getName());
-		//open file
+		// open file
 		InputStream is = new FileInputStream(f);
-		//use AutoDetectParse to automatically decide parser type
+		// use AutoDetectParse to automatically decide parser type
 		Parser parser = new AutoDetectParser();
-		//exact metadata and bodytext
-		ContentHandler handler = new BodyContentHandler(10*1024*1024);
-		//setup parse context
+		// exact metadata and bodytext
+		ContentHandler handler = new BodyContentHandler(10 * 1024 * 1024);
+		// setup parse context
 		ParseContext context = new ParseContext();
 		context.set(Parser.class, parser);
-		
+
 		try {
-			//parse the document
+			// parse the document
 			parser.parse(is, handler, metadata, new ParseContext());
 		} finally {
-			//close inputstream after parsing
+			// close inputstream after parsing
 			is.close();
 		}
-		
+
 		Document doc = new Document();
 
-		//docId
-		//generated by base64 of filepath
-		String id = BaseEncoding.base64().encode(f.getCanonicalPath().getBytes(Charsets.US_ASCII));
-		doc.add(new StringField(MyDocumentIndexedProperties.ID_FIELD, id, Field.Store.YES));
-		
-		//mime type
-		doc.add(new StringField(MyDocumentIndexedProperties.MIME_TYPE_FIELD, metadata.get(Metadata.CONTENT_TYPE), Field.Store.YES));
-		
-		//filename
-		doc.add(new StringField(MyDocumentIndexedProperties.FILE_NAME_FIELD, f.getName(), Field.Store.YES));
+		// docId
+		// generated by base64 of filepath
+		String id = BaseEncoding.base64().encode(
+				f.getCanonicalPath().getBytes(Charsets.US_ASCII));
+		doc.add(new StringField(MyDocumentIndexedProperties.ID_FIELD, id,
+				Field.Store.YES));
 
-		//filepath
-		doc.add(new StringField(MyDocumentIndexedProperties.FILE_PATH_FIELD, f.getCanonicalPath(), Field.Store.YES));
-		
-		//content field
-		TokenStream ts = analyzer.tokenStream(MyDocumentIndexedProperties.CONTENT_FIELD, new StringReader(handler.toString())); 
-		Field contentField = new Field(MyDocumentIndexedProperties.CONTENT_FIELD, AnalyzerUtils.tokenStreamToString(ts), TYPE_STORED);
+		// mime type
+		doc.add(new StringField(MyDocumentIndexedProperties.MIME_TYPE_FIELD,
+				metadata.get(Metadata.CONTENT_TYPE), Field.Store.YES));
+
+		// filename
+		doc.add(new StringField(MyDocumentIndexedProperties.FILE_NAME_FIELD, f
+				.getName(), Field.Store.YES));
+
+		// filepath
+		doc.add(new StringField(MyDocumentIndexedProperties.FILE_PATH_FIELD, f
+				.getCanonicalPath(), Field.Store.YES));
+
+		// content field
+		TokenStream ts = analyzer.tokenStream(
+				MyDocumentIndexedProperties.CONTENT_FIELD, new StringReader(
+						handler.toString()));
+		Field contentField = new Field(
+				MyDocumentIndexedProperties.CONTENT_FIELD,
+				AnalyzerUtils.tokenStreamToString(ts), TYPE_STORED);
 		ts.close();
 		doc.add(contentField);
-		
-		//metadata fields
-		for(String metadataName : metadata.names()) {
+
+		// metadata fields
+		for (String metadataName : metadata.names()) {
 			String metadataValue = metadata.get(metadataName);
-			for (Property acceptField: textualMetadataFields) {
+			for (Property acceptField : textualMetadataFields) {
 				if (metadata.get(acceptField) == metadataName) {
-					doc.add(new StringField(MyDocumentIndexedProperties.CONTENT_FIELD, metadataValue, Field.Store.YES));
+					doc.add(new StringField(
+							MyDocumentIndexedProperties.CONTENT_FIELD,
+							metadataValue, Field.Store.YES));
 				}
 			}
 		}
-		
+
 		return doc;
 	}
-	
+
 	/**
 	 * Retrieve paths of index files from Hdfs
 	 * 
@@ -278,7 +313,7 @@ public class Indexer {
 				new IndexWriterConfig(Version.LUCENE_46, new StandardAnalyzer(
 						Version.LUCENE_46)));
 	}
-	
+
 	/**
 	 * Set the IndexWriter
 	 * 
@@ -287,7 +322,7 @@ public class Indexer {
 	public void setWriter(IndexWriter writer) {
 		this.writer = writer;
 	}
-	
+
 	/**
 	 * Get IndexedPath
 	 * 
@@ -296,7 +331,7 @@ public class Indexer {
 	public Path[] getIndexedPath() {
 		return indexedPath;
 	}
-	
+
 	/**
 	 * get path of directory containing the index
 	 * 
@@ -304,5 +339,20 @@ public class Indexer {
 	 */
 	public String getIndexDir() {
 		return this.indexDir;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isIndexChanged() {
+		return isIndexChanged;
+	}
+	
+	/**
+	 * 
+	 * @param isIndexChanged
+	 */
+	public void setIndexChanged(boolean isIndexChanged) {
+		this.isIndexChanged = isIndexChanged;
 	}
 }

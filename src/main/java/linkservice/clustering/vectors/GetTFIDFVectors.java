@@ -19,7 +19,7 @@ public class GetTFIDFVectors {
 		Configuration conf = new Configuration();
 		FileSystem fs = FileSystem.get(conf);
 		Path outputPath = new Path(
-				"output/sparse_vectors_by_query/tfidf-vectors/part-r-00000");
+				"/Users/newbiettn/Dropbox/Git/automatic-link-serivce/output/sparse_vectors_by_query/tfidf-vectors/part-r-00000");
 		SequenceFile.Reader reader = new SequenceFile.Reader(fs, outputPath,
 				conf);
 		Text key = new Text();

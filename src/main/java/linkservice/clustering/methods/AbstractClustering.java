@@ -68,7 +68,7 @@ public abstract class AbstractClustering {
 		indexFileDir = myDocumentIndexedProp
 				.getProperty("linkservice.index_dir");
 		sequenceFileDir = myDocumentIndexedProp
-				.getProperty("linkesrvice.sequence_dir");
+				.getProperty("linkservice.sequence_dir");
 		sparseVectorsDir = myDocumentIndexedProp
 				.getProperty("linkservice.mahout.sparse_vector_dir");
 		sparseVectorsByQueryDir = myDocumentIndexedProp

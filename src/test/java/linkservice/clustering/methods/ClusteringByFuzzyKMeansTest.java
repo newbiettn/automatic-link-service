@@ -11,6 +11,7 @@ import linkservice.common.GeneralConfigPath;
 import linkservice.common.LinkServiceGetPropertyValues;
 import linkservice.common.LoggerRule;
 import linkservice.common.SequenceFileFromLuceneIndex;
+import linkservice.common.UpdatePath;
 import linkservice.indexing.Indexer;
 import linkservice.searching.Searcher;
 import linkservice.searching.result.SearchResultObject;
@@ -66,14 +67,11 @@ public class ClusteringByFuzzyKMeansTest {
 		// create new indexer
 		indexer = commonRule.getIndexer();
 		FileSystem fs = FileSystem.get(conf);
-		if (fs.exists(new Path(myDocumentIndexedProp
-				.getProperty("linkservice.output_root")))) {
-			HadoopUtil.delete(
-					conf,
-					new Path(myDocumentIndexedProp
-							.getProperty("linkservice.output_root")));
-		}
 
+		if (indexer.isIndexChanged()) {
+			UpdatePath.cleanIfHaveNewIndex();
+		}
+		
 		SequenceFileFromLuceneIndex lucene2Seq = new SequenceFileFromLuceneIndex(
 				indexer, sequenceFileDir);
 
@@ -83,12 +81,17 @@ public class ClusteringByFuzzyKMeansTest {
 
 		// convert index files to sequence files
 		lucene2Seq.run();
-
+		
+		clusteringByFuzzyKMeans.generateSparseVectors(sequenceFileDir, sparseVectorsDir);
+		
 		// make a dumb search for testing purpose
 		List<SearchResultObject> sampleResult = makeDumbSearch();
-
+		for (SearchResultObject ele : sampleResult) {
+			System.out.println(ele.getMyDoc().getUri());
+		}
 		if (sampleResult.size() > 0) {
 			// run clustering using sequence files
+			UpdatePath.cleanForNewClustering();
 			clusteringByFuzzyKMeans.run(sampleResult);
 			OrganizeSearchResultObjectByClusters.run(sampleResult);
 		}

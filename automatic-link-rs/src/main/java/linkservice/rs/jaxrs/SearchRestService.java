@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import linkservice.AutomaticLink;
+import linkservice.common.UpdatePath;
 
 @Path( "/docs" ) 
 public class SearchRestService {
@@ -14,6 +15,12 @@ public class SearchRestService {
 	@GET
 	public String doSearch( @QueryParam( "page") @DefaultValue( "1" ) final int page ) throws Exception {
 		AutomaticLink autoLink = new AutomaticLink();
+		if (UpdatePath.isOutputEmpty()) {
+			autoLink.initialize();
+		} else {
+			autoLink.checForNewDocs();
+		}
+		
 		String json = autoLink.run("image");
 		return json;
 	}
