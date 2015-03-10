@@ -5,4 +5,4 @@ output/**/*
 src/main/resources/log.out
 target/
 src/test/resources/sample_data/**/*
-temp/**/*
+tmp/**/*
