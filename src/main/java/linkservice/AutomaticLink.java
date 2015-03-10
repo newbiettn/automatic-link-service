@@ -87,6 +87,6 @@ public class AutomaticLink {
 		} else {
 			al.checForNewDocs();
 		}
-		al.run("image");
+		al.run("space");
 	}
 }

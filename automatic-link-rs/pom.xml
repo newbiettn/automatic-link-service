@@ -101,6 +101,12 @@
 			<artifactId>tomcat-jasper</artifactId>
 			<version>${org.apache.tomcat}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.owlike</groupId>
+			<artifactId>genson</artifactId>
+			<version>1.2</version>
+		</dependency>
 	</dependencies>
 
 </project>

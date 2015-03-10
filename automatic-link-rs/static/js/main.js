@@ -1,11 +1,11 @@
 $(document).ready(function() {
 	$('.search-btn').click(function(){
-		$searchStr = $('.search-field').val();
+		var search_query = $('.search-field').val();
 		$.ajax({
-			type : "GET",
+			type : "POST",
 			contentType: "application/json",
 			url : "http://localhost:8080/rest/api/docs",
-			data: JSON.stringify({content: "ngoc", name : "sdfsdfdf"}),
+			data: JSON.stringify({content: search_query, name : "sdfsdfdf"}),
 			success : function(data) {
 				console.log(data);
 				var cluster_names = getClusterName(data);

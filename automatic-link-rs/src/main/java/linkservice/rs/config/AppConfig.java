@@ -27,6 +27,7 @@ public class AppConfig {
 		JAXRSServerFactoryBean factory = RuntimeDelegate.getInstance().createEndpoint( jaxRsApiApplication(), JAXRSServerFactoryBean.class );
 		factory.setServiceBeans( Arrays.< Object >asList( searchRestService() ) );
 		factory.setAddress( "/" + factory.getAddress() );
+		factory.setProviders( Arrays.< Object >asList( jsonProvider() ) );
 		return factory.create();
 	}
 	
@@ -40,4 +41,8 @@ public class AppConfig {
 		return new SearchRestService();
 	}
 	
+	@Bean
+	public JacksonJsonProvider jsonProvider() {
+		return new JacksonJsonProvider();
+	}
 }
