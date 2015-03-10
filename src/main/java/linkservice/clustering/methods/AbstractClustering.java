@@ -60,7 +60,7 @@ public abstract class AbstractClustering {
 		conf = new Configuration();
 
 		myDocumentIndexedProp = new LinkServiceGetPropertyValues(
-				"src/main/resources/config.properties");
+				"/Users/newbiettn/Dropbox/Git/automatic-link-serivce/src/main/resources/config.properties");
 
 		dataFileDir = myDocumentIndexedProp.getProperty("linkservice.data_dir");
 		outputRootDir = myDocumentIndexedProp

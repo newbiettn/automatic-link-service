@@ -34,9 +34,9 @@ public class GetTFIDFVectors {
 	public static void copy(List<String> sample) throws IOException {
 		Configuration conf = new Configuration();
 		FileSystem fs = FileSystem.get(conf);
-		Path p = new Path("output/sparse_vectors/tfidf-vectors/part-r-00000");
+		Path p = new Path("/Users/newbiettn/Dropbox/Git/automatic-link-serivce/output/sparse_vectors/tfidf-vectors/part-r-00000");
 		Path outputPath = new Path(
-				"output/clustering/sparse_vectors_by_query/tfidf-vectors/part-r-00000");
+				"/Users/newbiettn/Dropbox/Git/automatic-link-serivce/output/clustering/sparse_vectors_by_query/tfidf-vectors/part-r-00000");
 		SequenceFile.Reader reader = new SequenceFile.Reader(fs, p, conf);
 		SequenceFile.Writer writer = new SequenceFile.Writer(fs, conf,
 				outputPath, Text.class, VectorWritable.class);
