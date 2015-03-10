@@ -10,7 +10,7 @@ import linkservice.AutomaticLink;
 
 @Path( "/docs" ) 
 public class SearchRestService {
-	@Produces( { "text/plain" } )
+	@Produces( { "application/json" } )
 	@GET
 	public String doSearch( @QueryParam( "page") @DefaultValue( "1" ) final int page ) throws Exception {
 		AutomaticLink autoLink = new AutomaticLink();
