@@ -1,5 +1,7 @@
 package linkservice.searching.result;
 
+import java.util.List;
+
 import linkservice.document.MyDocument;
 
 /**
@@ -9,6 +11,8 @@ import linkservice.document.MyDocument;
  *
  */
 public class SearchResultObject {
+	private List<MyDocument> linkedDocuments;
+	
 	private MyDocument myDoc;
 	
 	public SearchResultObject(MyDocument aDoc) {
@@ -21,6 +25,14 @@ public class SearchResultObject {
 
 	public void setMyDoc(MyDocument myDoc) {
 		this.myDoc = myDoc;
+	}
+
+	public List<MyDocument> getLinkedDocuments() {
+		return linkedDocuments;
+	}
+
+	public void setLinkedDocuments(List<MyDocument> linkedDocuments) {
+		this.linkedDocuments = linkedDocuments;
 	}
 	
 }

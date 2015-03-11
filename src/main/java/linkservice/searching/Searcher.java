@@ -141,11 +141,33 @@ public class Searcher {
 	 * 
 	 * @param myDoc
 	 * @return
+	 * @throws ParseException 
+	 * @throws InvalidTokenOffsetsException 
+	 * @throws IOException 
 	 */
-	public SearchResultObject buildSingleSearchResult(MyDocument myDoc) {
+	public SearchResultObject buildSingleSearchResult(MyDocument myDoc) throws IOException, InvalidTokenOffsetsException, ParseException {
 		SearchResultObject searchResultObj = new SearchResultObject(myDoc);
+		List<MyDocument> linkedDocs = getLinkedDocument(myDoc);
+		searchResultObj.setLinkedDocuments(linkedDocs);
 		return searchResultObj;
 	}
 	
+	public List<MyDocument> getLinkedDocument(MyDocument myDoc) throws IOException, InvalidTokenOffsetsException, ParseException {
+		List<MyDocument> linkedDocs = new ArrayList<MyDocument>();
+		linkedDocs.add(myDoc);
+		return linkedDocs;
+	}
+	
+	public List<MyDocument> generateRandomLinkedDocuments(MyDocument myDoc) throws IOException, InvalidTokenOffsetsException, ParseException {
+		List<MyDocument> linkedDocs = new ArrayList<MyDocument>();
+		String filename = myDoc.getFileName();
+		int fileInt = Integer.parseInt(filename);
+		List<SearchResultObject> searchResult = search("filename:" + fileInt/10 + "*");
+		for (SearchResultObject searchResultObject : searchResult) {
+			MyDocument doc = searchResultObject.getMyDoc();
+			linkedDocs.add(doc);
+		}
+		return linkedDocs;
+	}
 	
 }

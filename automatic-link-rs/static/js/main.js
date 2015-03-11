@@ -78,17 +78,37 @@ function displayDocList(doc_list) {
 		var file_name = my_doc['fileName'];
 		var fragment = my_doc['fragment'];
 		var uri = my_doc['uri'];
-
+		var linked_docs = doc_list[i]['linkedDocuments'];
+		
+		var html_linked_docs = "";
+//		if (typeof linked_docs != 'undefined') {
+			html_linked_docs = getHTMLDisplayLinkedDocs(linked_docs);
+//		}
+		
+		
 		var str = '<article class="large-12 columns search-item">';
 		str += '<section class="item-detail">';
 		str += '<header class="item-title">' + file_name + '</header>';
 		str += '<div class="item-fragment">' + fragment + '</div>';
 		str += '<div><span class="item-detail-uri">URI: </span> <span class="item-path"><a target="_blank" href="file://' + uri + '">' + uri + '</a></span></div>';
+		str += '<div class="item-fragment">Have links to: ' + html_linked_docs + '</div>';
 		str += '</section>';
 		str += '</article>';
 
 		$('.result-list').append(str);
 	}
+}
+function getHTMLDisplayLinkedDocs(linked_docs) {
+	var str = "";
+	console.log(linked_docs.length);
+	for (var i = 0; i < linked_docs.length; i++) {
+		var my_doc = linked_docs[i];
+		var file_name = my_doc['fileName'];
+		var uri = my_doc['uri'];
+		str += "<a href='file://" + uri + "'>" +file_name + "</a>";
+		str += " ";
+	}
+	return str;
 }
 function onClickNode(data) {
 	$('.tree').bind('tree.click', function(event) {
