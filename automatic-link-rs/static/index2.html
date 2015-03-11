@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Feather search</title>
+<title>Foundation | Welcome</title>
 <link rel="stylesheet" href="css/normalize.css" />
 <link rel="stylesheet" href="css/foundation.css" />
 <link rel="stylesheet" href="css/style.css" />
@@ -12,27 +12,22 @@
 <body>
 	<div class="search-container">
 		<form class="row">
-			<div class="large-7 large-centered columns">
-				<div class="row">
-					<div class="large-3 columns">
-						<img width="100" src="img/search_logo.png" />
+			<div class="large-8 large-centered columns">
+				<img src="img/search_logo.jpg"/>
+			</div>
+			<div class="large-8 large-centered columns">
+				<div class="row collapse">
+					<div class="small-10 columns">
+						<input type="text" placeholder="" class="search-field">
 					</div>
-					<div class="large-9 columns">
-						<div class="row collapse">
-							<div class="small-10 columns">
-								<input type="text" placeholder="" class="search-field">
-							</div>
-							<div class="small-2 columns">
-								<a href="#" class="button postfix search-btn">Find</a>
-							</div>
-						</div>
+					<div class="small-2 columns">
+						<a href="#" class="button postfix search-btn">Search</a>
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
-	<div class="row result-container"></div>
-	<div class="loading"></div>
+
 	<script src="js/vendor/jquery.js"></script>
 	<script src="js/foundation.min.js"></script>
 	<script src="js/vendor/tree.jquery.js"></script>

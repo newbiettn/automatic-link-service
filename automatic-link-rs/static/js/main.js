@@ -1,25 +1,43 @@
 $(document).ready(function() {
 	$('.search-btn').click(function(){
-		var search_query = $('.search-field').val();
-		$.ajax({
-			type : "POST",
-			contentType: "application/json",
-			url : "http://localhost:8080/rest/api/docs",
-			data: JSON.stringify({content: search_query, name : "sdfsdfdf"}),
-			success : function(data) {
-				console.log(data);
-				var cluster_names = getClusterName(data);
-				var tree_data = prepareDataForTree(cluster_names);
-				$('.tree').tree({
-					data : tree_data
-				});
-				var doc_list = getDocListByClusterLabel(data, cluster_names[0]);
-				displayDocList(doc_list);
-			},
-			dataType: 'json'
-		});
+		handleSearchInput();
+	});
+	$(document).keypress(function(e) {
+		if (e.which == 13) {
+			handleSearchInput();
+		}
 	});
 });
+function handleSearchInput() {
+	var search_query = $('.search-field').val();
+	$.ajax({
+		beforeSend: function() {
+			$('.result-container').html('');
+			$('.loading').css({display: "block"});
+		},
+		type : "POST",
+		contentType : "application/json",
+		url : "http://localhost:8080/rest/api/docs",
+		data : JSON.stringify({
+			content : search_query,
+			name : "sdfsdfdf"
+		}),
+		success : function(data) {
+			$('.loading').css({display: "none"});
+			console.log(data);
+			generateResult();
+			var cluster_names = getClusterName(data);
+			var tree_data = prepareDataForTree(cluster_names);
+			$('.tree').tree({
+				data : tree_data
+			});
+			var doc_list = getDocListByClusterLabel(data, cluster_names[0]);
+			displayDocList(doc_list);
+			onClickNode(data);
+		},
+		dataType : 'json'
+	});
+}
 function getClusterName(search_result) {
 	var cluster_names = [];
 	var length = search_result.length;
@@ -39,6 +57,7 @@ function getDocListByClusterLabel(search_result, cluster_label) {
 			break;
 		}
 	}
+	console.log(doc_list.length);
 	return doc_list;
 }
 function prepareDataForTree(cluster_names) {
@@ -53,21 +72,49 @@ function prepareDataForTree(cluster_names) {
 }
 function displayDocList(doc_list) {
 	var length = doc_list.length;
+	$('.result-list').html('');
 	for (var i = 0; i < length; i++) {
 		var my_doc = doc_list[i]['myDoc'];
 		var file_name = my_doc['fileName'];
 		var fragment = my_doc['fragment'];
 		var uri = my_doc['uri'];
-		
-		var str = '<article class="row search-item">';
-		str += '<figure class="large-1 columns item-figure type-pdf"></figure>';
-		str += '<section class="large-11 columns item-detail">';
+
+		var str = '<article class="large-12 columns search-item">';
+		str += '<section class="item-detail">';
 		str += '<header class="item-title">' + file_name + '</header>';
-		str += '<div class="item-fragment">' + fragment +'</div>';
-		str += '<div class="item-path">' + uri +'</div>';
+		str += '<div class="item-fragment">' + fragment + '</div>';
+		str += '<div><span class="item-detail-uri">URI: </span> <span class="item-path"><a target="_blank" href="file://' + uri + '">' + uri + '</a></span></div>';
 		str += '</section>';
 		str += '</article>';
-		
+
 		$('.result-list').append(str);
 	}
+}
+function onClickNode(data) {
+	$('.tree').bind('tree.click', function(event) {
+		var node = event.node;
+		var doc_list = getDocListByClusterLabel(data, node.name);
+		displayDocList(doc_list);
+	});
+}
+function generateResult() {
+	var str = '<div class="large-4 columns cluster-list-container">';
+	str += '<div class="row">';
+	str += '<h5 class="large-12 columns section-header cluster-list-container-header ">';
+	str += 'Clustered results';
+	str += '</h5>';
+	str += '</div>';
+	str += '<div class="row">';
+	str += '<div class="large-12 columns tree"></div>';
+	str += '</div>';
+	str += '</div>';
+	str += '<div class="large-8 columns doc-list-container">';
+	str += '<div class="row">';
+	str += '<h5 class="large-12 columns section-header doc-list-container-header">';
+	str += 'Top search in results in the clusters';
+	str += '</h5>';
+	str += '</div>';
+	str += '<div class="row result-list"></div>';
+	str += '</div>';
+	$('.result-container').html('').append(str);
 }

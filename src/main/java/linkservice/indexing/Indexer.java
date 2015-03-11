@@ -26,6 +26,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
@@ -250,7 +251,10 @@ public class Indexer {
 		// filepath
 		doc.add(new StringField(MyDocumentIndexedProperties.FILE_PATH_FIELD, f
 				.getCanonicalPath(), Field.Store.YES));
-
+		
+		//content field without filtering for display and search
+		doc.add(new Field(MyDocumentIndexedProperties.CONTENT_FIELD_NO_FILTERING_TYPE, FileUtils.readFileToString(f), TYPE_STORED));
+		
 		// content field
 		TokenStream ts = analyzer.tokenStream(
 				MyDocumentIndexedProperties.CONTENT_FIELD, new StringReader(

@@ -16,7 +16,6 @@ public class ClusteringByFuzzyKMeans extends AbstractClustering {
 
 	public ClusteringByFuzzyKMeans() throws IOException {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -43,7 +42,7 @@ public class ClusteringByFuzzyKMeans extends AbstractClustering {
 				convergenceDelta, maxIterations, 3, true, true, 0.01, false);
 		
 		// dump results
-		String clusterFinalFile = finalClusterOutputDir + "/clusters-0";
+		String clusterFinalFile = finalClusterOutputDir + "/clusters-*-final";
 		String clusteredPoints = finalClusterOutputDir + "/clusteredPoints";
 		String outputFile = outputRootDir + "/output.txt";
 		String dictionaryFile = sparseVectorsDir + "/dictionary.file-0";

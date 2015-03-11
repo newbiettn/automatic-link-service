@@ -18,8 +18,11 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.Explanation;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
@@ -30,6 +33,7 @@ import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
 import org.apache.lucene.search.highlight.TokenSources;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,13 +54,13 @@ public class Searcher {
 
 	private IndexSearcher indexSearcher;
 
-	private TermQuery termQuery;
-
 	private QueryScorer queryScorer;
 
 	private TopDocs topDocs;
 
 	private MyCustomAnalyzer myCustomAnalyzer;
+	
+	private MultiFieldQueryParser multiFieldQueryParser;
 
 	public Searcher(String anIndexFileDir) throws IOException {
 		this.indexFileDir = anIndexFileDir;
@@ -64,6 +68,12 @@ public class Searcher {
 		Directory directory = FSDirectory.open(new File(this.indexFileDir));
 		this.indexReader = DirectoryReader.open(directory);
 		this.indexSearcher = new IndexSearcher(this.indexReader);
+		this.multiFieldQueryParser = new MultiFieldQueryParser(Version.LUCENE_46, new String[] {
+				MyDocumentIndexedProperties.CONTENT_FIELD_NO_FILTERING_TYPE, 
+				MyDocumentIndexedProperties.FILE_NAME_FIELD,
+				MyDocumentIndexedProperties.MIME_TYPE_FIELD
+				},
+				myCustomAnalyzer);
 	}
 
 	/**
@@ -71,12 +81,13 @@ public class Searcher {
 	 * @return
 	 * @throws IOException
 	 * @throws InvalidTokenOffsetsException
+	 * @throws ParseException 
 	 */
-	public List<SearchResultObject> search(String keyword) throws IOException, InvalidTokenOffsetsException {
-		termQuery = new TermQuery(new Term(MyDocumentIndexedProperties.CONTENT_FIELD, keyword));
-		topDocs = indexSearcher.search(termQuery, 100);
-		//indexSearcher.setSimilarity(new MyCustomSimilarity());
-		this.queryScorer = new QueryScorer(this.termQuery, MyDocumentIndexedProperties.CONTENT_FIELD);
+	public List<SearchResultObject> search(String queryStr) throws IOException, InvalidTokenOffsetsException, ParseException {
+		Query query = multiFieldQueryParser.parse(queryStr);		
+		//termQuery = new TermQuery(new Term(MyDocumentIndexedProperties.CONTENT_FIELD, keyword));
+		topDocs = indexSearcher.search(query, 100);
+		this.queryScorer = new QueryScorer(query, MyDocumentIndexedProperties.CONTENT_FIELD_NO_FILTERING_TYPE);
 		Highlighter highlighter = new Highlighter(this.queryScorer);
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(this.queryScorer));
 		
@@ -112,9 +123,9 @@ public class Searcher {
 		String filename = doc.get(MyDocumentIndexedProperties.FILE_NAME_FIELD);
 		String id = doc.get(MyDocumentIndexedProperties.ID_FIELD);
 		String filepath = doc.get(MyDocumentIndexedProperties.FILE_PATH_FIELD);
-		String contents = doc.get(MyDocumentIndexedProperties.CONTENT_FIELD);
+		String contents = doc.get(MyDocumentIndexedProperties.CONTENT_FIELD_NO_FILTERING_TYPE);
 		TokenStream stream = TokenSources.getAnyTokenStream(
-				indexSearcher.getIndexReader(), sd.doc, MyDocumentIndexedProperties.CONTENT_FIELD, doc, myCustomAnalyzer);
+				indexSearcher.getIndexReader(), sd.doc, MyDocumentIndexedProperties.CONTENT_FIELD_NO_FILTERING_TYPE, doc, myCustomAnalyzer);
 		String fragment = highlighter.getBestFragment(stream, contents);
 		
 		myDoc.setFragment(fragment);

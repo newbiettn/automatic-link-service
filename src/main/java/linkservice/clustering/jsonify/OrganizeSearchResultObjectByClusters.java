@@ -45,11 +45,13 @@ public class OrganizeSearchResultObjectByClusters {
 		List<SearchResultObjectByCluster> setOfSearchResultObjectByCluster = new ArrayList<SearchResultObjectByCluster>();
 		
 		Iterable<ClusterWritable> iterable = new SequenceFileDirValueIterable<ClusterWritable>(
-				new Path(myDocumentIndexedProp.getProperty("linkservice.mahout.final_cluster_dir"), "clusters-*/part-*"),
+				new Path(myDocumentIndexedProp.getProperty("linkservice.mahout.final_cluster_dir"), "clusters-*-final/part-*"),
 				PathType.GLOB, conf);
 		Iterator<ClusterWritable> iterator = iterable.iterator();
 		// iterator of clusters
+		int i = 0;
 		while (iterator.hasNext()) {
+			System.out.println(i++);
 			// handle each clusters
 			ClusterWritable clusterWritable = iterator.next();
 			SearchResultObjectByCluster searchResultObjectByCluster = write(clusterWritable, searchReturnedBySearcher);
@@ -63,13 +65,21 @@ public class OrganizeSearchResultObjectByClusters {
 		SearchResultObjectByCluster searchResultObjectByCluster = new SearchResultObjectByCluster();
 		String[] dictionary = VectorHelper.loadTermDictionary(conf,
 				myDocumentIndexedProp.getProperty("linkservice.mahout.sparse_vector_dir") + "/dictionary.file-0");
-		int numTopFeatures = 1;
-
+		int numTopFeatures = 2;
+		
+		String label = "";
+		int i = 0;
 		for (Pair<String, Double> item : getTopPairs(clusterWritable.getValue()
 				.getCenter(), dictionary, numTopFeatures)) {
 			String term = item.getFirst();
+			if (i > 0) {
+				label = label + " and " + term;
+			} else {
+				label = term;
+			}
+			i++;
 			//set label for cluster by getting the best term
-			searchResultObjectByCluster.setCluster_label(term);
+			searchResultObjectByCluster.setCluster_label(label);
 		}
 
 		// get top terms for the clusters

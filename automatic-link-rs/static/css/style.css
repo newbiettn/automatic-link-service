@@ -1,6 +1,8 @@
 /**** SEARCH INPUT CONTAINER ****/
 .search-container {
-	margin-top: 40px;
+	background: none repeat scroll 0 0 #f1f1f1;
+    padding-top: 10px;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 /**** SEARCH RESULT CONTAINER ****/
@@ -8,21 +10,15 @@
 	font-size: 14px;
 	 list-style-type: none;
 }
+.result-container {
+	margin-top: 20px;
+}
 .section-header {
 	color: #e78717;
     font-size: 14px;
     font-weight: bold;
     line-height: 16px;
     margin-bottom: 20px !important;
-}
-.item-figure {
-	width: 48px;
-	height: 48px;
-	display: block;
-	margin: 0;
-}
-.type-pdf {
-	background: url('../img/pdf.png') no-repeat;
 }
 .item-detail .item-title {
 	font-size: 14px;
@@ -35,6 +31,77 @@
 	font-size: 12px;
 	color: green;
 }
+.item-detail .item-detail-uri {
+	font-size: 10px;
+}
 .search-item {
 	margin-bottom: 10px !important;
+}
+.jqtree-title {
+	text-decoration: underline;
+	color: blue;
+	font-weight: 400;
+}
+.jqtree-title:hover {
+	cursor: pointer;
+}
+.tree {
+	padding-top: 10px;
+	background: none repeat scroll 0 0 #f2f2f2;
+    text-transform: capitalize;
+}
+
+
+@keyframes boxSpin{
+  0%{
+    transform: translate(-10px, 0px);
+  }
+  25%{
+    transform: translate(10px, 10px);
+  }
+  50%{
+    transform: translate(10px, -10px);
+  }
+  75%{
+    transform: translate(-10px, -10px);
+  }
+  100%{
+    transform: translate(-10px, 10px);
+  }
+}
+
+
+@keyframes shadowSpin{
+  0%{
+    box-shadow: 10px -10px #39CCCC, -10px 10px #FFDC00;
+  }
+  25%{
+    box-shadow: 10px 10px #39CCCC, -10px -10px #FFDC00;
+  }
+  50%{
+    box-shadow: -10px 10px #39CCCC, 10px -10px #FFDC00;
+  }
+  75%{
+    box-shadow: -10px -10px #39CCCC, 10px 10px #FFDC00;
+  }
+  100%{
+    box-shadow: 10px -10px #39CCCC, -10px 10px #FFDC00;
+  }
+}
+
+.loading {
+	display:none;
+	background-color: #FF4136;
+	opacity: 0.75;
+	width: 40px;
+  	height: 40px;
+  	position: absolute;
+  	top: 50%;
+  	margin: -5px auto 0 auto;
+  	left: 0;
+  	right: 0;
+  	border-radius: 0px;
+  	border: 5px solid #FF4136;
+  	box-shadow: 10px 0px #39CCCC, 10px 0px #01FF70;
+  	animation: shadowSpin 1s ease-in-out infinite;
 }

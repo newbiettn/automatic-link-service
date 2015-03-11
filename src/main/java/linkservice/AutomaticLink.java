@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import linkservice.clustering.jsonify.OrganizeSearchResultObjectByClusters;
 import linkservice.clustering.methods.AbstractClustering;
 import linkservice.clustering.methods.ClusteringByFuzzyKMeans;
+import linkservice.clustering.methods.CluteringByKMeans;
 import linkservice.common.GeneralConfigPath;
 import linkservice.common.LinkServiceGetPropertyValues;
 import linkservice.common.SequenceFileFromLuceneIndex;
@@ -62,7 +63,7 @@ public class AutomaticLink {
 	}
 	public String run(String query) throws Exception {
 		Searcher searcher = new Searcher("/Users/newbiettn/Dropbox/Git/automatic-link-serivce/output/index_files");
-		ClusteringByFuzzyKMeans clusteringByFuzzyKMeans = new ClusteringByFuzzyKMeans();
+		CluteringByKMeans clusteringKMeans = new CluteringByKMeans();
 		
 		List<SearchResultObject> results = searcher.search(query);
 		List<SearchResultObjectByCluster> resultsByClusters = new ArrayList<SearchResultObjectByCluster>();
@@ -70,12 +71,12 @@ public class AutomaticLink {
 		String json = "";
 		if (results.size() > 0) {
 			UpdatePath.cleanForNewClustering();
-			clusteringByFuzzyKMeans.run(results);
+			clusteringKMeans.run(results);
 			resultsByClusters = OrganizeSearchResultObjectByClusters
 					.run(results);
 			Genson genson = new Genson();
 			json = genson.serialize(resultsByClusters);
-			logger.info(json + "");
+			//logger.info(json + "");
 		}
 		return json;
 	}
