@@ -10,36 +10,108 @@
 <script src="js/vendor/modernizr.js"></script>
 </head>
 <body>
-	<div class="search-container">
-		<form class="row">
-			<div class="large-7 large-centered columns">
-				<div class="row">
-					<div class="large-3 columns">
-						<img width="100" src="img/search_logo.png" />
-					</div>
-					<div class="large-9 columns">
-						<div class="row collapse">
-							<div class="small-10 columns">
-								<input type="text" placeholder="" class="search-field">
-							</div>
-							<div class="small-2 columns">
-								<a href="#" class="button postfix search-btn">Find</a>
-							</div>
+	<div class="row">
+		<h3>Schemaball Search</h3>
+	</div>
+	<div class="row ">
+		<!-- <div class="large-6 columns"></div> -->
+		<div class="large-40 columns tile search-container">
+			<form class="row">
+				<div class="large-push-3 large-20">
+					<div class="row">
+						<div class="large-15 columns">
+							<label for="right-label" class="right">Content</label>
+						</div>
+						<div class="large-25 columns">
+							<input name="content" type="text" placeholder="" class="search-field">
 						</div>
 					</div>
 				</div>
-			</div>
-		</form>
+				<div class="large-push-3 large-20">
+					<div class="row">
+						<div class="large-15 columns">
+							<label for="right-label" class="right">Title</label>
+						</div>
+						<div class="large-25 columns">
+							<input name="title" type="text" placeholder="" class="search-field">
+						</div>
+					</div>
+				</div>
+				<div class="large-push-3 large-20">
+					<div class="row">
+						<div class="large-15 columns">
+							<label for="right-label" class="right">Author</label>
+						</div>
+						<div class="large-25 columns">
+							<input name="author" type="text" placeholder="" class="search-field">
+						</div>
+					</div>
+				</div>
+				<div class="large-push-11 large-20">
+					<div class="row">
+						<div class="large-20 columns">
+							<a href="#" class="button small search-btn">Find</a>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
-	<div class="row result-container"></div>
+	<div class="row results">
+		<div class="large-8 columns tile cluster-label">
+			<div>
+				<h5 class="cluster-name">Cluster Name</h5>
+				<ul class="keyword-list">
+					<li>Keyword 1</li>
+					<li>Keyword 1</li>
+					<li>Keyword 1</li>
+					<li>Keyword 1</li>
+				</ul>
+			</div>
+		</div>
+		<div class="large-32 columns tile cluster-visualization">
+			<div class="row">
+				<div class="large-push-15 large-20 large-centered">
+					<ul class="tabs" data-tab>
+			  			<li class="tab-title active" role="presentational" >
+			  				<a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" controls="panel2-1">Visualization</a>
+			  			</li>
+			  			<li class="tab-title" role="presentational" >
+			  				<a href="#panel2-2" role="tab" tabindex="0"aria-selected="false" controls="panel2-2">List</a>
+			  			</li>
+					</ul>
+				</div>
+				<div class="tabs-content">
+					<section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
+					</section>
+					<section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
+						<div class="page_navigation"></div>
+						<div class="list_content large-40" id="list_content"></div>
+  					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="row result-container"></div> -->
 	<div class="loading"></div>
+	<div id="node-info" class="gia-popup"></div>
 	<script src="js/vendor/jquery.js"></script>
+	<script src="js/vendor/jquery_template.js"></script>
 	<script src="js/foundation.min.js"></script>
 	<script src="js/vendor/tree.jquery.js"></script>
 	<script src="js/vendor/d3.js"></script>
+	<script src="js/vendor/jquery.pajinate.min.js"></script>
 	<script>
 		$(document).foundation();
+		
 	</script>
 	<script src="js/main1.js"></script>
+	<script id="gameTemplate" type="text/x-jquery-tmpl"> 
+		<div id='node-name'>${name}</div>
+		<div class='node-topic' id='node-game-rating'>	
+			<div class='node-label'>Rating</div>
+			<div class='node-data'>${rating}</div>
+		</div>
+	</script>
 </body>
 </html>

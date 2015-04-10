@@ -12,6 +12,7 @@ function handleSearchInput() {
 	var search_query = $('.search-field').val();
 	$.ajax({
 		beforeSend: function() {
+			$('#panel2-1').html('');
 			$('.result-container').html('');
 			$('.loading').css({display: "block"});
 		},
@@ -23,8 +24,8 @@ function handleSearchInput() {
 			name : "sdfsdfdf"
 		}),
 		success : function(data) {
+			$('.results').show();
 			$('.loading').css({display: "none"});
-			console.log(data);
 			generateResult();
 			var cluster_names = getClusterName(data);
 			var tree_data = prepareDataForTree(cluster_names);

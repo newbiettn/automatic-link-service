@@ -184,112 +184,392 @@ select {
 
   .small-push-1 {
     position: relative;
-    left: 8.33333%;
+    left: 2.5%;
     right: auto; }
 
   .small-pull-1 {
     position: relative;
-    right: 8.33333%;
+    right: 2.5%;
     left: auto; }
 
   .small-push-2 {
     position: relative;
-    left: 16.66667%;
+    left: 5%;
     right: auto; }
 
   .small-pull-2 {
     position: relative;
-    right: 16.66667%;
+    right: 5%;
     left: auto; }
 
   .small-push-3 {
     position: relative;
-    left: 25%;
+    left: 7.5%;
     right: auto; }
 
   .small-pull-3 {
     position: relative;
-    right: 25%;
+    right: 7.5%;
     left: auto; }
 
   .small-push-4 {
     position: relative;
-    left: 33.33333%;
+    left: 10%;
     right: auto; }
 
   .small-pull-4 {
     position: relative;
-    right: 33.33333%;
+    right: 10%;
     left: auto; }
 
   .small-push-5 {
     position: relative;
-    left: 41.66667%;
+    left: 12.5%;
     right: auto; }
 
   .small-pull-5 {
     position: relative;
-    right: 41.66667%;
+    right: 12.5%;
     left: auto; }
 
   .small-push-6 {
     position: relative;
-    left: 50%;
+    left: 15%;
     right: auto; }
 
   .small-pull-6 {
     position: relative;
-    right: 50%;
+    right: 15%;
     left: auto; }
 
   .small-push-7 {
     position: relative;
-    left: 58.33333%;
+    left: 17.5%;
     right: auto; }
 
   .small-pull-7 {
     position: relative;
-    right: 58.33333%;
+    right: 17.5%;
     left: auto; }
 
   .small-push-8 {
     position: relative;
-    left: 66.66667%;
+    left: 20%;
     right: auto; }
 
   .small-pull-8 {
     position: relative;
-    right: 66.66667%;
+    right: 20%;
     left: auto; }
 
   .small-push-9 {
     position: relative;
-    left: 75%;
+    left: 22.5%;
     right: auto; }
 
   .small-pull-9 {
     position: relative;
-    right: 75%;
+    right: 22.5%;
     left: auto; }
 
   .small-push-10 {
     position: relative;
-    left: 83.33333%;
+    left: 25%;
     right: auto; }
 
   .small-pull-10 {
     position: relative;
-    right: 83.33333%;
+    right: 25%;
     left: auto; }
 
   .small-push-11 {
     position: relative;
-    left: 91.66667%;
+    left: 27.5%;
     right: auto; }
 
   .small-pull-11 {
     position: relative;
-    right: 91.66667%;
+    right: 27.5%;
+    left: auto; }
+
+  .small-push-12 {
+    position: relative;
+    left: 30%;
+    right: auto; }
+
+  .small-pull-12 {
+    position: relative;
+    right: 30%;
+    left: auto; }
+
+  .small-push-13 {
+    position: relative;
+    left: 32.5%;
+    right: auto; }
+
+  .small-pull-13 {
+    position: relative;
+    right: 32.5%;
+    left: auto; }
+
+  .small-push-14 {
+    position: relative;
+    left: 35%;
+    right: auto; }
+
+  .small-pull-14 {
+    position: relative;
+    right: 35%;
+    left: auto; }
+
+  .small-push-15 {
+    position: relative;
+    left: 37.5%;
+    right: auto; }
+
+  .small-pull-15 {
+    position: relative;
+    right: 37.5%;
+    left: auto; }
+
+  .small-push-16 {
+    position: relative;
+    left: 40%;
+    right: auto; }
+
+  .small-pull-16 {
+    position: relative;
+    right: 40%;
+    left: auto; }
+
+  .small-push-17 {
+    position: relative;
+    left: 42.5%;
+    right: auto; }
+
+  .small-pull-17 {
+    position: relative;
+    right: 42.5%;
+    left: auto; }
+
+  .small-push-18 {
+    position: relative;
+    left: 45%;
+    right: auto; }
+
+  .small-pull-18 {
+    position: relative;
+    right: 45%;
+    left: auto; }
+
+  .small-push-19 {
+    position: relative;
+    left: 47.5%;
+    right: auto; }
+
+  .small-pull-19 {
+    position: relative;
+    right: 47.5%;
+    left: auto; }
+
+  .small-push-20 {
+    position: relative;
+    left: 50%;
+    right: auto; }
+
+  .small-pull-20 {
+    position: relative;
+    right: 50%;
+    left: auto; }
+
+  .small-push-21 {
+    position: relative;
+    left: 52.5%;
+    right: auto; }
+
+  .small-pull-21 {
+    position: relative;
+    right: 52.5%;
+    left: auto; }
+
+  .small-push-22 {
+    position: relative;
+    left: 55.0%;
+    right: auto; }
+
+  .small-pull-22 {
+    position: relative;
+    right: 55.0%;
+    left: auto; }
+
+  .small-push-23 {
+    position: relative;
+    left: 57.5%;
+    right: auto; }
+
+  .small-pull-23 {
+    position: relative;
+    right: 57.5%;
+    left: auto; }
+
+  .small-push-24 {
+    position: relative;
+    left: 60%;
+    right: auto; }
+
+  .small-pull-24 {
+    position: relative;
+    right: 60%;
+    left: auto; }
+
+  .small-push-25 {
+    position: relative;
+    left: 62.5%;
+    right: auto; }
+
+  .small-pull-25 {
+    position: relative;
+    right: 62.5%;
+    left: auto; }
+
+  .small-push-26 {
+    position: relative;
+    left: 65%;
+    right: auto; }
+
+  .small-pull-26 {
+    position: relative;
+    right: 65%;
+    left: auto; }
+
+  .small-push-27 {
+    position: relative;
+    left: 67.5%;
+    right: auto; }
+
+  .small-pull-27 {
+    position: relative;
+    right: 67.5%;
+    left: auto; }
+
+  .small-push-28 {
+    position: relative;
+    left: 70%;
+    right: auto; }
+
+  .small-pull-28 {
+    position: relative;
+    right: 70%;
+    left: auto; }
+
+  .small-push-29 {
+    position: relative;
+    left: 72.5%;
+    right: auto; }
+
+  .small-pull-29 {
+    position: relative;
+    right: 72.5%;
+    left: auto; }
+
+  .small-push-30 {
+    position: relative;
+    left: 75%;
+    right: auto; }
+
+  .small-pull-30 {
+    position: relative;
+    right: 75%;
+    left: auto; }
+
+  .small-push-31 {
+    position: relative;
+    left: 77.5%;
+    right: auto; }
+
+  .small-pull-31 {
+    position: relative;
+    right: 77.5%;
+    left: auto; }
+
+  .small-push-32 {
+    position: relative;
+    left: 80%;
+    right: auto; }
+
+  .small-pull-32 {
+    position: relative;
+    right: 80%;
+    left: auto; }
+
+  .small-push-33 {
+    position: relative;
+    left: 82.5%;
+    right: auto; }
+
+  .small-pull-33 {
+    position: relative;
+    right: 82.5%;
+    left: auto; }
+
+  .small-push-34 {
+    position: relative;
+    left: 85%;
+    right: auto; }
+
+  .small-pull-34 {
+    position: relative;
+    right: 85%;
+    left: auto; }
+
+  .small-push-35 {
+    position: relative;
+    left: 87.5%;
+    right: auto; }
+
+  .small-pull-35 {
+    position: relative;
+    right: 87.5%;
+    left: auto; }
+
+  .small-push-36 {
+    position: relative;
+    left: 90%;
+    right: auto; }
+
+  .small-pull-36 {
+    position: relative;
+    right: 90%;
+    left: auto; }
+
+  .small-push-37 {
+    position: relative;
+    left: 92.5%;
+    right: auto; }
+
+  .small-pull-37 {
+    position: relative;
+    right: 92.5%;
+    left: auto; }
+
+  .small-push-38 {
+    position: relative;
+    left: 95%;
+    right: auto; }
+
+  .small-pull-38 {
+    position: relative;
+    right: 95%;
+    left: auto; }
+
+  .small-push-39 {
+    position: relative;
+    left: 97.5%;
+    right: auto; }
+
+  .small-pull-39 {
+    position: relative;
+    right: 97.5%;
     left: auto; }
 
   .column,
@@ -300,76 +580,244 @@ select {
     float: left; }
 
   .small-1 {
-    width: 8.33333%; }
+    width: 2.5%; }
 
   .small-2 {
-    width: 16.66667%; }
+    width: 5%; }
 
   .small-3 {
-    width: 25%; }
+    width: 7.5%; }
 
   .small-4 {
-    width: 33.33333%; }
+    width: 10%; }
 
   .small-5 {
-    width: 41.66667%; }
+    width: 12.5%; }
 
   .small-6 {
-    width: 50%; }
+    width: 15%; }
 
   .small-7 {
-    width: 58.33333%; }
+    width: 17.5%; }
 
   .small-8 {
-    width: 66.66667%; }
+    width: 20%; }
 
   .small-9 {
-    width: 75%; }
+    width: 22.5%; }
 
   .small-10 {
-    width: 83.33333%; }
+    width: 25%; }
 
   .small-11 {
-    width: 91.66667%; }
+    width: 27.5%; }
 
   .small-12 {
+    width: 30%; }
+
+  .small-13 {
+    width: 32.5%; }
+
+  .small-14 {
+    width: 35%; }
+
+  .small-15 {
+    width: 37.5%; }
+
+  .small-16 {
+    width: 40%; }
+
+  .small-17 {
+    width: 42.5%; }
+
+  .small-18 {
+    width: 45%; }
+
+  .small-19 {
+    width: 47.5%; }
+
+  .small-20 {
+    width: 50%; }
+
+  .small-21 {
+    width: 52.5%; }
+
+  .small-22 {
+    width: 55.0%; }
+
+  .small-23 {
+    width: 57.5%; }
+
+  .small-24 {
+    width: 60%; }
+
+  .small-25 {
+    width: 62.5%; }
+
+  .small-26 {
+    width: 65%; }
+
+  .small-27 {
+    width: 67.5%; }
+
+  .small-28 {
+    width: 70%; }
+
+  .small-29 {
+    width: 72.5%; }
+
+  .small-30 {
+    width: 75%; }
+
+  .small-31 {
+    width: 77.5%; }
+
+  .small-32 {
+    width: 80%; }
+
+  .small-33 {
+    width: 82.5%; }
+
+  .small-34 {
+    width: 85%; }
+
+  .small-35 {
+    width: 87.5%; }
+
+  .small-36 {
+    width: 90%; }
+
+  .small-37 {
+    width: 92.5%; }
+
+  .small-38 {
+    width: 95%; }
+
+  .small-39 {
+    width: 97.5%; }
+
+  .small-40 {
     width: 100%; }
 
   .small-offset-0 {
     margin-left: 0% !important; }
 
   .small-offset-1 {
-    margin-left: 8.33333% !important; }
+    margin-left: 2.5% !important; }
 
   .small-offset-2 {
-    margin-left: 16.66667% !important; }
+    margin-left: 5% !important; }
 
   .small-offset-3 {
-    margin-left: 25% !important; }
+    margin-left: 7.5% !important; }
 
   .small-offset-4 {
-    margin-left: 33.33333% !important; }
+    margin-left: 10% !important; }
 
   .small-offset-5 {
-    margin-left: 41.66667% !important; }
+    margin-left: 12.5% !important; }
 
   .small-offset-6 {
-    margin-left: 50% !important; }
+    margin-left: 15% !important; }
 
   .small-offset-7 {
-    margin-left: 58.33333% !important; }
+    margin-left: 17.5% !important; }
 
   .small-offset-8 {
-    margin-left: 66.66667% !important; }
+    margin-left: 20% !important; }
 
   .small-offset-9 {
-    margin-left: 75% !important; }
+    margin-left: 22.5% !important; }
 
   .small-offset-10 {
-    margin-left: 83.33333% !important; }
+    margin-left: 25% !important; }
 
   .small-offset-11 {
-    margin-left: 91.66667% !important; }
+    margin-left: 27.5% !important; }
+
+  .small-offset-12 {
+    margin-left: 30% !important; }
+
+  .small-offset-13 {
+    margin-left: 32.5% !important; }
+
+  .small-offset-14 {
+    margin-left: 35% !important; }
+
+  .small-offset-15 {
+    margin-left: 37.5% !important; }
+
+  .small-offset-16 {
+    margin-left: 40% !important; }
+
+  .small-offset-17 {
+    margin-left: 42.5% !important; }
+
+  .small-offset-18 {
+    margin-left: 45% !important; }
+
+  .small-offset-19 {
+    margin-left: 47.5% !important; }
+
+  .small-offset-20 {
+    margin-left: 50% !important; }
+
+  .small-offset-21 {
+    margin-left: 52.5% !important; }
+
+  .small-offset-22 {
+    margin-left: 55.0% !important; }
+
+  .small-offset-23 {
+    margin-left: 57.5% !important; }
+
+  .small-offset-24 {
+    margin-left: 60% !important; }
+
+  .small-offset-25 {
+    margin-left: 62.5% !important; }
+
+  .small-offset-26 {
+    margin-left: 65% !important; }
+
+  .small-offset-27 {
+    margin-left: 67.5% !important; }
+
+  .small-offset-28 {
+    margin-left: 70% !important; }
+
+  .small-offset-29 {
+    margin-left: 72.5% !important; }
+
+  .small-offset-30 {
+    margin-left: 75% !important; }
+
+  .small-offset-31 {
+    margin-left: 77.5% !important; }
+
+  .small-offset-32 {
+    margin-left: 80% !important; }
+
+  .small-offset-33 {
+    margin-left: 82.5% !important; }
+
+  .small-offset-34 {
+    margin-left: 85% !important; }
+
+  .small-offset-35 {
+    margin-left: 87.5% !important; }
+
+  .small-offset-36 {
+    margin-left: 90% !important; }
+
+  .small-offset-37 {
+    margin-left: 92.5% !important; }
+
+  .small-offset-38 {
+    margin-left: 95% !important; }
+
+  .small-offset-39 {
+    margin-left: 97.5% !important; }
 
   .small-reset-order {
     margin-left: 0;
@@ -427,112 +875,392 @@ select {
 
   .medium-push-1 {
     position: relative;
-    left: 8.33333%;
+    left: 2.5%;
     right: auto; }
 
   .medium-pull-1 {
     position: relative;
-    right: 8.33333%;
+    right: 2.5%;
     left: auto; }
 
   .medium-push-2 {
     position: relative;
-    left: 16.66667%;
+    left: 5%;
     right: auto; }
 
   .medium-pull-2 {
     position: relative;
-    right: 16.66667%;
+    right: 5%;
     left: auto; }
 
   .medium-push-3 {
     position: relative;
-    left: 25%;
+    left: 7.5%;
     right: auto; }
 
   .medium-pull-3 {
     position: relative;
-    right: 25%;
+    right: 7.5%;
     left: auto; }
 
   .medium-push-4 {
     position: relative;
-    left: 33.33333%;
+    left: 10%;
     right: auto; }
 
   .medium-pull-4 {
     position: relative;
-    right: 33.33333%;
+    right: 10%;
     left: auto; }
 
   .medium-push-5 {
     position: relative;
-    left: 41.66667%;
+    left: 12.5%;
     right: auto; }
 
   .medium-pull-5 {
     position: relative;
-    right: 41.66667%;
+    right: 12.5%;
     left: auto; }
 
   .medium-push-6 {
     position: relative;
-    left: 50%;
+    left: 15%;
     right: auto; }
 
   .medium-pull-6 {
     position: relative;
-    right: 50%;
+    right: 15%;
     left: auto; }
 
   .medium-push-7 {
     position: relative;
-    left: 58.33333%;
+    left: 17.5%;
     right: auto; }
 
   .medium-pull-7 {
     position: relative;
-    right: 58.33333%;
+    right: 17.5%;
     left: auto; }
 
   .medium-push-8 {
     position: relative;
-    left: 66.66667%;
+    left: 20%;
     right: auto; }
 
   .medium-pull-8 {
     position: relative;
-    right: 66.66667%;
+    right: 20%;
     left: auto; }
 
   .medium-push-9 {
     position: relative;
-    left: 75%;
+    left: 22.5%;
     right: auto; }
 
   .medium-pull-9 {
     position: relative;
-    right: 75%;
+    right: 22.5%;
     left: auto; }
 
   .medium-push-10 {
     position: relative;
-    left: 83.33333%;
+    left: 25%;
     right: auto; }
 
   .medium-pull-10 {
     position: relative;
-    right: 83.33333%;
+    right: 25%;
     left: auto; }
 
   .medium-push-11 {
     position: relative;
-    left: 91.66667%;
+    left: 27.5%;
     right: auto; }
 
   .medium-pull-11 {
     position: relative;
-    right: 91.66667%;
+    right: 27.5%;
+    left: auto; }
+
+  .medium-push-12 {
+    position: relative;
+    left: 30%;
+    right: auto; }
+
+  .medium-pull-12 {
+    position: relative;
+    right: 30%;
+    left: auto; }
+
+  .medium-push-13 {
+    position: relative;
+    left: 32.5%;
+    right: auto; }
+
+  .medium-pull-13 {
+    position: relative;
+    right: 32.5%;
+    left: auto; }
+
+  .medium-push-14 {
+    position: relative;
+    left: 35%;
+    right: auto; }
+
+  .medium-pull-14 {
+    position: relative;
+    right: 35%;
+    left: auto; }
+
+  .medium-push-15 {
+    position: relative;
+    left: 37.5%;
+    right: auto; }
+
+  .medium-pull-15 {
+    position: relative;
+    right: 37.5%;
+    left: auto; }
+
+  .medium-push-16 {
+    position: relative;
+    left: 40%;
+    right: auto; }
+
+  .medium-pull-16 {
+    position: relative;
+    right: 40%;
+    left: auto; }
+
+  .medium-push-17 {
+    position: relative;
+    left: 42.5%;
+    right: auto; }
+
+  .medium-pull-17 {
+    position: relative;
+    right: 42.5%;
+    left: auto; }
+
+  .medium-push-18 {
+    position: relative;
+    left: 45%;
+    right: auto; }
+
+  .medium-pull-18 {
+    position: relative;
+    right: 45%;
+    left: auto; }
+
+  .medium-push-19 {
+    position: relative;
+    left: 47.5%;
+    right: auto; }
+
+  .medium-pull-19 {
+    position: relative;
+    right: 47.5%;
+    left: auto; }
+
+  .medium-push-20 {
+    position: relative;
+    left: 50%;
+    right: auto; }
+
+  .medium-pull-20 {
+    position: relative;
+    right: 50%;
+    left: auto; }
+
+  .medium-push-21 {
+    position: relative;
+    left: 52.5%;
+    right: auto; }
+
+  .medium-pull-21 {
+    position: relative;
+    right: 52.5%;
+    left: auto; }
+
+  .medium-push-22 {
+    position: relative;
+    left: 55.0%;
+    right: auto; }
+
+  .medium-pull-22 {
+    position: relative;
+    right: 55.0%;
+    left: auto; }
+
+  .medium-push-23 {
+    position: relative;
+    left: 57.5%;
+    right: auto; }
+
+  .medium-pull-23 {
+    position: relative;
+    right: 57.5%;
+    left: auto; }
+
+  .medium-push-24 {
+    position: relative;
+    left: 60%;
+    right: auto; }
+
+  .medium-pull-24 {
+    position: relative;
+    right: 60%;
+    left: auto; }
+
+  .medium-push-25 {
+    position: relative;
+    left: 62.5%;
+    right: auto; }
+
+  .medium-pull-25 {
+    position: relative;
+    right: 62.5%;
+    left: auto; }
+
+  .medium-push-26 {
+    position: relative;
+    left: 65%;
+    right: auto; }
+
+  .medium-pull-26 {
+    position: relative;
+    right: 65%;
+    left: auto; }
+
+  .medium-push-27 {
+    position: relative;
+    left: 67.5%;
+    right: auto; }
+
+  .medium-pull-27 {
+    position: relative;
+    right: 67.5%;
+    left: auto; }
+
+  .medium-push-28 {
+    position: relative;
+    left: 70%;
+    right: auto; }
+
+  .medium-pull-28 {
+    position: relative;
+    right: 70%;
+    left: auto; }
+
+  .medium-push-29 {
+    position: relative;
+    left: 72.5%;
+    right: auto; }
+
+  .medium-pull-29 {
+    position: relative;
+    right: 72.5%;
+    left: auto; }
+
+  .medium-push-30 {
+    position: relative;
+    left: 75%;
+    right: auto; }
+
+  .medium-pull-30 {
+    position: relative;
+    right: 75%;
+    left: auto; }
+
+  .medium-push-31 {
+    position: relative;
+    left: 77.5%;
+    right: auto; }
+
+  .medium-pull-31 {
+    position: relative;
+    right: 77.5%;
+    left: auto; }
+
+  .medium-push-32 {
+    position: relative;
+    left: 80%;
+    right: auto; }
+
+  .medium-pull-32 {
+    position: relative;
+    right: 80%;
+    left: auto; }
+
+  .medium-push-33 {
+    position: relative;
+    left: 82.5%;
+    right: auto; }
+
+  .medium-pull-33 {
+    position: relative;
+    right: 82.5%;
+    left: auto; }
+
+  .medium-push-34 {
+    position: relative;
+    left: 85%;
+    right: auto; }
+
+  .medium-pull-34 {
+    position: relative;
+    right: 85%;
+    left: auto; }
+
+  .medium-push-35 {
+    position: relative;
+    left: 87.5%;
+    right: auto; }
+
+  .medium-pull-35 {
+    position: relative;
+    right: 87.5%;
+    left: auto; }
+
+  .medium-push-36 {
+    position: relative;
+    left: 90%;
+    right: auto; }
+
+  .medium-pull-36 {
+    position: relative;
+    right: 90%;
+    left: auto; }
+
+  .medium-push-37 {
+    position: relative;
+    left: 92.5%;
+    right: auto; }
+
+  .medium-pull-37 {
+    position: relative;
+    right: 92.5%;
+    left: auto; }
+
+  .medium-push-38 {
+    position: relative;
+    left: 95%;
+    right: auto; }
+
+  .medium-pull-38 {
+    position: relative;
+    right: 95%;
+    left: auto; }
+
+  .medium-push-39 {
+    position: relative;
+    left: 97.5%;
+    right: auto; }
+
+  .medium-pull-39 {
+    position: relative;
+    right: 97.5%;
     left: auto; }
 
   .column,
@@ -543,76 +1271,244 @@ select {
     float: left; }
 
   .medium-1 {
-    width: 8.33333%; }
+    width: 2.5%; }
 
   .medium-2 {
-    width: 16.66667%; }
+    width: 5%; }
 
   .medium-3 {
-    width: 25%; }
+    width: 7.5%; }
 
   .medium-4 {
-    width: 33.33333%; }
+    width: 10%; }
 
   .medium-5 {
-    width: 41.66667%; }
+    width: 12.5%; }
 
   .medium-6 {
-    width: 50%; }
+    width: 15%; }
 
   .medium-7 {
-    width: 58.33333%; }
+    width: 17.5%; }
 
   .medium-8 {
-    width: 66.66667%; }
+    width: 20%; }
 
   .medium-9 {
-    width: 75%; }
+    width: 22.5%; }
 
   .medium-10 {
-    width: 83.33333%; }
+    width: 25%; }
 
   .medium-11 {
-    width: 91.66667%; }
+    width: 27.5%; }
 
   .medium-12 {
+    width: 30%; }
+
+  .medium-13 {
+    width: 32.5%; }
+
+  .medium-14 {
+    width: 35%; }
+
+  .medium-15 {
+    width: 37.5%; }
+
+  .medium-16 {
+    width: 40%; }
+
+  .medium-17 {
+    width: 42.5%; }
+
+  .medium-18 {
+    width: 45%; }
+
+  .medium-19 {
+    width: 47.5%; }
+
+  .medium-20 {
+    width: 50%; }
+
+  .medium-21 {
+    width: 52.5%; }
+
+  .medium-22 {
+    width: 55.0%; }
+
+  .medium-23 {
+    width: 57.5%; }
+
+  .medium-24 {
+    width: 60%; }
+
+  .medium-25 {
+    width: 62.5%; }
+
+  .medium-26 {
+    width: 65%; }
+
+  .medium-27 {
+    width: 67.5%; }
+
+  .medium-28 {
+    width: 70%; }
+
+  .medium-29 {
+    width: 72.5%; }
+
+  .medium-30 {
+    width: 75%; }
+
+  .medium-31 {
+    width: 77.5%; }
+
+  .medium-32 {
+    width: 80%; }
+
+  .medium-33 {
+    width: 82.5%; }
+
+  .medium-34 {
+    width: 85%; }
+
+  .medium-35 {
+    width: 87.5%; }
+
+  .medium-36 {
+    width: 90%; }
+
+  .medium-37 {
+    width: 92.5%; }
+
+  .medium-38 {
+    width: 95%; }
+
+  .medium-39 {
+    width: 97.5%; }
+
+  .medium-40 {
     width: 100%; }
 
   .medium-offset-0 {
     margin-left: 0% !important; }
 
   .medium-offset-1 {
-    margin-left: 8.33333% !important; }
+    margin-left: 2.5% !important; }
 
   .medium-offset-2 {
-    margin-left: 16.66667% !important; }
+    margin-left: 5% !important; }
 
   .medium-offset-3 {
-    margin-left: 25% !important; }
+    margin-left: 7.5% !important; }
 
   .medium-offset-4 {
-    margin-left: 33.33333% !important; }
+    margin-left: 10% !important; }
 
   .medium-offset-5 {
-    margin-left: 41.66667% !important; }
+    margin-left: 12.5% !important; }
 
   .medium-offset-6 {
-    margin-left: 50% !important; }
+    margin-left: 15% !important; }
 
   .medium-offset-7 {
-    margin-left: 58.33333% !important; }
+    margin-left: 17.5% !important; }
 
   .medium-offset-8 {
-    margin-left: 66.66667% !important; }
+    margin-left: 20% !important; }
 
   .medium-offset-9 {
-    margin-left: 75% !important; }
+    margin-left: 22.5% !important; }
 
   .medium-offset-10 {
-    margin-left: 83.33333% !important; }
+    margin-left: 25% !important; }
 
   .medium-offset-11 {
-    margin-left: 91.66667% !important; }
+    margin-left: 27.5% !important; }
+
+  .medium-offset-12 {
+    margin-left: 30% !important; }
+
+  .medium-offset-13 {
+    margin-left: 32.5% !important; }
+
+  .medium-offset-14 {
+    margin-left: 35% !important; }
+
+  .medium-offset-15 {
+    margin-left: 37.5% !important; }
+
+  .medium-offset-16 {
+    margin-left: 40% !important; }
+
+  .medium-offset-17 {
+    margin-left: 42.5% !important; }
+
+  .medium-offset-18 {
+    margin-left: 45% !important; }
+
+  .medium-offset-19 {
+    margin-left: 47.5% !important; }
+
+  .medium-offset-20 {
+    margin-left: 50% !important; }
+
+  .medium-offset-21 {
+    margin-left: 52.5% !important; }
+
+  .medium-offset-22 {
+    margin-left: 55.0% !important; }
+
+  .medium-offset-23 {
+    margin-left: 57.5% !important; }
+
+  .medium-offset-24 {
+    margin-left: 60% !important; }
+
+  .medium-offset-25 {
+    margin-left: 62.5% !important; }
+
+  .medium-offset-26 {
+    margin-left: 65% !important; }
+
+  .medium-offset-27 {
+    margin-left: 67.5% !important; }
+
+  .medium-offset-28 {
+    margin-left: 70% !important; }
+
+  .medium-offset-29 {
+    margin-left: 72.5% !important; }
+
+  .medium-offset-30 {
+    margin-left: 75% !important; }
+
+  .medium-offset-31 {
+    margin-left: 77.5% !important; }
+
+  .medium-offset-32 {
+    margin-left: 80% !important; }
+
+  .medium-offset-33 {
+    margin-left: 82.5% !important; }
+
+  .medium-offset-34 {
+    margin-left: 85% !important; }
+
+  .medium-offset-35 {
+    margin-left: 87.5% !important; }
+
+  .medium-offset-36 {
+    margin-left: 90% !important; }
+
+  .medium-offset-37 {
+    margin-left: 92.5% !important; }
+
+  .medium-offset-38 {
+    margin-left: 95% !important; }
+
+  .medium-offset-39 {
+    margin-left: 97.5% !important; }
 
   .medium-reset-order {
     margin-left: 0;
@@ -670,112 +1566,392 @@ select {
 
   .push-1 {
     position: relative;
-    left: 8.33333%;
+    left: 2.5%;
     right: auto; }
 
   .pull-1 {
     position: relative;
-    right: 8.33333%;
+    right: 2.5%;
     left: auto; }
 
   .push-2 {
     position: relative;
-    left: 16.66667%;
+    left: 5%;
     right: auto; }
 
   .pull-2 {
     position: relative;
-    right: 16.66667%;
+    right: 5%;
     left: auto; }
 
   .push-3 {
     position: relative;
-    left: 25%;
+    left: 7.5%;
     right: auto; }
 
   .pull-3 {
     position: relative;
-    right: 25%;
+    right: 7.5%;
     left: auto; }
 
   .push-4 {
     position: relative;
-    left: 33.33333%;
+    left: 10%;
     right: auto; }
 
   .pull-4 {
     position: relative;
-    right: 33.33333%;
+    right: 10%;
     left: auto; }
 
   .push-5 {
     position: relative;
-    left: 41.66667%;
+    left: 12.5%;
     right: auto; }
 
   .pull-5 {
     position: relative;
-    right: 41.66667%;
+    right: 12.5%;
     left: auto; }
 
   .push-6 {
     position: relative;
-    left: 50%;
+    left: 15%;
     right: auto; }
 
   .pull-6 {
     position: relative;
-    right: 50%;
+    right: 15%;
     left: auto; }
 
   .push-7 {
     position: relative;
-    left: 58.33333%;
+    left: 17.5%;
     right: auto; }
 
   .pull-7 {
     position: relative;
-    right: 58.33333%;
+    right: 17.5%;
     left: auto; }
 
   .push-8 {
     position: relative;
-    left: 66.66667%;
+    left: 20%;
     right: auto; }
 
   .pull-8 {
     position: relative;
-    right: 66.66667%;
+    right: 20%;
     left: auto; }
 
   .push-9 {
     position: relative;
-    left: 75%;
+    left: 22.5%;
     right: auto; }
 
   .pull-9 {
     position: relative;
-    right: 75%;
+    right: 22.5%;
     left: auto; }
 
   .push-10 {
     position: relative;
-    left: 83.33333%;
+    left: 25%;
     right: auto; }
 
   .pull-10 {
     position: relative;
-    right: 83.33333%;
+    right: 25%;
     left: auto; }
 
   .push-11 {
     position: relative;
-    left: 91.66667%;
+    left: 27.5%;
     right: auto; }
 
   .pull-11 {
     position: relative;
-    right: 91.66667%;
+    right: 27.5%;
+    left: auto; }
+
+  .push-12 {
+    position: relative;
+    left: 30%;
+    right: auto; }
+
+  .pull-12 {
+    position: relative;
+    right: 30%;
+    left: auto; }
+
+  .push-13 {
+    position: relative;
+    left: 32.5%;
+    right: auto; }
+
+  .pull-13 {
+    position: relative;
+    right: 32.5%;
+    left: auto; }
+
+  .push-14 {
+    position: relative;
+    left: 35%;
+    right: auto; }
+
+  .pull-14 {
+    position: relative;
+    right: 35%;
+    left: auto; }
+
+  .push-15 {
+    position: relative;
+    left: 37.5%;
+    right: auto; }
+
+  .pull-15 {
+    position: relative;
+    right: 37.5%;
+    left: auto; }
+
+  .push-16 {
+    position: relative;
+    left: 40%;
+    right: auto; }
+
+  .pull-16 {
+    position: relative;
+    right: 40%;
+    left: auto; }
+
+  .push-17 {
+    position: relative;
+    left: 42.5%;
+    right: auto; }
+
+  .pull-17 {
+    position: relative;
+    right: 42.5%;
+    left: auto; }
+
+  .push-18 {
+    position: relative;
+    left: 45%;
+    right: auto; }
+
+  .pull-18 {
+    position: relative;
+    right: 45%;
+    left: auto; }
+
+  .push-19 {
+    position: relative;
+    left: 47.5%;
+    right: auto; }
+
+  .pull-19 {
+    position: relative;
+    right: 47.5%;
+    left: auto; }
+
+  .push-20 {
+    position: relative;
+    left: 50%;
+    right: auto; }
+
+  .pull-20 {
+    position: relative;
+    right: 50%;
+    left: auto; }
+
+  .push-21 {
+    position: relative;
+    left: 52.5%;
+    right: auto; }
+
+  .pull-21 {
+    position: relative;
+    right: 52.5%;
+    left: auto; }
+
+  .push-22 {
+    position: relative;
+    left: 55.0%;
+    right: auto; }
+
+  .pull-22 {
+    position: relative;
+    right: 55.0%;
+    left: auto; }
+
+  .push-23 {
+    position: relative;
+    left: 57.5%;
+    right: auto; }
+
+  .pull-23 {
+    position: relative;
+    right: 57.5%;
+    left: auto; }
+
+  .push-24 {
+    position: relative;
+    left: 60%;
+    right: auto; }
+
+  .pull-24 {
+    position: relative;
+    right: 60%;
+    left: auto; }
+
+  .push-25 {
+    position: relative;
+    left: 62.5%;
+    right: auto; }
+
+  .pull-25 {
+    position: relative;
+    right: 62.5%;
+    left: auto; }
+
+  .push-26 {
+    position: relative;
+    left: 65%;
+    right: auto; }
+
+  .pull-26 {
+    position: relative;
+    right: 65%;
+    left: auto; }
+
+  .push-27 {
+    position: relative;
+    left: 67.5%;
+    right: auto; }
+
+  .pull-27 {
+    position: relative;
+    right: 67.5%;
+    left: auto; }
+
+  .push-28 {
+    position: relative;
+    left: 70%;
+    right: auto; }
+
+  .pull-28 {
+    position: relative;
+    right: 70%;
+    left: auto; }
+
+  .push-29 {
+    position: relative;
+    left: 72.5%;
+    right: auto; }
+
+  .pull-29 {
+    position: relative;
+    right: 72.5%;
+    left: auto; }
+
+  .push-30 {
+    position: relative;
+    left: 75%;
+    right: auto; }
+
+  .pull-30 {
+    position: relative;
+    right: 75%;
+    left: auto; }
+
+  .push-31 {
+    position: relative;
+    left: 77.5%;
+    right: auto; }
+
+  .pull-31 {
+    position: relative;
+    right: 77.5%;
+    left: auto; }
+
+  .push-32 {
+    position: relative;
+    left: 80%;
+    right: auto; }
+
+  .pull-32 {
+    position: relative;
+    right: 80%;
+    left: auto; }
+
+  .push-33 {
+    position: relative;
+    left: 82.5%;
+    right: auto; }
+
+  .pull-33 {
+    position: relative;
+    right: 82.5%;
+    left: auto; }
+
+  .push-34 {
+    position: relative;
+    left: 85%;
+    right: auto; }
+
+  .pull-34 {
+    position: relative;
+    right: 85%;
+    left: auto; }
+
+  .push-35 {
+    position: relative;
+    left: 87.5%;
+    right: auto; }
+
+  .pull-35 {
+    position: relative;
+    right: 87.5%;
+    left: auto; }
+
+  .push-36 {
+    position: relative;
+    left: 90%;
+    right: auto; }
+
+  .pull-36 {
+    position: relative;
+    right: 90%;
+    left: auto; }
+
+  .push-37 {
+    position: relative;
+    left: 92.5%;
+    right: auto; }
+
+  .pull-37 {
+    position: relative;
+    right: 92.5%;
+    left: auto; }
+
+  .push-38 {
+    position: relative;
+    left: 95%;
+    right: auto; }
+
+  .pull-38 {
+    position: relative;
+    right: 95%;
+    left: auto; }
+
+  .push-39 {
+    position: relative;
+    left: 97.5%;
+    right: auto; }
+
+  .pull-39 {
+    position: relative;
+    right: 97.5%;
     left: auto; } }
 @media only screen and (min-width: 64.063em) {
   .large-push-0 {
@@ -790,112 +1966,392 @@ select {
 
   .large-push-1 {
     position: relative;
-    left: 8.33333%;
+    left: 2.5%;
     right: auto; }
 
   .large-pull-1 {
     position: relative;
-    right: 8.33333%;
+    right: 2.5%;
     left: auto; }
 
   .large-push-2 {
     position: relative;
-    left: 16.66667%;
+    left: 5%;
     right: auto; }
 
   .large-pull-2 {
     position: relative;
-    right: 16.66667%;
+    right: 5%;
     left: auto; }
 
   .large-push-3 {
     position: relative;
-    left: 25%;
+    left: 7.5%;
     right: auto; }
 
   .large-pull-3 {
     position: relative;
-    right: 25%;
+    right: 7.5%;
     left: auto; }
 
   .large-push-4 {
     position: relative;
-    left: 33.33333%;
+    left: 10%;
     right: auto; }
 
   .large-pull-4 {
     position: relative;
-    right: 33.33333%;
+    right: 10%;
     left: auto; }
 
   .large-push-5 {
     position: relative;
-    left: 41.66667%;
+    left: 12.5%;
     right: auto; }
 
   .large-pull-5 {
     position: relative;
-    right: 41.66667%;
+    right: 12.5%;
     left: auto; }
 
   .large-push-6 {
     position: relative;
-    left: 50%;
+    left: 15%;
     right: auto; }
 
   .large-pull-6 {
     position: relative;
-    right: 50%;
+    right: 15%;
     left: auto; }
 
   .large-push-7 {
     position: relative;
-    left: 58.33333%;
+    left: 17.5%;
     right: auto; }
 
   .large-pull-7 {
     position: relative;
-    right: 58.33333%;
+    right: 17.5%;
     left: auto; }
 
   .large-push-8 {
     position: relative;
-    left: 66.66667%;
+    left: 20%;
     right: auto; }
 
   .large-pull-8 {
     position: relative;
-    right: 66.66667%;
+    right: 20%;
     left: auto; }
 
   .large-push-9 {
     position: relative;
-    left: 75%;
+    left: 22.5%;
     right: auto; }
 
   .large-pull-9 {
     position: relative;
-    right: 75%;
+    right: 22.5%;
     left: auto; }
 
   .large-push-10 {
     position: relative;
-    left: 83.33333%;
+    left: 25%;
     right: auto; }
 
   .large-pull-10 {
     position: relative;
-    right: 83.33333%;
+    right: 25%;
     left: auto; }
 
   .large-push-11 {
     position: relative;
-    left: 91.66667%;
+    left: 27.5%;
     right: auto; }
 
   .large-pull-11 {
     position: relative;
-    right: 91.66667%;
+    right: 27.5%;
+    left: auto; }
+
+  .large-push-12 {
+    position: relative;
+    left: 30%;
+    right: auto; }
+
+  .large-pull-12 {
+    position: relative;
+    right: 30%;
+    left: auto; }
+
+  .large-push-13 {
+    position: relative;
+    left: 32.5%;
+    right: auto; }
+
+  .large-pull-13 {
+    position: relative;
+    right: 32.5%;
+    left: auto; }
+
+  .large-push-14 {
+    position: relative;
+    left: 35%;
+    right: auto; }
+
+  .large-pull-14 {
+    position: relative;
+    right: 35%;
+    left: auto; }
+
+  .large-push-15 {
+    position: relative;
+    left: 37.5%;
+    right: auto; }
+
+  .large-pull-15 {
+    position: relative;
+    right: 37.5%;
+    left: auto; }
+
+  .large-push-16 {
+    position: relative;
+    left: 40%;
+    right: auto; }
+
+  .large-pull-16 {
+    position: relative;
+    right: 40%;
+    left: auto; }
+
+  .large-push-17 {
+    position: relative;
+    left: 42.5%;
+    right: auto; }
+
+  .large-pull-17 {
+    position: relative;
+    right: 42.5%;
+    left: auto; }
+
+  .large-push-18 {
+    position: relative;
+    left: 45%;
+    right: auto; }
+
+  .large-pull-18 {
+    position: relative;
+    right: 45%;
+    left: auto; }
+
+  .large-push-19 {
+    position: relative;
+    left: 47.5%;
+    right: auto; }
+
+  .large-pull-19 {
+    position: relative;
+    right: 47.5%;
+    left: auto; }
+
+  .large-push-20 {
+    position: relative;
+    left: 50%;
+    right: auto; }
+
+  .large-pull-20 {
+    position: relative;
+    right: 50%;
+    left: auto; }
+
+  .large-push-21 {
+    position: relative;
+    left: 52.5%;
+    right: auto; }
+
+  .large-pull-21 {
+    position: relative;
+    right: 52.5%;
+    left: auto; }
+
+  .large-push-22 {
+    position: relative;
+    left: 55.0%;
+    right: auto; }
+
+  .large-pull-22 {
+    position: relative;
+    right: 55.0%;
+    left: auto; }
+
+  .large-push-23 {
+    position: relative;
+    left: 57.5%;
+    right: auto; }
+
+  .large-pull-23 {
+    position: relative;
+    right: 57.5%;
+    left: auto; }
+
+  .large-push-24 {
+    position: relative;
+    left: 60%;
+    right: auto; }
+
+  .large-pull-24 {
+    position: relative;
+    right: 60%;
+    left: auto; }
+
+  .large-push-25 {
+    position: relative;
+    left: 62.5%;
+    right: auto; }
+
+  .large-pull-25 {
+    position: relative;
+    right: 62.5%;
+    left: auto; }
+
+  .large-push-26 {
+    position: relative;
+    left: 65%;
+    right: auto; }
+
+  .large-pull-26 {
+    position: relative;
+    right: 65%;
+    left: auto; }
+
+  .large-push-27 {
+    position: relative;
+    left: 67.5%;
+    right: auto; }
+
+  .large-pull-27 {
+    position: relative;
+    right: 67.5%;
+    left: auto; }
+
+  .large-push-28 {
+    position: relative;
+    left: 70%;
+    right: auto; }
+
+  .large-pull-28 {
+    position: relative;
+    right: 70%;
+    left: auto; }
+
+  .large-push-29 {
+    position: relative;
+    left: 72.5%;
+    right: auto; }
+
+  .large-pull-29 {
+    position: relative;
+    right: 72.5%;
+    left: auto; }
+
+  .large-push-30 {
+    position: relative;
+    left: 75%;
+    right: auto; }
+
+  .large-pull-30 {
+    position: relative;
+    right: 75%;
+    left: auto; }
+
+  .large-push-31 {
+    position: relative;
+    left: 77.5%;
+    right: auto; }
+
+  .large-pull-31 {
+    position: relative;
+    right: 77.5%;
+    left: auto; }
+
+  .large-push-32 {
+    position: relative;
+    left: 80%;
+    right: auto; }
+
+  .large-pull-32 {
+    position: relative;
+    right: 80%;
+    left: auto; }
+
+  .large-push-33 {
+    position: relative;
+    left: 82.5%;
+    right: auto; }
+
+  .large-pull-33 {
+    position: relative;
+    right: 82.5%;
+    left: auto; }
+
+  .large-push-34 {
+    position: relative;
+    left: 85%;
+    right: auto; }
+
+  .large-pull-34 {
+    position: relative;
+    right: 85%;
+    left: auto; }
+
+  .large-push-35 {
+    position: relative;
+    left: 87.5%;
+    right: auto; }
+
+  .large-pull-35 {
+    position: relative;
+    right: 87.5%;
+    left: auto; }
+
+  .large-push-36 {
+    position: relative;
+    left: 90%;
+    right: auto; }
+
+  .large-pull-36 {
+    position: relative;
+    right: 90%;
+    left: auto; }
+
+  .large-push-37 {
+    position: relative;
+    left: 92.5%;
+    right: auto; }
+
+  .large-pull-37 {
+    position: relative;
+    right: 92.5%;
+    left: auto; }
+
+  .large-push-38 {
+    position: relative;
+    left: 95%;
+    right: auto; }
+
+  .large-pull-38 {
+    position: relative;
+    right: 95%;
+    left: auto; }
+
+  .large-push-39 {
+    position: relative;
+    left: 97.5%;
+    right: auto; }
+
+  .large-pull-39 {
+    position: relative;
+    right: 97.5%;
     left: auto; }
 
   .column,
@@ -906,76 +2362,244 @@ select {
     float: left; }
 
   .large-1 {
-    width: 8.33333%; }
+    width: 2.5%; }
 
   .large-2 {
-    width: 16.66667%; }
+    width: 5%; }
 
   .large-3 {
-    width: 25%; }
+    width: 7.5%; }
 
   .large-4 {
-    width: 33.33333%; }
+    width: 10%; }
 
   .large-5 {
-    width: 41.66667%; }
+    width: 12.5%; }
 
   .large-6 {
-    width: 50%; }
+    width: 15%; }
 
   .large-7 {
-    width: 58.33333%; }
+    width: 17.5%; }
 
   .large-8 {
-    width: 66.66667%; }
+    width: 20%; }
 
   .large-9 {
-    width: 75%; }
+    width: 22.5%; }
 
   .large-10 {
-    width: 83.33333%; }
+    width: 25%; }
 
   .large-11 {
-    width: 91.66667%; }
+    width: 27.5%; }
 
   .large-12 {
+    width: 30%; }
+
+  .large-13 {
+    width: 32.5%; }
+
+  .large-14 {
+    width: 35%; }
+
+  .large-15 {
+    width: 37.5%; }
+
+  .large-16 {
+    width: 40%; }
+
+  .large-17 {
+    width: 42.5%; }
+
+  .large-18 {
+    width: 45%; }
+
+  .large-19 {
+    width: 47.5%; }
+
+  .large-20 {
+    width: 50%; }
+
+  .large-21 {
+    width: 52.5%; }
+
+  .large-22 {
+    width: 55.0%; }
+
+  .large-23 {
+    width: 57.5%; }
+
+  .large-24 {
+    width: 60%; }
+
+  .large-25 {
+    width: 62.5%; }
+
+  .large-26 {
+    width: 65%; }
+
+  .large-27 {
+    width: 67.5%; }
+
+  .large-28 {
+    width: 70%; }
+
+  .large-29 {
+    width: 72.5%; }
+
+  .large-30 {
+    width: 75%; }
+
+  .large-31 {
+    width: 77.5%; }
+
+  .large-32 {
+    width: 80%; }
+
+  .large-33 {
+    width: 82.5%; }
+
+  .large-34 {
+    width: 85%; }
+
+  .large-35 {
+    width: 87.5%; }
+
+  .large-36 {
+    width: 90%; }
+
+  .large-37 {
+    width: 92.5%; }
+
+  .large-38 {
+    width: 95%; }
+
+  .large-39 {
+    width: 97.5%; }
+
+  .large-40 {
     width: 100%; }
 
   .large-offset-0 {
     margin-left: 0% !important; }
 
   .large-offset-1 {
-    margin-left: 8.33333% !important; }
+    margin-left: 2.5% !important; }
 
   .large-offset-2 {
-    margin-left: 16.66667% !important; }
+    margin-left: 5% !important; }
 
   .large-offset-3 {
-    margin-left: 25% !important; }
+    margin-left: 7.5% !important; }
 
   .large-offset-4 {
-    margin-left: 33.33333% !important; }
+    margin-left: 10% !important; }
 
   .large-offset-5 {
-    margin-left: 41.66667% !important; }
+    margin-left: 12.5% !important; }
 
   .large-offset-6 {
-    margin-left: 50% !important; }
+    margin-left: 15% !important; }
 
   .large-offset-7 {
-    margin-left: 58.33333% !important; }
+    margin-left: 17.5% !important; }
 
   .large-offset-8 {
-    margin-left: 66.66667% !important; }
+    margin-left: 20% !important; }
 
   .large-offset-9 {
-    margin-left: 75% !important; }
+    margin-left: 22.5% !important; }
 
   .large-offset-10 {
-    margin-left: 83.33333% !important; }
+    margin-left: 25% !important; }
 
   .large-offset-11 {
-    margin-left: 91.66667% !important; }
+    margin-left: 27.5% !important; }
+
+  .large-offset-12 {
+    margin-left: 30% !important; }
+
+  .large-offset-13 {
+    margin-left: 32.5% !important; }
+
+  .large-offset-14 {
+    margin-left: 35% !important; }
+
+  .large-offset-15 {
+    margin-left: 37.5% !important; }
+
+  .large-offset-16 {
+    margin-left: 40% !important; }
+
+  .large-offset-17 {
+    margin-left: 42.5% !important; }
+
+  .large-offset-18 {
+    margin-left: 45% !important; }
+
+  .large-offset-19 {
+    margin-left: 47.5% !important; }
+
+  .large-offset-20 {
+    margin-left: 50% !important; }
+
+  .large-offset-21 {
+    margin-left: 52.5% !important; }
+
+  .large-offset-22 {
+    margin-left: 55.0% !important; }
+
+  .large-offset-23 {
+    margin-left: 57.5% !important; }
+
+  .large-offset-24 {
+    margin-left: 60% !important; }
+
+  .large-offset-25 {
+    margin-left: 62.5% !important; }
+
+  .large-offset-26 {
+    margin-left: 65% !important; }
+
+  .large-offset-27 {
+    margin-left: 67.5% !important; }
+
+  .large-offset-28 {
+    margin-left: 70% !important; }
+
+  .large-offset-29 {
+    margin-left: 72.5% !important; }
+
+  .large-offset-30 {
+    margin-left: 75% !important; }
+
+  .large-offset-31 {
+    margin-left: 77.5% !important; }
+
+  .large-offset-32 {
+    margin-left: 80% !important; }
+
+  .large-offset-33 {
+    margin-left: 82.5% !important; }
+
+  .large-offset-34 {
+    margin-left: 85% !important; }
+
+  .large-offset-35 {
+    margin-left: 87.5% !important; }
+
+  .large-offset-36 {
+    margin-left: 90% !important; }
+
+  .large-offset-37 {
+    margin-left: 92.5% !important; }
+
+  .large-offset-38 {
+    margin-left: 95% !important; }
+
+  .large-offset-39 {
+    margin-left: 97.5% !important; }
 
   .large-reset-order {
     margin-left: 0;
@@ -1033,112 +2657,392 @@ select {
 
   .push-1 {
     position: relative;
-    left: 8.33333%;
+    left: 2.5%;
     right: auto; }
 
   .pull-1 {
     position: relative;
-    right: 8.33333%;
+    right: 2.5%;
     left: auto; }
 
   .push-2 {
     position: relative;
-    left: 16.66667%;
+    left: 5%;
     right: auto; }
 
   .pull-2 {
     position: relative;
-    right: 16.66667%;
+    right: 5%;
     left: auto; }
 
   .push-3 {
     position: relative;
-    left: 25%;
+    left: 7.5%;
     right: auto; }
 
   .pull-3 {
     position: relative;
-    right: 25%;
+    right: 7.5%;
     left: auto; }
 
   .push-4 {
     position: relative;
-    left: 33.33333%;
+    left: 10%;
     right: auto; }
 
   .pull-4 {
     position: relative;
-    right: 33.33333%;
+    right: 10%;
     left: auto; }
 
   .push-5 {
     position: relative;
-    left: 41.66667%;
+    left: 12.5%;
     right: auto; }
 
   .pull-5 {
     position: relative;
-    right: 41.66667%;
+    right: 12.5%;
     left: auto; }
 
   .push-6 {
     position: relative;
-    left: 50%;
+    left: 15%;
     right: auto; }
 
   .pull-6 {
     position: relative;
-    right: 50%;
+    right: 15%;
     left: auto; }
 
   .push-7 {
     position: relative;
-    left: 58.33333%;
+    left: 17.5%;
     right: auto; }
 
   .pull-7 {
     position: relative;
-    right: 58.33333%;
+    right: 17.5%;
     left: auto; }
 
   .push-8 {
     position: relative;
-    left: 66.66667%;
+    left: 20%;
     right: auto; }
 
   .pull-8 {
     position: relative;
-    right: 66.66667%;
+    right: 20%;
     left: auto; }
 
   .push-9 {
     position: relative;
-    left: 75%;
+    left: 22.5%;
     right: auto; }
 
   .pull-9 {
     position: relative;
-    right: 75%;
+    right: 22.5%;
     left: auto; }
 
   .push-10 {
     position: relative;
-    left: 83.33333%;
+    left: 25%;
     right: auto; }
 
   .pull-10 {
     position: relative;
-    right: 83.33333%;
+    right: 25%;
     left: auto; }
 
   .push-11 {
     position: relative;
-    left: 91.66667%;
+    left: 27.5%;
     right: auto; }
 
   .pull-11 {
     position: relative;
-    right: 91.66667%;
+    right: 27.5%;
+    left: auto; }
+
+  .push-12 {
+    position: relative;
+    left: 30%;
+    right: auto; }
+
+  .pull-12 {
+    position: relative;
+    right: 30%;
+    left: auto; }
+
+  .push-13 {
+    position: relative;
+    left: 32.5%;
+    right: auto; }
+
+  .pull-13 {
+    position: relative;
+    right: 32.5%;
+    left: auto; }
+
+  .push-14 {
+    position: relative;
+    left: 35%;
+    right: auto; }
+
+  .pull-14 {
+    position: relative;
+    right: 35%;
+    left: auto; }
+
+  .push-15 {
+    position: relative;
+    left: 37.5%;
+    right: auto; }
+
+  .pull-15 {
+    position: relative;
+    right: 37.5%;
+    left: auto; }
+
+  .push-16 {
+    position: relative;
+    left: 40%;
+    right: auto; }
+
+  .pull-16 {
+    position: relative;
+    right: 40%;
+    left: auto; }
+
+  .push-17 {
+    position: relative;
+    left: 42.5%;
+    right: auto; }
+
+  .pull-17 {
+    position: relative;
+    right: 42.5%;
+    left: auto; }
+
+  .push-18 {
+    position: relative;
+    left: 45%;
+    right: auto; }
+
+  .pull-18 {
+    position: relative;
+    right: 45%;
+    left: auto; }
+
+  .push-19 {
+    position: relative;
+    left: 47.5%;
+    right: auto; }
+
+  .pull-19 {
+    position: relative;
+    right: 47.5%;
+    left: auto; }
+
+  .push-20 {
+    position: relative;
+    left: 50%;
+    right: auto; }
+
+  .pull-20 {
+    position: relative;
+    right: 50%;
+    left: auto; }
+
+  .push-21 {
+    position: relative;
+    left: 52.5%;
+    right: auto; }
+
+  .pull-21 {
+    position: relative;
+    right: 52.5%;
+    left: auto; }
+
+  .push-22 {
+    position: relative;
+    left: 55.0%;
+    right: auto; }
+
+  .pull-22 {
+    position: relative;
+    right: 55.0%;
+    left: auto; }
+
+  .push-23 {
+    position: relative;
+    left: 57.5%;
+    right: auto; }
+
+  .pull-23 {
+    position: relative;
+    right: 57.5%;
+    left: auto; }
+
+  .push-24 {
+    position: relative;
+    left: 60%;
+    right: auto; }
+
+  .pull-24 {
+    position: relative;
+    right: 60%;
+    left: auto; }
+
+  .push-25 {
+    position: relative;
+    left: 62.5%;
+    right: auto; }
+
+  .pull-25 {
+    position: relative;
+    right: 62.5%;
+    left: auto; }
+
+  .push-26 {
+    position: relative;
+    left: 65%;
+    right: auto; }
+
+  .pull-26 {
+    position: relative;
+    right: 65%;
+    left: auto; }
+
+  .push-27 {
+    position: relative;
+    left: 67.5%;
+    right: auto; }
+
+  .pull-27 {
+    position: relative;
+    right: 67.5%;
+    left: auto; }
+
+  .push-28 {
+    position: relative;
+    left: 70%;
+    right: auto; }
+
+  .pull-28 {
+    position: relative;
+    right: 70%;
+    left: auto; }
+
+  .push-29 {
+    position: relative;
+    left: 72.5%;
+    right: auto; }
+
+  .pull-29 {
+    position: relative;
+    right: 72.5%;
+    left: auto; }
+
+  .push-30 {
+    position: relative;
+    left: 75%;
+    right: auto; }
+
+  .pull-30 {
+    position: relative;
+    right: 75%;
+    left: auto; }
+
+  .push-31 {
+    position: relative;
+    left: 77.5%;
+    right: auto; }
+
+  .pull-31 {
+    position: relative;
+    right: 77.5%;
+    left: auto; }
+
+  .push-32 {
+    position: relative;
+    left: 80%;
+    right: auto; }
+
+  .pull-32 {
+    position: relative;
+    right: 80%;
+    left: auto; }
+
+  .push-33 {
+    position: relative;
+    left: 82.5%;
+    right: auto; }
+
+  .pull-33 {
+    position: relative;
+    right: 82.5%;
+    left: auto; }
+
+  .push-34 {
+    position: relative;
+    left: 85%;
+    right: auto; }
+
+  .pull-34 {
+    position: relative;
+    right: 85%;
+    left: auto; }
+
+  .push-35 {
+    position: relative;
+    left: 87.5%;
+    right: auto; }
+
+  .pull-35 {
+    position: relative;
+    right: 87.5%;
+    left: auto; }
+
+  .push-36 {
+    position: relative;
+    left: 90%;
+    right: auto; }
+
+  .pull-36 {
+    position: relative;
+    right: 90%;
+    left: auto; }
+
+  .push-37 {
+    position: relative;
+    left: 92.5%;
+    right: auto; }
+
+  .pull-37 {
+    position: relative;
+    right: 92.5%;
+    left: auto; }
+
+  .push-38 {
+    position: relative;
+    left: 95%;
+    right: auto; }
+
+  .pull-38 {
+    position: relative;
+    right: 95%;
+    left: auto; }
+
+  .push-39 {
+    position: relative;
+    left: 97.5%;
+    right: auto; }
+
+  .pull-39 {
+    position: relative;
+    right: 97.5%;
     left: auto; } }
 button, .button {
   border-style: solid;
