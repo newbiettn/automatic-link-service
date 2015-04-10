@@ -3,7 +3,9 @@ var map;
 var link;
 
 function handleSearchInput() {
-	var search_query = $('input[name="content"]').val();
+	var content_query = $('input[name="content"]').val(),
+		title_query = $('input[name="title"]').val(),
+		author_query = $('input[name="author"]').val();
 	$.ajax({
 		beforeSend : function() {
 			$('.results').css({display: "none"});	
@@ -16,8 +18,9 @@ function handleSearchInput() {
 		contentType : "application/json",
 		url : "http://localhost:8080/rest/api/docs",
 		data : JSON.stringify({
-			content : search_query,
-			name : "sdfsdfdf"
+			content : content_query,
+			title: title_query,
+			author: author_query
 		}),
 		success : function(data) {
 			$('.loading').css({
@@ -43,7 +46,7 @@ function processData(data) {
 			"name" : "",
 			"children" : []
 	};
-	
+
 	var data_length = data.length;
 	var particular;
 	for (var i = 0; i < data_length; i++) {
@@ -56,13 +59,14 @@ function processData(data) {
 				if (i == 0 && j==0) {
 					particular = data[i]["results"][j]["myDoc"]["fileName"];
 				}
-				console.log(particular);
+
 				var connect = [];
 				connect = [particular];
 				var doc = {
 					"name" : data[i]["results"][j]["myDoc"]["fileName"],
 					"connect": connect,
-					"cluster" : i
+					"cluster" : i,
+					"cluster_name": data[i]["cluster_label"]
 				}
 				cluster.children.push(doc);
 			}
@@ -75,6 +79,7 @@ function processData(data) {
 var svg;
 
 function visualize() {
+	
 	link = [];
 	
 	var w = 850,
@@ -127,7 +132,12 @@ function visualize() {
 	svg.selectAll("g.node")
 		.data(nodes.filter(function(n) { return !n.children; }))
 		.enter().append("svg:g")
-		.attr("class", "node")
+		.attr("class", function(d){
+			var name = d.cluster_name;
+			name = name.replace(/\s+/g, '');
+			return "node " + name;
+   	   	})
+   	   	.attr("data-name", function(d) { return d.name; })
 		.attr("id", function(d) { return "node-" + d.name; })
 		.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
 		.append("svg:text")
@@ -139,7 +149,7 @@ function visualize() {
 			return getColor(d.cluster);
    	   	})
 		.text(function(d) { return d.name; })
-		.on("click", mouseover)
+		.on("mouseover", mouseover)
 		.on("mouseout", mouseout);
 	
 	$('.node').mousemove(setPopupPosition);
@@ -183,7 +193,6 @@ function getColor(val){
 	return color
 }
 function mouseover(d) {
-	
 	svg.selectAll('.node')
 		.classed('link-dim', true);
 	svg.selectAll('.link')
@@ -317,7 +326,19 @@ function getHTMLDisplayLinkedDocs(linked_docs) {
 function onClickNode(data) {
 	$('.cluster_name').click(function(){
 		cluster_name = $(this).data('name');
-		console.log(cluster_name);
+		cluster_name_striped = cluster_name.replace(/\s+/g, '');
+		//schemaball
+		svg.selectAll('.link').classed('link-dim', true);
+		svg.selectAll('.node').classed('link-dim', true);
+		
+		svg.selectAll('.'+cluster_name_striped).classed('link-dim', false);
+		
+		$('.'+cluster_name_striped).each(function(){
+			var name = $(this).attr('data-name');
+			svg.selectAll(".source-" + name).classed('link-dim', false);
+		});
+		
+		//list
 		var doc_list = getDocListByClusterLabel(data, cluster_name);
 		displayDocList(doc_list);
 	});
