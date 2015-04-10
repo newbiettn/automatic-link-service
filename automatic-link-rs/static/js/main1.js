@@ -2,13 +2,6 @@ var map;
 
 var link;
 
-function emptyData () {
-	map = {
-			"name" : "",
-			"children" : []
-	};
-}
-
 function handleSearchInput() {
 	var search_query = $('input[name="content"]').val();
 	$.ajax({
@@ -232,19 +225,7 @@ function setPopupPosition(e){
 	})
 
 }
-d3.json("js/data.json", function(data) {
-	//processData(data);
-	//visualize();
-	
-	//list
-//	generateResult();
-//	var cluster_names = getClusterName(data);
-//	var tree_data = displayClusterData(cluster_names);
-//	$('.cluster-label').html(tree_data);
-//	var doc_list = getDocListByClusterLabel(data, cluster_names[0]);
-//	displayDocList(doc_list);
-//	onClickNode(data);
-});
+
 function getClusterName(search_result) {
 	var cluster_names = [];
 	var length = search_result.length;
