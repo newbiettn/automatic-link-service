@@ -1,5 +1,7 @@
 package linkservice.document;
 
+import org.apache.tika.metadata.TikaCoreProperties;
+
 /**
  * To contains properties should be indexed.
  * 
@@ -21,9 +23,22 @@ public class MyDocumentIndexedProperties {
 	// default index field name for name of document
 	public static final String FILE_NAME_FIELD = "filename";
 
-	// default index field name for path of document
+	// default index field name for filepath of document
 	public static final String FILE_PATH_FIELD = "filepath";
 
-	// default index field name for path of document
+	// default index field name for mime type of document
 	public static final String MIME_TYPE_FIELD = "mimetype";
+	
+	// default index field name for title of document
+	public static final String TITLE_FIELD = TikaCoreProperties.TITLE.getName();
+	
+	// default index field name for author of document
+	public static final String AUTHOR_FIELD = TikaCoreProperties.CREATOR.getName();
+	
+	// default index field name for keywords of document
+	public static final String KEYWORD_FIELD = TikaCoreProperties.KEYWORDS.getName();
+	
+	// default index field name for description of document
+	public static final String DESCRIPTION_FIELD = TikaCoreProperties.DESCRIPTION.getName();
+	
 }

@@ -23,7 +23,20 @@ public class SearchRestService {
 			autoLink.checForNewDocs();
 		}
 		
-		String json = autoLink.run(query.getContent());
+		String queryStr = "";
+		if (query.getContent().length() > 0) {
+			queryStr = "contents_no_filtering:" + query.getContent();
+		}
+		System.out.println(queryStr);
+		if (query.getTitle().length() > 0) {
+			queryStr += " filename:" + query.getTitle();
+		}
+		System.out.println(queryStr);
+//		if (query.getAuthor().length() > 0) {
+//			queryStr += "author:" + query.getAuthor();
+//		}
+		System.out.println(queryStr);
+		String json = autoLink.run(queryStr);
 		return json;
 	}
 }

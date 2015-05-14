@@ -172,7 +172,7 @@ a:link, a:visited {
   text-decoration: none;
 }
 .tile {
-	background-color: #FAFAFA;
+	background-color: #eee;
 	border: 2px solid #fff;
 }
 .keyword-list {
@@ -186,13 +186,14 @@ a:link, a:visited {
 /******************************** Pop up ********************************/
 #node-name {
 	font-family: Georgia;
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 16px;
 	margin-bottom: 5px;
 }
 
 #node-info {
-	width: 175px;
+	width: 350px;
+	word-wrap:break-word;
 }
 
 .node-topic {
@@ -222,7 +223,7 @@ a:link, a:visited {
 	float: left;
 	font-family: Arial;
 	font-weight: normal;
-	font-size: 11px;
+	font-size: 13px;
 	line-height: 11px;
 	text-align: left;
 }
@@ -250,10 +251,8 @@ a:link, a:visited {
 	float: left;
 	width: 85%;
 	margin-right: 3%;
-	text-transform: lowercase;
-	
+	text-transform: lowercase;	
 }
-
 
 .node-list-item {
 	width: 100%;

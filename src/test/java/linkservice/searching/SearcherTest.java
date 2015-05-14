@@ -13,6 +13,11 @@ import linkservice.searching.result.SearchResultObject;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.TermQuery;
 import org.apache.mahout.common.HadoopUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -59,12 +64,37 @@ public class SearcherTest {
 		searcher = new Searcher(index_dir);
 	}
 
+//	@Test
+//	public void test1ForTerm() throws Exception {
+//		List<SearchResultObject> docs = searcher.search("image");
+//		for (SearchResultObject searchResultObj : docs) {
+//			MyDocument myDoc = searchResultObj.getMyDoc();
+//			logger.info(myDoc.getFragment()+"");
+//		}
+//		assertNotNull(docs.size());
+//	}
+//	
 	@Test
-	public void test1ForTerm() throws Exception {
+	public void test2ForMoreLikeThis() throws Exception {
 		List<SearchResultObject> docs = searcher.search("image");
+//		BooleanQuery listIdQuery = new BooleanQuery();
+//		for (SearchResultObject searchResultObj : docs) {
+//			MyDocument myDoc = searchResultObj.getMyDoc();
+//			TermQuery tq = new TermQuery(new Term("id", myDoc.getId()));
+//			listIdQuery.add(tq, BooleanClause.Occur.SHOULD);
+//		}
 		for (SearchResultObject searchResultObj : docs) {
 			MyDocument myDoc = searchResultObj.getMyDoc();
-			logger.info(myDoc.getFragment()+"");
+			System.out.println(myDoc.getFileName());
+//			Document[] docsLike = searcher.docsLike(myDoc.getId(), 5, listIdQuery);
+			Document[] docsLike = searcher.docsLike(myDoc.getId(), 5);
+			if (docsLike.length == 0) {
+				System.out.println("  None like this");
+			}
+			for (Document likeThisDoc : docsLike) {
+				System.out.println("  -> " + likeThisDoc.get("filename"));
+			}
+			//logger.info(myDoc.getFragment()+"");
 		}
 		assertNotNull(docs.size());
 	}

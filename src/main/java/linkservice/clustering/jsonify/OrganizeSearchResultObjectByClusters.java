@@ -17,6 +17,7 @@ import linkservice.searching.result.SearchResultObjectByCluster;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
 import org.apache.mahout.clustering.classify.WeightedPropertyVectorWritable;
 import org.apache.mahout.clustering.classify.WeightedVectorWritable;
 import org.apache.mahout.clustering.iterator.ClusterWritable;
@@ -56,7 +57,9 @@ public class OrganizeSearchResultObjectByClusters {
 			ClusterWritable clusterWritable = iterator.next();
 			SearchResultObjectByCluster searchResultObjectByCluster = write(clusterWritable, searchReturnedBySearcher);
 			//logger.info(searchResultObjectByCluster.getResults().size()+"");
-			setOfSearchResultObjectByCluster.add(searchResultObjectByCluster);
+			if (searchResultObjectByCluster.getResults() != null) {
+				setOfSearchResultObjectByCluster.add(searchResultObjectByCluster);
+			}
 		}
 		return setOfSearchResultObjectByCluster;
 	}
@@ -67,20 +70,20 @@ public class OrganizeSearchResultObjectByClusters {
 				myDocumentIndexedProp.getProperty("linkservice.mahout.sparse_vector_dir") + "/dictionary.file-0");
 		int numTopFeatures = 2;
 		
-		String label = "";
-		int i = 0;
-		for (Pair<String, Double> item : getTopPairs(clusterWritable.getValue()
-				.getCenter(), dictionary, numTopFeatures)) {
-			String term = item.getFirst();
-			if (i > 0) {
-				label = label + " and " + term;
-			} else {
-				label = term;
-			}
-			i++;
-			//set label for cluster by getting the best term
-			searchResultObjectByCluster.setCluster_label(label);
-		}
+//		String label = "";
+//		int i = 0;
+//		for (Pair<String, Double> item : getTopPairs(clusterWritable.getValue()
+//				.getCenter(), dictionary, numTopFeatures)) {
+//			String term = item.getFirst();
+//			if (i > 0) {
+//				label = label + " and " + term;
+//			} else {
+//				label = term;
+//			}
+//			i++;
+//			//set label for cluster by getting the best term
+//			searchResultObjectByCluster.setCluster_label(label);
+//		}
 
 		// get top terms for the clusters
 		Map<Integer, List<WeightedPropertyVectorWritable>> clusterIdToPoints = ClusterDumper
@@ -90,22 +93,48 @@ public class OrganizeSearchResultObjectByClusters {
 		// get list of points for the cluster
 		List<WeightedPropertyVectorWritable> points = clusterIdToPoints
 				.get(clusterWritable.getValue().getId());
-
+		
+		searchResultObjectByCluster.setCluster_label("none");
 		// loop the list
 		if (points != null) {
 			Iterator<WeightedPropertyVectorWritable> iterator = points.iterator();
 			List<SearchResultObject> s = new ArrayList<SearchResultObject>();
+			Pair<Double, String> tempPair = new Pair<Double, String>(1.0, "none");
 			while (iterator.hasNext()) {
-				WeightedVectorWritable point = iterator.next();
+				WeightedPropertyVectorWritable point = iterator.next();
 				NamedVector nv = (NamedVector) point.getVector();
+				Map<Text,Text> map = point.getProperties();
 				String docId = nv.getName();
 				
+				if (map != null) {
+					for (Map.Entry<Text,Text> entry : map.entrySet()) {
+						double distance = Double.parseDouble(entry.getValue().toString());
+						if (tempPair.getFirst() > distance) {
+							tempPair = new Pair<Double, String>(distance, docId);
+							System.out.println(distance);
+						}
+					}
+				}
 				
 				for (SearchResultObject searchResultObject : searchReturnedBySearcher) {
 					MyDocument doc = searchResultObject.getMyDoc();
 					
 					if (doc.getId().equals(docId)) {
 						s.add(searchResultObject);
+					}
+				}
+			}
+			
+			for (SearchResultObject searchResultObject : searchReturnedBySearcher) {
+				MyDocument doc = searchResultObject.getMyDoc();
+				String IdOfTargetFile = tempPair.getSecond();
+				if (doc.getId().equals(IdOfTargetFile)) {
+					String filename = doc.getFileName();
+					int firstWhitespace = filename.indexOf(" ");
+					if (firstWhitespace > 0){		
+						searchResultObjectByCluster.setCluster_label(filename.substring(0, firstWhitespace));
+					} else {
+						searchResultObjectByCluster.setCluster_label(filename.substring(0, filename.indexOf(".")));
 					}
 				}
 			}

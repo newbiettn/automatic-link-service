@@ -12,6 +12,14 @@ public class MyDocument {
 		PDF, DOC, DOCX, TXT, HTML, RFC;
 	}
 	
+	private String title;
+	
+	private String description;
+	
+	private String author;
+	
+	private String keywords;
+	
 	//document id
 	private String id;
 	
@@ -31,7 +39,6 @@ public class MyDocument {
 	}
 
 	public void setMimeType(String mimeTypeStr) {
-		System.out.println(mimeTypeStr);
 		switch(mimeTypeStr) {
 			case "application/pdf": 
 				mimeType = MyDocumentType.PDF;
@@ -72,5 +79,41 @@ public class MyDocument {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
+	public void setMimeType(MyDocumentType mimeType) {
+		this.mimeType = mimeType;
 	}
 }

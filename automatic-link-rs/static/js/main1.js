@@ -23,6 +23,7 @@ function handleSearchInput() {
 			author: author_query
 		}),
 		success : function(data) {
+			//console.log(data);
 			$('.loading').css({
 				display : "none"
 			});
@@ -56,16 +57,29 @@ function processData(data) {
 		};
 		if (data[i]["results"] != null) {
 			for (var j = 0; j < (data[i]["results"]).length; j++) {
-				if (i == 0 && j==0) {
-					particular = data[i]["results"][j]["myDoc"]["fileName"];
-				}
-
+				var doc_name = data[i]["results"][j]["myDoc"]["fileName"];
+				doc_name = doc_name.replace(/[^A-Z0-9]+/ig, "_");
+				
+//				if (i == 0 && j==0) {
+//					particular = data[i]["results"][j]["myDoc"]["fileName"];
+//					particular = particular.replace(/[^A-Z0-9]+/ig, "_");
+//				}
 				var connect = [];
-				connect = [particular];
+				if (data[i]["results"][j]["linkedDocuments"] != null) {
+					for (var k = 0; k < (data[i]["results"][j]["linkedDocuments"]).length; k++) {
+						var tempName = data[i]["results"][j]["linkedDocuments"][k]["fileName"];
+						connect[k] = tempName.replace(/[^A-Z0-9]+/ig, "_");
+					}
+				}
+				
 				var doc = {
-					"name" : data[i]["results"][j]["myDoc"]["fileName"],
+					"name" : doc_name,
+					"fragment": data[i]["results"][j]["myDoc"]["fragment"],
+					"author": data[i]["results"][j]["myDoc"]["author"],
 					"connect": connect,
 					"cluster" : i,
+					"mimeType": data[i]["results"][j]["myDoc"]["mimeType"],
+					"uri": data[i]["results"][j]["myDoc"]["uri"],
 					"cluster_name": data[i]["cluster_label"]
 				}
 				cluster.children.push(doc);
@@ -82,8 +96,8 @@ function visualize() {
 	
 	link = [];
 	
-	var w = 850,
-		h = 850,
+	var w = 1000,
+		h = 1000,
 		rx = w / 2,
 		ry = h / 2,
 		m0,
@@ -126,7 +140,7 @@ function visualize() {
     	.data(link)
     	.enter().append("svg:path")
     	.attr("class", function(d) {
-    		return "link source-" + d.source.name + " target-" + d.target.name; })
+    		return "link source-" + d.source.name.replace(/[^A-Z0-9]+/ig, "_") + " target-" + d.target.name.replace(/[^A-Z0-9]+/ig, "_"); })
     	.attr("d", function(d, i) { return line(splines[i]); });
 	
 	svg.selectAll("g.node")
@@ -134,11 +148,11 @@ function visualize() {
 		.enter().append("svg:g")
 		.attr("class", function(d){
 			var name = d.cluster_name;
-			name = name.replace(/\s+/g, '');
+			name = name.replace(/[^A-Z0-9]+/ig, "_");
 			return "node " + name;
    	   	})
-   	   	.attr("data-name", function(d) { return d.name; })
-		.attr("id", function(d) { return "node-" + d.name; })
+   	   	.attr("data-name", function(d) { return d.name.replace(/[^A-Z0-9]+/ig, "_");; })
+		.attr("id", function(d) { return "node-" + d.name.replace(/[^A-Z0-9]+/ig, "_");; })
 		.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
 		.append("svg:text")
 		.attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
@@ -160,11 +174,18 @@ function createLink(nodes) {
 	nodes.forEach(function(d) {
 		map[d.name] = d;
     });
-	
+	//console.log(nodes);
 	nodes.forEach(function(d) {
 		if (d.connect) {
 			d.connect.forEach(function(n){
-				imports.push({source: map[d.name], target: map[n]});
+				var flag = false;
+				nodes.forEach(function(k) {
+					if (k.name == n)
+						flag = true;
+			    });
+				if (flag == true){
+					imports.push({source: map[d.name], target: map[n]});
+				}
 			});
 		}
 	});
@@ -209,9 +230,13 @@ function mouseover(d) {
 	
 	
 	$("#node-info").empty();
-	$("#gameTemplate").tmpl( {
+	//console.log(d)
+	$("#docInfoTemplate").tmpl({
 		name: d.name,
-		rating: "5"	
+		fragment: d.fragment,
+		category: d.cluster_name,
+		uri: d.uri,
+		mimeType: d.mimeType
 	}).appendTo( "#node-info" );
 	$("#node-info").show();
 }
@@ -254,7 +279,6 @@ function getDocListByClusterLabel(search_result, cluster_label) {
 			break;
 		}
 	}
-	console.log(doc_list.length);
 	return doc_list;
 }
 function displayClusterData(cluster_names, data) {
@@ -283,9 +307,9 @@ function displayDocList(doc_list) {
 		var linked_docs = doc_list[i]['linkedDocuments'];
 		
 		var html_linked_docs = "";
-//		if (typeof linked_docs != 'undefined') {
+		if (linked_docs != null) {
 			html_linked_docs = getHTMLDisplayLinkedDocs(linked_docs);
-//		}
+		}
 		
 		var str = '<article class="large-35 search-item">';
 		str += '<section class="item-detail">';
@@ -313,7 +337,6 @@ function displayDocList(doc_list) {
 }
 function getHTMLDisplayLinkedDocs(linked_docs) {
 	var str = "";
-	console.log(linked_docs.length);
 	for (var i = 0; i < linked_docs.length; i++) {
 		var my_doc = linked_docs[i];
 		var file_name = my_doc['fileName'];
@@ -326,11 +349,12 @@ function getHTMLDisplayLinkedDocs(linked_docs) {
 function onClickNode(data) {
 	$('.cluster_name').click(function(){
 		cluster_name = $(this).data('name');
-		cluster_name_striped = cluster_name.replace(/\s+/g, '');
+		cluster_name_striped = cluster_name.replace(/[^A-Z0-9]+/ig, "_");
+
 		//schemaball
 		svg.selectAll('.link').classed('link-dim', true);
 		svg.selectAll('.node').classed('link-dim', true);
-		
+
 		svg.selectAll('.'+cluster_name_striped).classed('link-dim', false);
 		
 		$('.'+cluster_name_striped).each(function(){
@@ -340,10 +364,10 @@ function onClickNode(data) {
 		
 		//list
 		var doc_list = getDocListByClusterLabel(data, cluster_name);
-		displayDocList(doc_list);
+		if (doc_list != null) {
+			displayDocList(doc_list);
+		}
 	});
-	
-	
 }
 function generateResult() {
 	var str = '<div class="row result-list"></div>';

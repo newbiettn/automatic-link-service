@@ -86,6 +86,15 @@ public class Indexer {
 				.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
 		TYPE_STORED.freeze();
 	}
+	
+	public static final FieldType TYPE_SEARCH_BUT_NOT_CLUSTER = new FieldType();
+	
+	static {
+		TYPE_SEARCH_BUT_NOT_CLUSTER.setIndexed(true);
+		TYPE_SEARCH_BUT_NOT_CLUSTER.setTokenized(true);
+		TYPE_SEARCH_BUT_NOT_CLUSTER.setStored(true);
+		TYPE_SEARCH_BUT_NOT_CLUSTER.setStoreTermVectors(true);
+	}
 
 	// array of index paths
 	private Path[] indexedPath;
@@ -215,6 +224,7 @@ public class Indexer {
 		metadata.set(Metadata.RESOURCE_NAME_KEY, f.getName());
 		// open file
 		InputStream is = new FileInputStream(f);
+		System.out.println(f.getAbsoluteFile());
 		// use AutoDetectParse to automatically decide parser type
 		Parser parser = new AutoDetectParser();
 		// exact metadata and bodytext
@@ -226,7 +236,9 @@ public class Indexer {
 		try {
 			// parse the document
 			parser.parse(is, handler, metadata, new ParseContext());
-		} finally {
+		}  catch (Throwable e) {
+			System.out.println(e);
+	    } finally {
 			// close inputstream after parsing
 			is.close();
 		}
@@ -245,15 +257,24 @@ public class Indexer {
 				metadata.get(Metadata.CONTENT_TYPE), Field.Store.YES));
 
 		// filename
-		doc.add(new StringField(MyDocumentIndexedProperties.FILE_NAME_FIELD, f
-				.getName(), Field.Store.YES));
+//		doc.add(new StringField(MyDocumentIndexedProperties.FILE_NAME_FIELD, f
+//				.getName(), Field.Store.YES));
+		doc.add(new Field(MyDocumentIndexedProperties.FILE_NAME_FIELD, f.getName(), TYPE_SEARCH_BUT_NOT_CLUSTER));
 
 		// filepath
 		doc.add(new StringField(MyDocumentIndexedProperties.FILE_PATH_FIELD, f
 				.getCanonicalPath(), Field.Store.YES));
 		
 		//content field without filtering for display and search
-		doc.add(new Field(MyDocumentIndexedProperties.CONTENT_FIELD_NO_FILTERING_TYPE, FileUtils.readFileToString(f), TYPE_STORED));
+		Analyzer standardAnalyzer = new HighlighterPurposeAnalyzer();
+		TokenStream standardTs = standardAnalyzer.tokenStream(
+				MyDocumentIndexedProperties.CONTENT_FIELD_NO_FILTERING_TYPE, new StringReader(
+						handler.toString()));
+		Field contentNoFilteredField = new Field(
+				MyDocumentIndexedProperties.CONTENT_FIELD_NO_FILTERING_TYPE,
+				AnalyzerUtils.tokenStreamToString(standardTs), TYPE_STORED);
+		standardAnalyzer.close();
+		doc.add(contentNoFilteredField);
 		
 		// content field
 		TokenStream ts = analyzer.tokenStream(
@@ -271,7 +292,7 @@ public class Indexer {
 			for (Property acceptField : textualMetadataFields) {
 				if (metadata.get(acceptField) == metadataName) {
 					doc.add(new StringField(
-							MyDocumentIndexedProperties.CONTENT_FIELD,
+							acceptField.getName(),
 							metadataValue, Field.Store.YES));
 				}
 			}

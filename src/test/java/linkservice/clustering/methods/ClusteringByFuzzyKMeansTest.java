@@ -19,6 +19,7 @@ import linkservice.searching.result.SearchResultObject;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.mahout.common.HadoopUtil;
 import org.junit.Before;
@@ -98,7 +99,7 @@ public class ClusteringByFuzzyKMeansTest {
 	}
 
 	public List<SearchResultObject> makeDumbSearch() throws IOException,
-			InvalidTokenOffsetsException {
+			InvalidTokenOffsetsException, ParseException {
 		Searcher searcher = new Searcher(index_dir);
 		List<SearchResultObject> results = searcher.search("image");
 		return results;

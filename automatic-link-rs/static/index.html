@@ -103,14 +103,25 @@
 	<script src="js/vendor/jquery.pajinate.min.js"></script>
 	<script>
 		$(document).foundation();
-		
 	</script>
 	<script src="js/main1.js"></script>
-	<script id="gameTemplate" type="text/x-jquery-tmpl"> 
+	<script id="docInfoTemplate" type="text/x-jquery-tmpl"> 
 		<div id='node-name'>${name}</div>
-		<div class='node-topic' id='node-game-rating'>	
-			<div class='node-label'>Rating</div>
-			<div class='node-data'>${rating}</div>
+		<div class='node-topic'>	
+			<div class='node-label'>Content</div>
+			<div class='node-data'>{{html fragment}}</div>
+		</div>
+		<div class='node-topic'>
+			<div class='node-label'>Category</div>
+			<div class='node-data'>${category}</div>
+		</div>
+		<div class='node-topic'>
+			<div class='node-label'>Mime</div>
+			<div class='node-data'>${mimeType}</div>
+		</div>
+		<div class='node-topic'>
+			<div class='node-label'>File path</div>
+			<div class='node-data'>${uri}</div>
 		</div>
 	</script>
 </body>
