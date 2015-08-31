@@ -74,10 +74,9 @@ public class AutomaticLink {
 			clusteringKMeans.run(results);
 			resultsByClusters = OrganizeSearchResultObjectByClusters
 					.run(results);
-			Genson genson = new Genson();
-			json = genson.serialize(resultsByClusters);
-			//logger.info(json + "");
 		}
+		Genson genson = new Genson();
+		json = genson.serialize(resultsByClusters);
 		return json;
 	}
 	

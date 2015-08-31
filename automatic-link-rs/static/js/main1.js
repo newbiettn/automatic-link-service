@@ -23,21 +23,25 @@ function handleSearchInput() {
 			author: author_query
 		}),
 		success : function(data) {
-			//console.log(data);
 			$('.loading').css({
 				display : "none"
 			});
-			$('.results').css({display: "block"});	
-			processData(data);
-			visualize();
 			
-			generateResult();
-			var cluster_names = getClusterName(data);
-			var tree_data = displayClusterData(cluster_names);
-			$('.cluster-label').html(tree_data);
-			var doc_list = getDocListByClusterLabel(data, cluster_names[0]);
-			displayDocList(doc_list);
-			onClickNode(data);
+			if (data.length > 0) {
+				$('.results').css({display: "block"});
+				processData(data);
+				visualize();
+				
+				generateResult();
+				var cluster_names = getClusterName(data);
+				var tree_data = displayClusterData(cluster_names);
+				$('.cluster-label').html(tree_data);
+				var doc_list = getDocListByClusterLabel(data, cluster_names[0]);
+				displayDocList(doc_list);
+				onClickNode(data);
+			} else {
+				alert("No documents found");
+			}
 		},
 		dataType : 'json'
 	});
@@ -303,6 +307,9 @@ function displayDocList(doc_list) {
 		var my_doc = doc_list[i]['myDoc'];
 		var file_name = my_doc['fileName'];
 		var fragment = my_doc['fragment'];
+		if (fragment == null) {
+			fragment = "";
+		}
 		var uri = my_doc['uri'];
 		var linked_docs = doc_list[i]['linkedDocuments'];
 		
@@ -315,7 +322,7 @@ function displayDocList(doc_list) {
 		str += '<section class="item-detail">';
 		str += '<header class="item-title">' + file_name + '</header>';
 		str += '<div class="item-fragment">' + fragment + '</div>';
-		str += '<div><span class="item-detail-uri">URI: </span> <span class="item-path"><a target="_blank" href="file://' + uri + '">' + uri + '</a></span></div>';
+		str += '<div><span class="item-detail-uri">URI: </span> <span class="item-path"><a target="_blank" href="file:///' + uri + '">' + uri + '</a></span></div>';
 		str += '<div class="item-fragment">Have links to: ' + html_linked_docs + '</div>';
 		str += '</section>';
 		str += '</article>';

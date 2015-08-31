@@ -1,39 +1,134 @@
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Foundation | Welcome</title>
-<link rel="stylesheet" href="css/normalize.css" />
-<link rel="stylesheet" href="css/foundation.css" />
-<link rel="stylesheet" href="css/style.css" />
-<script src="js/vendor/modernizr.js"></script>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Feather search</title>
+	<link rel="stylesheet" href="css/normalize.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/bootstrap-select.css" />
+	<link rel="stylesheet" href="css/datepicker.css" />
+	<link rel="stylesheet" href="css/query-builder.default.css" />
+	<script src="js/vendor/jquery.js"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/vendor/bootbox.js"></script>
+	<script src="js/vendor/bootstrap-select.js"></script>
+	<script src="js/vendor/query-builder.standalone.min.js"></script>
+	<script src="js/vendor/jquery_template.js"></script>
+	<script src="js/vendor/d3.js"></script>
+	<script src="js/vendor/jquery.pajinate.min.js"></script>
+	<script src="js/vendor/bootstrap-datepicker.js"></script>
+	<script src="js/main2.js"></script>
+	
 </head>
 <body>
-	<div class="search-container">
-		<form class="row">
-			<div class="large-8 large-centered columns">
-				<img src="img/search_logo.jpg"/>
+	<div class="container">
+		<div class="row">
+			<h3>The Novel Search</h3>
+		</div>
+		<div class="row">
+			<div id="builder"></div>
+			<button class="btn btn-primary btn-lg parse-search">Search</button>
+		</div>
+		<div class="row results">
+			<div class="col-md-1 tile cluster-label">
 			</div>
-			<div class="large-8 large-centered columns">
-				<div class="row collapse">
-					<div class="small-10 columns">
-						<input type="text" placeholder="" class="search-field">
-					</div>
-					<div class="small-2 columns">
-						<a href="#" class="button postfix search-btn">Search</a>
+			<div class="col-md-11 tile cluster-visualization">
+				<div class="row">
+					<ul class="nav nav-tabs" role="tablist" id="visualization-tab">
+						<li role="presentation" class="active"><a href="#schemaball" aria-controls="schemaball" role="tab" data-toggle="tab">Schemaball</a></li>
+						<li role="presentation"><a href="#list" aria-controls="list" role="tab" data-toggle="tab">List</a></li>
+					</ul>
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="schemaball"></div>
+						<div role="tabpanel" class="tab-pane" id="list">
+							<div class="page_navigation"></div>
+							<div class="list_content" id="list_content"></div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
-
-	<script src="js/vendor/jquery.js"></script>
-	<script src="js/foundation.min.js"></script>
-	<script src="js/vendor/tree.jquery.js"></script>
-	<script>
-		$(document).foundation();
-	</script>
-	<script src="js/main.js"></script>
+	<div class="loading"></div>
+	<div id="node-info" class="gia-popup"></div>
 </body>
+<script>
+var $b = $('#builder');
+// define filters
+var options = {
+  allow_empty: false,
+  plugins: {
+    'bt-tooltip-errors': { delay: 100},
+    'sortable': null,
+    'filter-description': { mode: 'bootbox' },
+    'bt-selectpicker': null,
+    'unique-filter': null,
+    'bt-checkbox': { color: 'primary' }
+  },
+  allow_groups: false,
+  filters: [
+  /*
+   * basic
+   */
+  {
+    id: 'contents_no_filtering',
+    label: 'Content',
+    type: 'string',
+    operators: ['equal'],
+    size: 30,
+    unique: false
+  },
+  {
+	  id: 'filename',
+	  label: 'File name',
+	  type: 'string',
+	  operators: ['equal'],
+	  size: 30,
+	  unique: false
+   },
+   {
+		  id: 'datecreated',
+		  label: 'Date created',
+		  type: 'string',
+		  operators: ['equal'],
+		  size: 30,
+		  unique: false
+	   },
+	   {
+			  id: 'author',
+			  label: 'Author',
+			  type: 'string',
+			  operators: ['equal'],
+			  size: 30,
+			  unique: false
+		   }
+  ]
+};
+
+// init
+$('#builder').queryBuilder(options);
+
+</script>
+<script id="docInfoTemplate" type="text/x-jquery-tmpl"> 
+		<div id='node-name'>${name}</div>
+		<div class='node-topic'>	
+			<div class='node-label'>Content</div>
+			<div class='node-data'>{{html fragment}}</div>
+		</div>
+		<div class='node-topic'>
+			<div class='node-label'>Category</div>
+			<div class='node-data'>${category}</div>
+		</div>
+		<div class='node-topic'>
+			<div class='node-label'>Mime</div>
+			<div class='node-data'>${mimeType}</div>
+		</div>
+		<div class='node-topic'>
+			<div class='node-label'>File path</div>
+			<div class='node-data'>${uri}</div>
+		</div>
+	</script>
 </html>

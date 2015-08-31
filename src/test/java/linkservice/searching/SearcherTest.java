@@ -58,8 +58,8 @@ public class SearcherTest {
 		conf = new Configuration();
 		
 		// index and store in both local and hdfs
-		indexer.runIndex();
-		indexer.close();
+//		indexer.runIndex();
+//		indexer.close();
 		
 		searcher = new Searcher(index_dir);
 	}
@@ -76,13 +76,7 @@ public class SearcherTest {
 //	
 	@Test
 	public void test2ForMoreLikeThis() throws Exception {
-		List<SearchResultObject> docs = searcher.search("image");
-//		BooleanQuery listIdQuery = new BooleanQuery();
-//		for (SearchResultObject searchResultObj : docs) {
-//			MyDocument myDoc = searchResultObj.getMyDoc();
-//			TermQuery tq = new TermQuery(new Term("id", myDoc.getId()));
-//			listIdQuery.add(tq, BooleanClause.Occur.SHOULD);
-//		}
+		List<SearchResultObject> docs = searcher.search("contents_no_filtering:web");
 		for (SearchResultObject searchResultObj : docs) {
 			MyDocument myDoc = searchResultObj.getMyDoc();
 			System.out.println(myDoc.getFileName());
@@ -102,6 +96,6 @@ public class SearcherTest {
 	
 	@After 
 	public void tearDown() throws IOException {
-		HadoopUtil.delete(conf, new Path(commonRule.getIndexDir()));
+		//HadoopUtil.delete(conf, new Path(commonRule.getIndexDir()));
 	}
 }

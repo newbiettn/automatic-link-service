@@ -24,6 +24,7 @@ function handleSearchInput() {
 			name : "sdfsdfdf"
 		}),
 		success : function(data) {
+			console.log(data);
 			$('.results').show();
 			$('.loading').css({display: "none"});
 			generateResult();

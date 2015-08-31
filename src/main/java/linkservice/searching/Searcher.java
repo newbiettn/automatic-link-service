@@ -103,6 +103,7 @@ public class Searcher {
 		Query query = multiFieldQueryParser.parse(queryStr);
 		//termQuery = new TermQuery(new Term(MyDocumentIndexedProperties.CONTENT_FIELD, keyword));
 		topDocs = indexSearcher.search(query, 100);
+		System.out.println(topDocs.totalHits);
 //		this.queryScorer = new QueryScorer(query, MyDocumentIndexedProperties.CONTENT_FIELD_NO_FILTERING_TYPE);
 		//Highlighter highlighter = new Highlighter(this.queryScorer);
 		FastVectorHighlighter highlighter = getHighlighter();

@@ -15,28 +15,16 @@ public class SearchRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@POST
-	public String doSearch(Query query ) throws Exception {
+	public String doSearch(String query ) throws Exception {
 		AutomaticLink autoLink = new AutomaticLink();
 		if (UpdatePath.isOutputEmpty()) {
 			autoLink.initialize();
 		} else {
 			autoLink.checForNewDocs();
 		}
-		
-		String queryStr = "";
-		if (query.getContent().length() > 0) {
-			queryStr = "contents_no_filtering:" + query.getContent();
-		}
-		System.out.println(queryStr);
-		if (query.getTitle().length() > 0) {
-			queryStr += " filename:" + query.getTitle();
-		}
-		System.out.println(queryStr);
-//		if (query.getAuthor().length() > 0) {
-//			queryStr += "author:" + query.getAuthor();
-//		}
-		System.out.println(queryStr);
-		String json = autoLink.run(queryStr);
+
+		System.out.println(query);
+		String json = autoLink.run(query);
 		return json;
 	}
 }

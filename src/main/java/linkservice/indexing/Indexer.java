@@ -69,6 +69,7 @@ public class Indexer {
 
 	static {
 		textualMetadataFields.add(TikaCoreProperties.TITLE);
+		textualMetadataFields.add(TikaCoreProperties.TITLE);
 		textualMetadataFields.add(TikaCoreProperties.KEYWORDS);
 		textualMetadataFields.add(TikaCoreProperties.DESCRIPTION);
 	}
@@ -260,7 +261,12 @@ public class Indexer {
 //		doc.add(new StringField(MyDocumentIndexedProperties.FILE_NAME_FIELD, f
 //				.getName(), Field.Store.YES));
 		doc.add(new Field(MyDocumentIndexedProperties.FILE_NAME_FIELD, f.getName(), TYPE_SEARCH_BUT_NOT_CLUSTER));
-
+		
+		// title
+		if (metadata.get(Metadata.TITLE) != null ) {
+			doc.add(new Field(MyDocumentIndexedProperties.TITLE_FIELD, metadata.get(Metadata.TITLE), TYPE_SEARCH_BUT_NOT_CLUSTER));
+		}
+		
 		// filepath
 		doc.add(new StringField(MyDocumentIndexedProperties.FILE_PATH_FIELD, f
 				.getCanonicalPath(), Field.Store.YES));
